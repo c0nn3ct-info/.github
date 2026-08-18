@@ -1,0 +1,6 @@
+.DS_Store
+.idea/
+
+# working files for this repo, not part of the published profile
+.claude/
+CLAUDE.md

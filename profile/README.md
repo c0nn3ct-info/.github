@@ -19,9 +19,10 @@
 
 > [!IMPORTANT]
 > This page is about the author, and each product has its own page for the product. What you read
-> here is how we work, and it holds across everything published under this name. Being free, being
-> open, and needing nothing beyond your own machine are decisions taken one product at a time, and
-> the two sections near the end say exactly which of them we have committed to for good.
+> here is how we work, and it holds across everything published under this name. Being free and
+> being open are decisions we take one product at a time, and so is how much a piece of work needs
+> beyond your own machine. The two sections near the end draw the line between what stays open to
+> judgement and the commitments that never move.
 
 The internet has become heavier and more demanding than it needs to be, and most of us now carry a collection of
 software that quietly works against the person using it. We would like the small part of it we are responsible for to
@@ -56,7 +57,7 @@ release by how little it ends up asking of you.
 <td align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
-  <img alt="The noctis home screen, showing tunnel status and a list of pinned servers." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
+  <img alt="The noctis home screen, showing an active tunnel and its connection stats." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
 </td>
 <td align="center">
@@ -126,8 +127,10 @@ worth very little, so here is the floor underneath it. These four do not move, w
 ## ✉️ Talking to us
 
 There is a person at the other end of the address below, and the messages get read. If something we made is behaving
-badly, or you would like to know why we settled a decision the way we did, write and ask. We would far sooner answer
-that than have you guess.
+badly, or you would like to know why we settled a decision the way we did, write and ask. If it is about one of the
+products, the issue tracker on its repository reaches us just as well. We would far sooner answer a question than have
+you guess.
 
-- **Email** [hello@c0nn3ct.info](mailto:hello@c0nn3ct.info)
-- **Site** [c0nn3ct.info](https://c0nn3ct.info)
+- **Email.** [hello@c0nn3ct.info](mailto:hello@c0nn3ct.info) is the address in question, and nothing is too small to
+  send to it.
+- **Site.** [c0nn3ct.info](https://c0nn3ct.info) is where this page lives outside GitHub.

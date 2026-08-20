@@ -1,6 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import en from './en.json';
+import ru from './ru.json';
+import es from './es.json';
+import zhCN from './zh-CN.json';
+import fa from './fa.json';
+import ar from './ar.json';
 import {
   LOCALES,
+  LOCALE_LABEL,
   getLocale,
   isLocale,
   isRtl,
@@ -16,27 +23,62 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
+const DICTS: Record<string, Record<string, string>> = {
+  en,
+  ru,
+  es,
+  'zh-CN': zhCN,
+  fa,
+  ar,
+};
+
 describe('locale registry', () => {
-  it('ships English and recognises it', () => {
-    expect(LOCALES).toContain('en');
-    expect(isLocale('en')).toBe(true);
+  it('ships the six languages the switcher offers', () => {
+    expect([...LOCALES]).toEqual(['en', 'ru', 'es', 'zh-CN', 'fa', 'ar']);
+    expect(isLocale('zh-CN')).toBe(true);
     expect(isLocale('xx')).toBe(false);
   });
 
-  it('has no right-to-left locales', () => {
-    expect(isRtl('en')).toBe(false);
+  it('names every locale in its own language', () => {
+    for (const l of LOCALES) expect(LOCALE_LABEL[l]).toBeTruthy();
+    expect(LOCALE_LABEL.fa).toBe('فارسی');
+  });
+
+  it('marks Persian and Arabic as right-to-left and nothing else', () => {
+    expect(LOCALES.filter(isRtl)).toEqual(['fa', 'ar']);
   });
 
   it('tracks the current locale', () => {
     expect(getLocale()).toBe('en');
-    setLocale('en');
-    expect(getLocale()).toBe('en');
+    setLocale('ru');
+    expect(getLocale()).toBe('ru');
+  });
+});
+
+describe('dictionaries', () => {
+  // The key set is the contract: a locale missing one would silently ship the
+  // raw key to a reader.
+  it('carry an identical key set in every language', () => {
+    const keys = Object.keys(en).sort();
+    for (const [locale, dict] of Object.entries(DICTS)) {
+      expect({ locale, keys: Object.keys(dict).sort() }).toEqual({ locale, keys });
+    }
+  });
+
+  it('leave no value empty', () => {
+    for (const [locale, dict] of Object.entries(DICTS)) {
+      for (const [k, v] of Object.entries(dict)) {
+        expect({ locale, k, empty: v.trim() === '' }).toEqual({ locale, k, empty: false });
+      }
+    }
   });
 });
 
 describe('t', () => {
-  it('resolves known keys', () => {
-    expect(t('home.hero.h1')).toBe('Small, finished software');
+  it('resolves known keys in the current locale', () => {
+    expect(t('home.hero.h1_em')).toBe('answers to you');
+    setLocale('ru');
+    expect(t('home.hero.h1_em')).toBe('отвечают перед вами');
   });
 
   it('returns the key and warns for unknown keys', () => {
@@ -61,19 +103,26 @@ describe('t', () => {
 describe('paths', () => {
   it('keeps English at the root', () => {
     expect(withLocale('/', 'en')).toBe('/');
+    expect(withLocale('/404.html', 'en')).toBe('/404.html');
     expect(localePath('/')).toBe('/');
   });
 
   it('prefixes other locales on both root and nested paths', () => {
     expect(withLocale('/', 'ru')).toBe('/ru/');
-    expect(withLocale('/privacy/', 'ru')).toBe('/ru/privacy/');
+    expect(withLocale('/404.html', 'zh-CN')).toBe('/zh-CN/404.html');
+    setLocale('ar');
+    expect(localePath('/')).toBe('/ar/');
   });
 
-  it('strips locale prefixes it is given and leaves the rest alone', () => {
-    expect(stripLocale('/ru', ['ru'])).toBe('/');
-    expect(stripLocale('/ru/', ['ru'])).toBe('/');
-    expect(stripLocale('/ru/privacy/', ['ru'])).toBe('/privacy/');
-    expect(stripLocale('/privacy/', ['ru'])).toBe('/privacy/');
-    expect(stripLocale('/anything/')).toBe('/anything/');
+  it('strips a locale prefix and leaves everything else alone', () => {
+    expect(stripLocale('/ru')).toBe('/');
+    expect(stripLocale('/ru/')).toBe('/');
+    expect(stripLocale('/zh-CN/404.html')).toBe('/404.html');
+    expect(stripLocale('/404.html')).toBe('/404.html');
+    expect(stripLocale('/')).toBe('/');
+  });
+
+  it('round-trips every locale through strip and re-prefix', () => {
+    for (const l of LOCALES) expect(stripLocale(withLocale('/', l))).toBe('/');
   });
 });

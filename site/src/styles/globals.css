@@ -4,7 +4,7 @@
 
 @layer base {
   @font-face {
-    /* Self-hosted so the colophon's no-third-party-requests claim stays true. */
+    /* Self-hosted: the page makes no third-party requests. */
     font-family: 'Hanken Grotesk';
     font-style: normal;
     font-weight: 100 900;
@@ -15,13 +15,14 @@
   :root {
     --shape-xs: 8px;
     --shape-sm: 12px;
-    --shape-md: 16px;
-    --shape-lg: 16px;
-    --shape-xl: 16px;
+    --shape-md: 18px;
+    --shape-lg: 24px;
+    --shape-xl: 28px;
     --shape-pill: 999px;
 
     --ease-emph: cubic-bezier(0.2, 0, 0, 1);
     --ease-emph-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --ease-pane: cubic-bezier(0.27, 1.06, 0.18, 1);
     --dur-x-short: 80ms;
     --dur-short: 120ms;
     --dur-med: 250ms;
@@ -33,13 +34,13 @@
     --shadow-3: 0 4px 8px 3px rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.10);
     --shadow-4: 0 6px 10px 4px rgb(0 0 0 / 0.08), 0 2px 3px 0 rgb(0 0 0 / 0.10);
 
-    /* M3 tone-based surfaces, the family's light palette. */
+    /* M3 tone-based surfaces. The light set is the design's palette exactly. */
     --background: 220 25% 99%;
     --on-background: 220 15% 10%;
-    --surface: 220 25% 99%;
+    --surface: 220 32% 96%;
     --on-surface: 220 15% 10%;
     --surface-container-lowest: 0 0% 100%;
-    --surface-container-low: 220 32% 96%;
+    --surface-container-low: 0 0% 100%;
     --surface-container: 220 30% 93%;
     --surface-container-high: 220 28% 90%;
     --surface-container-highest: 220 26% 86%;
@@ -73,15 +74,32 @@
     --border: var(--outline-variant);
     --input: var(--outline-variant);
     --ring: var(--primary);
-    --radius: 16px;
+    --radius: 18px;
 
-    /* Org page roles. */
-    --prose: hsl(220 12% 35%);
-    --dim-label: hsl(220 12% 35%);
-    --mark-ink: hsl(220 20% 80%);
-    --nav-bg: hsl(220 32% 96% / 0.95);
+    /* Page roles. --outline stays the design's hairline for borders; small
+     * mono text uses --faint-ink instead, which clears 4.5:1 where the
+     * design's own faint (3.5:1) would not. */
+    --faint-ink: hsl(220 14% 46%);
+    --hover: color-mix(in oklab, hsl(220 15% 10%) 7%, transparent);
+    --block: #111;
+    --on-block: #fff;
+    --on-block-dim: rgb(255 255 255 / 0.74);
+    --on-block-faint: rgb(255 255 255 / 0.58);
+    --stage: #0d0d0f;
+    --on-stage-dim: rgb(255 255 255 / 0.74);
+    --on-stage-faint: rgb(255 255 255 / 0.62);
+    --bar: rgb(255 255 255 / 0.86);
+
+    /* Product coding. The -ink pair is the same hue pulled to AA on the light
+     * card; the plain token stays the LED itself, for fills and lamps. */
     --led-noctis: #9854f1;
+    --led-noctis-ink: #924bf0;
     --led-aria2t: #2e7de9;
+    --led-aria2t-ink: #1970e7;
+    --led-next: #7a7a86;
+    --led-next-ink: #63636e;
+    --wire-go: #4b9022;
+    --wire-go-on-dark: #9ece6a;
   }
 
   /* The :not(.light) guard keeps a stale prerendered `dark` class from
@@ -89,20 +107,20 @@
   [data-theme='dark'],
   :root.dark:not(.light) {
     color-scheme: dark;
-    --background: 0 0% 4.5%;
-    --on-background: 0 0% 92%;
-    --surface: 0 0% 7%;
-    --on-surface: 0 0% 92%;
-    --surface-container-lowest: 0 0% 5%;
+    --background: 0 0% 5.5%;
+    --on-background: 0 0% 98%;
+    --surface: 0 0% 8.5%;
+    --on-surface: 0 0% 98%;
+    --surface-container-lowest: 0 0% 8%;
     --surface-container-low: 0 0% 11%;
     --surface-container: 0 0% 13%;
     --surface-container-high: 0 0% 17%;
     --surface-container-highest: 0 0% 21%;
     --surface-variant: 0 0% 28%;
-    --on-surface-variant: 0 0% 78%;
-    --outline: 0 0% 55%;
-    --outline-variant: 0 0% 28%;
-    --primary: 0 0% 92%;
+    --on-surface-variant: 0 0% 76%;
+    --outline: 0 0% 45%;
+    --outline-variant: 0 0% 31%;
+    --primary: 0 0% 98%;
     --on-primary: 0 0% 12%;
     --primary-container: 0 0% 28%;
     --on-primary-container: 0 0% 95%;
@@ -120,12 +138,20 @@
     --error-container: 0 50% 22%;
     --on-error-container: 0 90% 90%;
 
-    --prose: hsl(0 0% 64%);
-    --dim-label: hsl(0 0% 60%);
-    --mark-ink: hsl(0 0% 30%);
-    --nav-bg: hsl(0 0% 4.5% / 0.9);
+    --faint-ink: hsl(0 0% 61%);
+    --hover: color-mix(in oklab, hsl(0 0% 98%) 10%, transparent);
+    --block: hsl(0 0% 17%);
+    --on-block: hsl(0 0% 98%);
+    --stage: #08080a;
+    --bar: rgb(13 13 15 / 0.86);
+
     --led-noctis: #bb9af7;
+    --led-noctis-ink: #bb9af7;
     --led-aria2t: #7aa2f7;
+    --led-aria2t-ink: #7aa2f7;
+    --led-next: #9a9aa6;
+    --led-next-ink: #9a9aa6;
+    --wire-go: #9ece6a;
   }
 
   /* Pre-hydration and no-JS dark, screen-scoped so the print palette below
@@ -134,20 +160,20 @@
   @media screen and (prefers-color-scheme: dark) {
     :root:not([data-theme='light']):not(.light) {
       color-scheme: dark;
-      --background: 0 0% 4.5%;
-      --on-background: 0 0% 92%;
-      --surface: 0 0% 7%;
-      --on-surface: 0 0% 92%;
-      --surface-container-lowest: 0 0% 5%;
+      --background: 0 0% 5.5%;
+      --on-background: 0 0% 98%;
+      --surface: 0 0% 8.5%;
+      --on-surface: 0 0% 98%;
+      --surface-container-lowest: 0 0% 8%;
       --surface-container-low: 0 0% 11%;
       --surface-container: 0 0% 13%;
       --surface-container-high: 0 0% 17%;
       --surface-container-highest: 0 0% 21%;
       --surface-variant: 0 0% 28%;
-      --on-surface-variant: 0 0% 78%;
-      --outline: 0 0% 55%;
-      --outline-variant: 0 0% 28%;
-      --primary: 0 0% 92%;
+      --on-surface-variant: 0 0% 76%;
+      --outline: 0 0% 45%;
+      --outline-variant: 0 0% 31%;
+      --primary: 0 0% 98%;
       --on-primary: 0 0% 12%;
       --primary-container: 0 0% 28%;
       --on-primary-container: 0 0% 95%;
@@ -165,12 +191,20 @@
       --error-container: 0 50% 22%;
       --on-error-container: 0 90% 90%;
 
-      --prose: hsl(0 0% 64%);
-      --dim-label: hsl(0 0% 60%);
-      --mark-ink: hsl(0 0% 30%);
-      --nav-bg: hsl(0 0% 4.5% / 0.9);
+      --faint-ink: hsl(0 0% 61%);
+      --hover: color-mix(in oklab, hsl(0 0% 98%) 10%, transparent);
+      --block: hsl(0 0% 17%);
+      --on-block: hsl(0 0% 98%);
+      --stage: #08080a;
+      --bar: rgb(13 13 15 / 0.86);
+
       --led-noctis: #bb9af7;
+      --led-noctis-ink: #bb9af7;
       --led-aria2t: #7aa2f7;
+      --led-aria2t-ink: #7aa2f7;
+      --led-next: #9a9aa6;
+      --led-next-ink: #9a9aa6;
+      --wire-go: #9ece6a;
     }
   }
 
@@ -179,7 +213,7 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 88px;
+    scroll-padding-top: 74px;
   }
   html,
   body {
@@ -188,6 +222,7 @@
       'Noto Sans Arabic', 'Geeza Pro', 'PingFang SC', 'Microsoft YaHei',
       'Noto Sans CJK SC', sans-serif;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
   ::selection {
     background: hsl(var(--secondary-container));
@@ -196,7 +231,7 @@
   /* One focus language for plain links too; :where keeps specificity at the
    * pseudo-class alone, so component-level ring utilities still win. */
   :where(a, button):focus-visible {
-    outline: 2px solid hsl(var(--ring));
+    outline: 2px solid currentColor;
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -219,520 +254,691 @@
 }
 
 @layer components {
-  .m3-state-layer {
-    position: relative;
-    isolation: isolate;
+  /* ── shared type roles ─────────────────────────────────────────────────── */
+  .mono {
+    font-family: theme('fontFamily.mono');
+    font-variant-numeric: tabular-nums;
   }
-  .m3-state-layer::after {
-    content: '';
+  .eyebrow {
+    font-family: theme('fontFamily.mono');
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .ordinal {
+    font-family: theme('fontFamily.mono');
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    font-variant-numeric: tabular-nums;
+    color: var(--faint-ink);
+  }
+  .hoverable:hover {
+    background: var(--hover);
+  }
+
+  /* ── header ────────────────────────────────────────────────────────────── */
+  .site-header {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 24px;
+    padding: 13px clamp(16px, 3vw, 26px);
+    background: rgb(13 13 15 / 0.72);
+    backdrop-filter: blur(16px) saturate(1.2);
+    border-bottom: 1px solid rgb(255 255 255 / 0.14);
+    color: #fff;
+    transition:
+      background var(--dur-med) var(--ease-emph),
+      color var(--dur-med) var(--ease-emph),
+      border-color var(--dur-med) var(--ease-emph),
+      transform 320ms var(--ease-emph);
+  }
+  /* Past the hero the page ground is light, so the bar swaps with it. */
+  .site-header[data-ground='page'] {
+    background: var(--bar);
+    color: hsl(var(--on-surface));
+    border-bottom-color: hsl(var(--outline-variant));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .site-header[data-hidden='true'] {
+      transform: translateY(-118%);
+    }
+  }
+  .header-cta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    height: 38px;
+    padding: 0 18px;
+    border-radius: var(--shape-pill);
+    background: #fff;
+    color: #111;
+    font-size: 13px;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+    transition:
+      background var(--dur-med) var(--ease-emph),
+      color var(--dur-med) var(--ease-emph);
+  }
+  .site-header[data-ground='page'] .header-cta {
+    background: hsl(var(--on-surface));
+    color: hsl(var(--background));
+  }
+  .icon-btn {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 12px;
+    color: inherit;
+    opacity: 0.66;
+    transition:
+      opacity 200ms var(--ease-emph),
+      background 200ms var(--ease-emph);
+  }
+  .icon-btn:hover,
+  .icon-btn[aria-expanded='true'] {
+    opacity: 1;
+    background: rgb(128 128 128 / 0.22);
+  }
+  .lang-menu {
+    position: absolute;
+    inset-inline-end: 0;
+    top: 44px;
+    min-width: 188px;
+    padding: 7px;
+    border-radius: var(--shape-md);
+    background: hsl(var(--surface-container-low));
+    border: 1px solid hsl(var(--outline-variant));
+    box-shadow: 0 20px 52px rgb(0 0 0 / 0.32);
+    z-index: 60;
+  }
+  .lang-menu a {
+    display: block;
+    padding: 10px 13px;
+    border-radius: 11px;
+    font-size: 15px;
+    color: hsl(var(--on-surface-variant));
+    transition:
+      background 160ms var(--ease-emph),
+      color 160ms var(--ease-emph);
+  }
+  .lang-menu a[aria-current='true'] {
+    font-weight: 600;
+    color: hsl(var(--on-surface));
+  }
+  .lang-menu a:hover {
+    background: var(--hover);
+    color: hsl(var(--on-surface));
+  }
+
+  /* ── hero stage ────────────────────────────────────────────────────────── */
+  .stage {
+    position: relative;
+    flex: 1 1 60%;
+    min-width: min(100%, 420px);
+    min-height: 66svh;
+    overflow: hidden;
+    background: var(--stage);
+  }
+  .stage-grid {
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    background: hsl(var(--on-surface));
-    opacity: 0;
-    transition: opacity var(--dur-short) var(--ease-emph);
-    border-radius: inherit;
+    background-image:
+      repeating-linear-gradient(to right, rgb(255 255 255 / 0.09) 0 1px, transparent 1px 96px),
+      repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.09) 0 1px, transparent 1px 96px);
   }
-  .m3-state-layer:hover::after {
-    opacity: 0.08;
+  .stage-glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(58% 46% at 54% 46%, rgb(152 84 241 / 0.16), transparent 72%),
+      radial-gradient(70% 60% at 30% 90%, rgb(46 125 233 / 0.12), transparent 70%);
   }
-  .m3-state-layer:focus-visible::after {
-    opacity: 0.1;
-  }
-  .m3-state-layer:active::after {
-    opacity: 0.12;
-  }
-
-  .prose-dim {
-    color: var(--prose);
-  }
-  .dim-label {
-    color: var(--dim-label);
-  }
-  .body-xl {
-    font-size: 17px;
-    line-height: 27px;
-    letter-spacing: 0.2px;
-    color: var(--prose);
-  }
-  .body-xl + .body-xl {
-    margin-top: 20px;
-  }
-  .nav-blur {
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
-  }
-
-  .hero-h1 {
-    font-size: clamp(40px, 5vw, 74px);
-    font-weight: 520;
-    line-height: 1.06;
-    letter-spacing: -0.035em;
-    text-wrap: balance;
-  }
-  /* Positioning context for the hero mark; the page ground itself stays plain. */
-  .hero-atmosphere {
-    overflow-x: clip;
-    position: relative;
-  }
-
-  /* The wire, drawn: a hairline in the wide-screen margin that the scroll
-   * position draws from the hero to the close, with an 8px dot riding the
-   * tip. Owner-approved (2026-08-20) as a deliberate exception to the plain
-   * ground. Absent wherever scroll-driven animation, width, or motion
-   * preference cannot carry it; the fallback is the page as it was. */
-  .wire {
+  .wire-dot {
     display: none;
+    fill: var(--wire-go-on-dark);
   }
-  @supports (animation-timeline: scroll()) {
-    @media (min-width: 1300px) and (prefers-reduced-motion: no-preference) {
-      .wire {
-        display: block;
-        position: absolute;
-        top: 24px;
-        bottom: 24px;
-        left: calc((100% - 1200px) / 2 - 44px);
-        width: 1px;
-        background: hsl(var(--outline-variant));
-      }
-      .wire-progress {
-        position: absolute;
-        inset: 0;
-        background: hsl(var(--on-surface-variant));
-        transform-origin: top;
-        animation: wire-draw linear both;
-        animation-timeline: scroll(root);
-      }
+  @supports (offset-path: path('M0 0 L1 1')) {
+    @media (prefers-reduced-motion: no-preference) {
       .wire-dot {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        width: 0;
-        height: calc(100% - 8px);
-        animation: wire-ride linear both;
-        animation-timeline: scroll(root);
-      }
-      .wire-dot::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -4px;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: hsl(var(--on-surface));
-      }
-      @keyframes wire-draw {
-        from {
-          transform: scaleY(0);
-        }
-      }
-      @keyframes wire-ride {
-        to {
-          transform: translateY(100%);
-        }
+        display: block;
+        offset-path: path('M-20 640 C 220 640 240 300 480 300 S 760 470 1020 470');
+        offset-rotate: 0deg;
+        animation: wire-ride 9s linear infinite;
       }
     }
   }
-
-  /* Without JS the receipts button is a dead control; the sentence alone is
-   * the honest no-JS experience. */
-  .receipts-toggle {
-    display: none;
+  @keyframes wire-ride {
+    from {
+      offset-distance: 0%;
+    }
+    to {
+      offset-distance: 100%;
+    }
   }
-  .js .receipts-toggle {
-    display: inline;
-  }
-  .hero-mark {
+  .stage-wordmark {
     position: absolute;
-    top: 34px;
-    right: -16px;
-    width: clamp(210px, 23vw, 330px);
-    color: var(--mark-ink);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .hero-mark svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  /* Small screens keep a quieter mark instead of losing the brand artwork:
-   * it sits behind the z-[1] hero text and the ink tokens are already faint.
-   * Tablet gets a middle step so the mark does not fall to icon size while
-   * the h1 leaves a broad empty shoulder beside it. */
-  @media (max-width: 899px) {
-    .hero-mark {
-      top: 24px;
-      right: -10px;
-      width: clamp(128px, 22vw, 200px);
-    }
-  }
-  @media (max-width: 639px) {
-    .hero-mark {
-      top: 18px;
-      width: 128px;
-    }
-  }
-
-  .shead {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    position: relative;
-    /* Section separation lives above the heading, so every h2 carries more
-     * space above (96px) than below (14 + 28px) and binds to its own block. */
-    margin-top: 96px;
-    padding-bottom: 14px;
-    margin-bottom: 28px;
-  }
-  .shead::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    top: 0;
     bottom: 0;
-    height: 1px;
-    background: linear-gradient(to right, hsl(var(--outline-variant)) 55%, transparent);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    padding-inline-start: 2px;
+    pointer-events: none;
   }
-  .shead h2 {
-    font-size: clamp(26px, 3vw, 36px);
-    line-height: 1.15;
-    font-weight: 460;
-    letter-spacing: -0.02em;
-    text-wrap: balance;
+  .stage-wordmark span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: clamp(80px, 26svh, 280px);
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    color: #fff;
+    text-shadow: 0 4px 40px rgb(0 0 0 / 0.5);
   }
-  .anno {
-    font-family: theme('fontFamily.mono');
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: hsl(var(--on-surface-variant));
+  .stage-ring,
+  .glass {
+    position: absolute;
+    inset-inline-start: 52%;
+    top: 50%;
+  }
+  /* --px/--py are unitless -0.5…0.5, set on the stage by the pointer hook and
+   * unset at rest, so the resting position needs no styles of its own. The
+   * ring travels further than the glass, which is what reads as depth. */
+  .stage-ring {
+    width: min(76vh, 680px);
+    height: min(76vh, 680px);
+    opacity: 0.55;
+    transform: translate(calc(-42% + var(--px, 0) * 44px), calc(-50% + var(--py, 0) * 36px));
+  }
+  .glass {
+    transform: translate(calc(-42% + var(--px, 0) * 26px), calc(-50% + var(--py, 0) * 22px));
+    width: min(62vh, 540px);
+    height: min(62vh, 540px);
+    border-radius: 50%;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    background: rgb(14 14 18 / 0.62);
+    backdrop-filter: blur(12px);
+    box-shadow:
+      0 40px 120px rgb(0 0 0 / 0.45),
+      inset 0 1px 0 rgb(255 255 255 / 0.25);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    will-change: transform;
+  }
+  /* inset-inline-start flips with the writing direction but translate() does
+   * not, so the pull back over the element's own width has to flip by hand or
+   * the circle lands outside the stage. */
+  [dir='rtl'] .stage-ring {
+    transform: translate(calc(42% - var(--px, 0) * 44px), calc(-50% + var(--py, 0) * 36px));
+  }
+  [dir='rtl'] .glass {
+    transform: translate(calc(42% - var(--px, 0) * 26px), calc(-50% + var(--py, 0) * 22px));
+  }
+
+  /* 70.7% is the largest square that fits the circle, so the copy never
+   * touches the rim at any viewport height. */
+  .glass-inner {
+    width: 70.7%;
+    height: 70.7%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 2vh, 18px);
+  }
+  /* Below the split, the stage is the whole width: the 52% offset that read as
+   * centred beside the index no longer does, the circle is wider than the
+   * viewport, and the wordmark sits on top of the headline. Centre the circle
+   * on the viewport and drop the scenery. */
+  @media (max-width: 899px) {
+    .stage-wordmark {
+      display: none;
+    }
+    .stage-ring,
+    .glass,
+    [dir='rtl'] .stage-ring,
+    [dir='rtl'] .glass {
+      inset-inline-start: auto;
+      left: 50%;
+    }
+    .stage-ring,
+    [dir='rtl'] .stage-ring {
+      width: min(76vh, 92vw);
+      height: min(76vh, 92vw);
+      transform: translate(calc(-50% + var(--px, 0) * 44px), calc(-50% + var(--py, 0) * 36px));
+    }
+    .glass,
+    [dir='rtl'] .glass {
+      width: min(62vh, 86vw);
+      height: min(62vh, 86vw);
+      transform: translate(calc(-50% + var(--px, 0) * 26px), calc(-50% + var(--py, 0) * 22px));
+    }
+    /* A narrow circle holds less than a wide one; give the copy more of it. */
+    .glass-inner {
+      width: 82%;
+      height: 82%;
+    }
+    /* Three stacked rows of bar would eat a third of a phone screen. The
+     * sections are a scroll apart and each one fills the viewport, so the
+     * jump list is the part that goes. */
+    .site-header nav {
+      display: none;
+    }
+    /* The index sits under the stage rather than beside it, so it no longer
+     * has a fixed bar to clear. */
+    .hero-index {
+      padding-top: 22px;
+      border-inline-start: 0;
+      border-top: 1px solid hsl(var(--outline-variant));
+    }
+  }
+
+  .hero-index {
+    position: relative;
+    display: flex;
+    flex: 1 1 340px;
+    min-width: min(100%, 300px);
+    flex-direction: column;
+    padding: 84px 0 26px;
+    background: hsl(var(--surface));
+    border-inline-start: 1px solid hsl(var(--outline-variant));
+  }
+  .index-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 17px clamp(18px, 2vw, 26px);
+    border-top: 1px solid hsl(var(--outline-variant));
+  }
+
+  /* ── marquee ───────────────────────────────────────────────────────────── */
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    border-top: 1px solid hsl(var(--outline-variant));
+    border-bottom: 1px solid hsl(var(--outline-variant));
+    background: hsl(var(--surface-container-low));
+  }
+  .marquee-track {
+    display: flex;
+    flex: none;
+    width: max-content;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .marquee-track {
+      animation: marquee 46s linear infinite;
+    }
+  }
+  /* Without motion the belt is a static line, so the duplicate would read as
+   * a stutter rather than a loop. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track > [aria-hidden='true'] {
+      display: none;
+    }
+  }
+  .marquee-run {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    flex: none;
+    padding: 14px 13px;
+    font-size: clamp(15px, 1.5vw, 21px);
+    font-weight: 520;
+    letter-spacing: -0.025em;
     white-space: nowrap;
   }
-  @media (max-width: 640px) {
-    .shead {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
+
+  /* ── work ──────────────────────────────────────────────────────────────── */
+  .rail-btn {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 15px 12px;
+    border: 0;
+    border-top: 1px solid hsl(var(--outline-variant));
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    cursor: pointer;
+    position: relative;
+  }
+  .rail-btn:last-of-type {
+    border-bottom: 1px solid hsl(var(--outline-variant));
+  }
+  .rail-btn[aria-selected='true'] {
+    background: hsl(var(--surface-container-low));
+  }
+  /* Logical inline marker, so the selected rail reads correctly under rtl. */
+  .rail-btn[aria-selected='true']::before {
+    content: '';
+    position: absolute;
+    inset-block: -1px;
+    inset-inline-start: 0;
+    width: 3px;
+    background: hsl(var(--on-surface));
+  }
+  .rail-btn .ordinal {
+    opacity: 0.4;
+  }
+  .rail-btn[aria-selected='true'] .ordinal {
+    opacity: 1;
+  }
+  .rail-name {
+    font-size: 22px;
+    font-weight: 580;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: hsl(var(--on-surface-variant));
+  }
+  .rail-btn[aria-selected='true'] .rail-name {
+    color: hsl(var(--on-surface));
+  }
+
+  .pane {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--shape-lg);
+    border: 1px solid hsl(var(--outline-variant));
+  }
+  .pane-shot {
+    flex: 1 1 50%;
+    min-width: min(100%, 470px);
+    aspect-ratio: 16 / 10;
+    background: var(--stage);
+  }
+  .pane-shot img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* contain, not cover: the two captures have different aspect ratios and a
+     * cover crop would cut aria2t's name and speed columns out of frame. */
+    object-fit: contain;
+    transition: transform 700ms var(--ease-pane);
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .pane-shot:hover img {
+      transform: scale(1.02);
     }
   }
-
-  .node-card {
-    position: relative;
+  .pane-details {
+    flex: 1 1 300px;
+    min-width: min(100%, 290px);
+    background: hsl(var(--surface-container-low));
+    box-shadow: 0 8px 26px rgb(13 13 15 / 0.06);
+  }
+  [data-product='noctis'] {
+    --led: var(--led-noctis);
+    --led-ink: var(--led-noctis-ink);
+  }
+  [data-product='aria2t'] {
+    --led: var(--led-aria2t);
+    --led-ink: var(--led-aria2t-ink);
+  }
+  [data-product='next'] {
+    --led: var(--led-next);
+    --led-ink: var(--led-next-ink);
+  }
+  .fact-card {
     display: flex;
-    min-width: 0;
     flex-direction: column;
-    gap: 6px;
-    border-radius: 16px;
+    justify-content: center;
+    gap: 7px;
+    min-height: 0;
+    padding: 14px 16px;
+    border-radius: var(--shape-md);
     border: 1px solid hsl(var(--outline-variant));
     background: hsl(var(--surface-container-low));
-    padding: 12px;
-    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.05);
-  }
-  .node-card.muted {
-    background: hsl(var(--surface-container-low) / 0.45);
-    box-shadow: none;
-  }
-  .led {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex: none;
-  }
-  .led-noctis {
-    background: var(--led-noctis);
-  }
-  .led-aria2t {
-    background: var(--led-aria2t);
-  }
-
-  .window-frame {
-    display: block;
-    border: 1px solid hsl(var(--outline-variant));
-    border-radius: 12px;
-    overflow: hidden;
-    background: hsl(var(--surface-container-low));
-    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.04);
-    min-width: 0;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), border-color 150ms var(--ease-emph);
+    transition:
+      transform 220ms var(--ease-emph-decel),
+      border-color 220ms var(--ease-emph-decel);
   }
   @media (hover: hover) and (pointer: fine) {
-    .window-frame:hover {
-      transform: translateY(-2px);
+    .fact-card:hover {
+      transform: translateY(-3px);
       border-color: hsl(var(--outline));
     }
   }
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .window-frame:hover .led::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 1.5px solid currentColor;
-      animation: pulse-ring 1.8s var(--ease-emph) infinite;
-    }
-    .window-frame:hover .led-noctis::after {
-      border-color: var(--led-noctis);
-    }
-    .window-frame:hover .led-aria2t::after {
-      border-color: var(--led-aria2t);
-    }
-  }
-  .window-frame .led {
-    position: relative;
-  }
-  /* The product names reward the same curiosity the window frames do. */
-  .product-title .led {
-    position: relative;
-  }
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .product-title:hover .led::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 1.5px solid currentColor;
-      animation: pulse-ring 1.8s var(--ease-emph) infinite;
-    }
-    .product-title:hover .led-noctis::after {
-      border-color: var(--led-noctis);
-    }
-    .product-title:hover .led-aria2t::after {
-      border-color: var(--led-aria2t);
-    }
-  }
-  /* 139% puts the clipped right edge at ~x921 of the 1280px capture, inside
-   * the SIZE/SPEED gutter that is ink-free in both themes, so no column or
-   * key-bar hint is cut mid-glyph. */
-  .window-zoom img {
-    width: 139%;
-    max-width: none;
-  }
-
-  /* The floor's check grammar, applied to each product's checkable claims. */
-  .claims {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    max-width: 26rem;
-  }
-  .claims li {
+  .pane-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border: 1px solid hsl(var(--outline-variant));
-    border-radius: var(--shape-pill);
-    background: hsl(var(--surface-container-low) / 0.6);
-    padding: 5px 12px 5px 10px;
+    height: 34px;
+    padding: 0 10px;
+    border-radius: var(--shape-sm);
     font-size: 13px;
-    line-height: 1.3;
-    letter-spacing: 0.01em;
+    font-weight: 560;
+    letter-spacing: -0.01em;
     color: hsl(var(--on-surface));
+    transition: background 160ms var(--ease-emph);
   }
-  .claims svg {
-    flex: none;
+  .pane-link:hover {
+    background: var(--hover);
   }
 
+  /* ── practices ─────────────────────────────────────────────────────────── */
   .practice-row {
     display: grid;
-    gap: 6px 48px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 19px 6px;
+    background: none;
+    border: 0;
     border-top: 1px solid hsl(var(--outline-variant));
-    padding: 22px 0;
+    text-align: start;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 200ms var(--ease-emph);
   }
-  .practice-row:last-child {
+  .practice-row:last-of-type {
     border-bottom: 1px solid hsl(var(--outline-variant));
   }
-  @media (min-width: 768px) {
-    .practice-row {
-      grid-template-columns: 260px minmax(0, 1fr);
-    }
-  }
-  @media (min-width: 900px) {
-    .practice-row {
-      grid-template-columns: 340px minmax(0, 1fr);
-    }
-  }
-
-  .ledger {
-    border: 1px solid hsl(var(--outline-variant));
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  .ledger > * + * {
-    border-top: 1px solid hsl(var(--outline-variant));
-  }
-  .ledger-row {
-    display: grid;
-    gap: 6px 40px;
-    padding: 18px 20px;
-    scroll-margin-top: 88px;
-  }
-  @media (min-width: 900px) {
-    /* The rows subgrid onto one shared track set so a long status widens the
-     * third column for every row instead of squeezing only its own body. The
-     * 210px first track nets to 190px inside the row's 20px edge padding. */
-    .ledger {
-      display: grid;
-      grid-template-columns: 210px minmax(0, 1fr) auto;
-      column-gap: 40px;
-    }
-    .ledger-row {
-      grid-column: 1 / -1;
-      grid-template-columns: subgrid;
-      align-items: baseline;
-    }
-    .ledger-row .status {
-      justify-self: end;
-      text-align: right;
-    }
-  }
-  .ledger-row:target,
-  .floor-item:target {
-    background: hsl(var(--secondary-container) / 0.45);
-  }
-  /* A followed clause link lands with a settle: the tint holds raised while
-   * the fragment scroll is still travelling, then relaxes to the resting
-   * highlight, so the addressed row is findable even mid-page. Reduced motion
-   * keeps the instant tint above. */
-  @keyframes clause-settle {
-    0%,
-    45% {
-      background-color: hsl(var(--secondary-container) / 0.9);
-    }
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .ledger-row:target,
-    .floor-item:target {
-      animation: clause-settle 1300ms var(--ease-emph);
-    }
-    /* Arrival choreography: while the addressed clause settles, its siblings
-     * hold back for the same beat, scoped to the clause's own group. */
-    .ledger:has(.ledger-row:target) .ledger-row:not(:target),
-    ul:has(> .floor-item:target) .floor-item:not(:target) {
-      animation: hold-back 1300ms var(--ease-emph);
-    }
-  }
-  @keyframes hold-back {
-    0%,
-    45% {
-      opacity: 0.55;
-    }
-  }
-  .floor-item:target {
-    border-radius: 16px;
-  }
-  .floor-item {
-    scroll-margin-top: 88px;
-  }
-  .status {
-    display: block;
-    font-family: theme('fontFamily.mono');
-    font-size: 12px;
-    letter-spacing: 0.02em;
-    color: hsl(var(--on-surface-variant));
-  }
-  .anchor {
-    display: inline-flex;
-    vertical-align: middle;
-    padding: 5px;
-    margin: -5px -5px -5px 3px;
-    color: hsl(var(--on-surface-variant));
-    opacity: 0;
-    transition: opacity var(--dur-short) var(--ease-emph);
-  }
-  .anchor svg {
-    width: 12px;
-    height: 12px;
-  }
-  .ledger-row:hover .anchor,
-  .floor-item:hover .anchor,
-  .anchor:focus-visible {
+  .practice-row[aria-selected='true'] {
     opacity: 1;
   }
-  @media (hover: none) {
-    .anchor {
-      opacity: 1;
+  .practice-title {
+    font-size: clamp(18px, 2vw, 27px);
+    font-weight: 540;
+    letter-spacing: -0.028em;
+    line-height: 1.15;
+  }
+  .block-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--shape-xl);
+    background: var(--block);
+    color: var(--on-block);
+  }
+  .block-ring {
+    position: absolute;
+    inset-inline-end: -40px;
+    top: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 1px solid rgb(255 255 255 / 0.2);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .block-ring {
+      animation: breathe 6s ease-in-out infinite;
     }
   }
 
-  @keyframes rise-in {
+  /* ── contact ───────────────────────────────────────────────────────────── */
+  .talk-mail {
+    display: inline-block;
+    align-self: flex-start;
+    color: #fff;
+    font-size: clamp(26px, 4.6vw, 68px);
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    line-height: 0.95;
+    word-break: break-word;
+    border-bottom: 2px solid rgb(255 255 255 / 0.24);
+    padding-bottom: 6px;
+    transition: border-color var(--dur-med) var(--ease-emph);
+  }
+  .talk-mail:hover {
+    border-color: var(--wire-go-on-dark);
+  }
+  .talk-line {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 17px 4px;
+    border-top: 1px solid rgb(255 255 255 / 0.16);
+    color: rgb(255 255 255 / 0.9);
+    transition:
+      padding-inline-start var(--dur-med) var(--ease-emph),
+      color var(--dur-med) var(--ease-emph);
+  }
+  .talk-line:last-of-type {
+    border-bottom: 1px solid rgb(255 255 255 / 0.16);
+  }
+  .talk-line:hover {
+    padding-inline-start: 12px;
+    color: #fff;
+  }
+
+  /* ── lightbox ──────────────────────────────────────────────────────────── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    padding: clamp(16px, 4vw, 56px);
+    background: rgb(8 8 10 / 0.86);
+    backdrop-filter: blur(6px);
+  }
+  .lightbox img {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: var(--shape-md);
+    box-shadow: 0 40px 120px rgb(0 0 0 / 0.6);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lightbox img {
+      animation: pop-in 420ms var(--ease-emph-decel);
+    }
+  }
+
+  /* ── motion ────────────────────────────────────────────────────────────── */
+  @keyframes wire-draw {
+    from {
+      stroke-dashoffset: 1400;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes ring-dash {
+    to {
+      stroke-dashoffset: -320;
+    }
+  }
+  @keyframes rise {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(18px);
     }
     to {
       opacity: 1;
       transform: none;
     }
   }
-  @keyframes mark-in {
-    from {
-      opacity: 0;
-    }
+  @keyframes marquee {
     to {
-      opacity: 1;
+      transform: translateX(-50%);
     }
   }
-  /* Hover-only LED feedback; defined here because no animate-* utility
-   * references it any more. */
-  @keyframes pulse-ring {
-    0% {
-      transform: scale(0.7);
-      opacity: 0;
+  @keyframes scan {
+    from {
+      transform: translateY(-120%);
     }
-    25% {
-      opacity: 0.55;
+    to {
+      transform: translateY(120%);
     }
+  }
+  @keyframes caret {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
     100% {
-      transform: scale(1.55);
       opacity: 0;
+    }
+  }
+  @keyframes breathe {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(1.04);
+    }
+  }
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.965);
     }
   }
   @media (prefers-reduced-motion: no-preference) {
     .rise-1 {
-      animation: rise-in 450ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+      animation: rise 700ms var(--ease-emph-decel) backwards;
     }
     .rise-2 {
-      animation: rise-in 450ms cubic-bezier(0.23, 1, 0.32, 1) 80ms backwards;
+      animation: rise 700ms var(--ease-emph-decel) 90ms backwards;
     }
     .rise-3 {
-      animation: rise-in 420ms cubic-bezier(0.23, 1, 0.32, 1) 180ms backwards;
+      animation: rise 700ms var(--ease-emph-decel) 150ms backwards;
     }
     .rise-4 {
-      animation: rise-in 420ms cubic-bezier(0.23, 1, 0.32, 1) 260ms backwards;
+      animation: rise 700ms var(--ease-emph-decel) 210ms backwards;
     }
-    .rise-5 {
-      animation: rise-in 420ms cubic-bezier(0.23, 1, 0.32, 1) 360ms backwards;
+    .wire-path {
+      animation: wire-draw 2.6s var(--ease-emph-decel) 300ms backwards;
     }
-    .rise-6 {
-      animation: rise-in 420ms cubic-bezier(0.23, 1, 0.32, 1) 440ms backwards;
+    .ring-dash {
+      animation: ring-dash 26s linear infinite;
     }
-    .rise-7 {
-      animation: rise-in 420ms cubic-bezier(0.23, 1, 0.32, 1) 520ms backwards;
+    .scan-band {
+      animation: scan 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
     }
-    .hero-mark {
-      animation: mark-in 900ms var(--ease-emph-decel) 250ms backwards;
-    }
-    .js .reveal {
-      opacity: 0;
-      clip-path: inset(0 0 12% 0 round 12px);
-      transform: translateY(12px);
-      transition:
-        opacity 600ms var(--ease-emph),
-        clip-path 650ms cubic-bezier(0.05, 0.7, 0.1, 1),
-        transform 650ms cubic-bezier(0.05, 0.7, 0.1, 1);
-    }
-    .js .reveal.in {
-      opacity: 1;
-      clip-path: inset(0 0 0 0 round 12px);
-      transform: none;
+    .caret {
+      animation: caret 1.1s steps(1) infinite;
     }
   }
+  /* The dot rides the wire through SMIL, which prefers-reduced-motion cannot
+   * reach from CSS; the component drops the element instead. */
 
   @media print {
     /* :not(.light) matches the runtime dark selector's 0-3-0 specificity, so
@@ -741,33 +947,39 @@
     :root.dark:not(.light),
     :root[data-theme='dark'] {
       --background: 0 0% 100%;
+      --surface: 220 20% 96%;
       --on-surface: 220 15% 10%;
       --on-surface-variant: 220 12% 27%;
-      --surface-container-low: 220 20% 96%;
+      --surface-container-low: 0 0% 100%;
       --surface-container-highest: 220 16% 90%;
+      --outline: 220 14% 60%;
       --outline-variant: 220 14% 80%;
-      --prose: hsl(220 12% 27%);
-      --dim-label: hsl(220 12% 27%);
-      --nav-bg: hsl(0 0% 100%);
-      --mark-ink: hsl(220 16% 89%);
+      --faint-ink: hsl(220 12% 27%);
+      --block: #fff;
+      --on-block: #111;
+      --on-block-dim: #333;
+      --on-block-faint: #555;
+      --stage: #fff;
     }
-    .nav-blur {
-      position: static;
-    }
-    .hero-mark,
-    .anchor,
-    .wire,
-    .receipts-toggle {
+    .site-header,
+    .stage-grid,
+    .stage-glow,
+    .stage-wordmark,
+    .stage-ring,
+    .lightbox {
       display: none !important;
     }
-    .window-frame,
-    .node-card {
+    .glass,
+    .block-card,
+    .pane,
+    .fact-card {
+      background: #fff;
+      color: #111;
       box-shadow: none;
+      border: 1px solid #bbb;
     }
-    .reveal {
-      opacity: 1 !important;
-      clip-path: none !important;
-      transform: none !important;
+    .marquee-track > [aria-hidden='true'] {
+      display: none;
     }
     a {
       text-decoration: none;

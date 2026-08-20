@@ -25,12 +25,15 @@ const PAGE_PATH = {
 // prerendered but never listed.
 const PRIORITY = { home: '1.0' };
 
-const LOCALES = ['en'];
+const LOCALES = ['en', 'ru', 'es', 'zh-CN', 'fa', 'ar'];
 
-const OG_LOCALE = { en: 'en_US' };
-
-const OG_IMAGE_ALT = {
-  en: 'c0nn3ct.info: small, finished software that stays on your side of the wire',
+const OG_LOCALE = {
+  en: 'en_US',
+  ru: 'ru_RU',
+  es: 'es_ES',
+  'zh-CN': 'zh_CN',
+  fa: 'fa_IR',
+  ar: 'ar_AR',
 };
 
 const DICT = Object.fromEntries(
@@ -124,9 +127,9 @@ export function escapeHtmlText(s) {
 export function buildHeadInjection(page, locale, locales = LOCALES) {
   const meta = getMeta(page, locale, locales);
   const blocks = jsonLdBlocks(page, locale);
-  // Keyed by the same LOCALES list as the dictionaries, so every locale that
-  // gets this far has an entry.
-  const ogImageAlt = OG_IMAGE_ALT[locale] ?? OG_IMAGE_ALT.en;
+  // The card's alt is the page's own title, so it stays in the visitor's
+  // language; an unknown page falls back to the identity itself.
+  const ogImageAlt = (DICT[locale] ?? DICT.en)[`${page}.title`] ?? 'c0nn3ct.info';
   const lines = [];
   lines.push(`<link rel="canonical" href="${escapeHtmlAttr(meta.canonical)}" />`);
   for (const h of meta.hreflang) {
@@ -284,15 +287,13 @@ export async function main() {
           },
           { timeout: 10000 },
         );
-        // Revert what initReveals did to the live DOM before serializing:
-        // hydrateRoot diffs the served markup against the initial client render,
-        // and a captured `in`/`js` class is a hydration mismatch (React #418).
+        // Restore the pristine state before serializing: hydrateRoot diffs the
+        // served markup against the initial client render, so anything an
+        // effect changed after mount is a hydration mismatch (React #418).
         await p.evaluate(() => {
-          document.documentElement.classList.remove('js');
           // The theme class mirrors the capturing browser's color scheme, not
           // the visitor's; the shell's inline script re-adds the right one.
           document.documentElement.classList.remove('dark', 'light');
-          for (const el of document.querySelectorAll('.reveal.in')) el.classList.remove('in');
           // Serialization merges adjacent text nodes, which hydrateRoot then
           // cannot split back (React #425). renderToString solves this with
           // empty comment separators between text nodes; emit the same.

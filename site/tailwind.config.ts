@@ -7,6 +7,20 @@ export default {
   theme: {
     extend: {
       colors: {
+        /* Page roles that are not M3 tones: the dark block card, the hero
+         * stage, the AA-safe faint ink, and the per-product LED pair a
+         * [data-product] scope sets. */
+        block: 'var(--block)',
+        'on-block': 'var(--on-block)',
+        'on-block-dim': 'var(--on-block-dim)',
+        'on-block-faint': 'var(--on-block-faint)',
+        stage: 'var(--stage)',
+        'on-stage-dim': 'var(--on-stage-dim)',
+        'on-stage-faint': 'var(--on-stage-faint)',
+        faint: 'var(--faint-ink)',
+        led: 'var(--led)',
+        'led-ink': 'var(--led-ink)',
+        'wire-go': 'var(--wire-go)',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -108,6 +122,7 @@ export default {
       transitionTimingFunction: {
         emph: 'var(--ease-emph)',
         'emph-decel': 'var(--ease-emph-decel)',
+        pane: 'var(--ease-pane)',
       },
       transitionDuration: {
         'x-short': '80ms',

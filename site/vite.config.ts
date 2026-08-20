@@ -7,7 +7,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const pagesDir = path.resolve(here, 'pages');
 
 // Keep in sync with LOCALES in src/i18n/index.ts (config is plain, can't import the .ts type list).
-const LOCALES = ['en'] as const;
+const LOCALES = ['en', 'ru', 'es', 'zh-CN', 'fa', 'ar'] as const;
 const PAGES: Record<string, string> = {
   home: 'index.html',
   'not-found': '404.html',

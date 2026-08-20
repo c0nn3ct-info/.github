@@ -128,7 +128,8 @@ describe('getMeta', () => {
     expect(meta.description).toContain('side of the wire');
     expect(meta.canonical).toBe('https://c0nn3ct.info/');
     expect(meta.og.siteName).toBe('c0nn3ct.info');
-    expect(meta.og.localeAlternate).toEqual([]);
+    expect(meta.og.localeAlternate).toEqual(['ru_RU', 'es_ES', 'zh_CN', 'fa_IR', 'ar_AR']);
+    expect(meta.hreflang).toHaveLength(LOCALES.length + 1);
     expect(meta.hreflang.at(-1)).toEqual({ lang: 'x-default', href: 'https://c0nn3ct.info/' });
   });
 });
@@ -147,18 +148,34 @@ describe('jsonLdBlocks', () => {
 });
 
 describe('locale alternates', () => {
-  it('lists the other locales as OG alternates, falling back to raw tags', () => {
-    const meta = core.getMeta('home', 'en', ['en', 'ru']);
-    expect(meta.og.localeAlternate).toEqual(['ru']);
-    const injection = core.buildHeadInjection('home', 'en', ['en', 'ru']);
+  it('maps every shipped locale to its OG tag', () => {
+    const meta = core.getMeta('home', 'ru', ['en', 'ru']);
+    expect(meta.og.locale).toBe('ru_RU');
+    expect(meta.og.localeAlternate).toEqual(['en_US']);
+    const injection = core.buildHeadInjection('home', 'ru', ['en', 'ru']);
     expect(injection).toContain('og:locale:alternate');
-    expect(injection).toContain('hreflang="ru"');
+    expect(injection).toContain('hreflang="en"');
   });
 
-  it('reads unknown locales through the English catalogue', () => {
-    const meta = core.getMeta('home', 'ru', ['en', 'ru']);
+  it('falls back to the raw tag for a locale with no OG mapping', () => {
+    const meta = core.getMeta('home', 'en', ['en', 'pt']);
+    expect(meta.og.localeAlternate).toEqual(['pt']);
+  });
+
+  it('reads an unknown locale through the English catalogue', () => {
+    const meta = core.getMeta('home', 'pt', ['en', 'pt']);
     expect(meta.title).toContain('c0nn3ct.info');
-    expect(core.buildHeadInjection('home', 'ru', ['en', 'ru'])).toContain('og:image:alt');
+    expect(core.buildHeadInjection('home', 'pt', ['en', 'pt'])).toContain('og:image:alt');
+  });
+
+  it('titles the card in the language of the page', () => {
+    expect(core.buildHeadInjection('home', 'ru')).toContain('небольшие законченные');
+  });
+
+  it('names the identity itself when a page has no title of its own', () => {
+    expect(core.buildHeadInjection('nameless', 'en')).toContain(
+      'og:image:alt" content="c0nn3ct.info"',
+    );
   });
 });
 
@@ -243,13 +260,11 @@ describe('findSystemChrome', () => {
 describe('main', () => {
   it('prerenders every page and writes all three sitemaps', async () => {
     // The readiness predicate runs against this document via the page stub;
-    // give it a hydrated root so its positive branch is exercised, and a
-    // revealed element so the pre-serialize cleanup has something to strip.
-    document.documentElement.classList.add('js');
+    // give it a hydrated root so its positive branch is exercised.
     // The capturing browser's own color scheme lands on <html>; the cleanup
     // must strip it so a light-system visitor never inherits `dark`.
     document.documentElement.classList.add('dark');
-    document.body.innerHTML = '<div id="root"><p class="reveal in">hydrated</p></div>';
+    document.body.innerHTML = '<div id="root"><p>hydrated</p></div>';
     // Two adjacent text nodes, as React renders around an expression child;
     // the serializer must fence them so hydration can split them again.
     document.querySelector('p').appendChild(document.createTextNode('!'));
@@ -264,10 +279,7 @@ describe('main', () => {
 
     const home = written.get([...written.keys()].find((p) => p.endsWith('index.html')));
     expect(home).toContain('rel="canonical"');
-    // The cleanup stripped the reveal state, so the shipped page hydrates clean.
-    expect(home).toContain('class="reveal"');
-    expect(home).not.toContain('reveal in');
-    expect(document.documentElement.classList.contains('js')).toBe(false);
+    // The capture's own theme class is gone, so the shipped page hydrates clean.
     expect(document.documentElement.classList.contains('dark')).toBe(false);
     expect(home).toContain('hydrated<!---->!');
     expect(launch).toHaveBeenCalledWith({ headless: true });

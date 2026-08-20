@@ -1,9 +1,24 @@
 import en from './en.json';
+import ru from './ru.json';
+import es from './es.json';
+import zhCN from './zh-CN.json';
+import fa from './fa.json';
+import ar from './ar.json';
 
-export const LOCALES = ['en'] as const;
+export const LOCALES = ['en', 'ru', 'es', 'zh-CN', 'fa', 'ar'] as const;
 export type Locale = (typeof LOCALES)[number];
 
-export const RTL_LOCALES: readonly Locale[] = [];
+/** The label each locale calls itself, for the switcher; never translated. */
+export const LOCALE_LABEL: Record<Locale, string> = {
+  en: 'English',
+  ru: 'Русский',
+  es: 'Español',
+  'zh-CN': '中文',
+  fa: 'فارسی',
+  ar: 'العربية',
+};
+
+export const RTL_LOCALES: readonly Locale[] = ['fa', 'ar'];
 
 export function isRtl(locale: Locale): boolean {
   return RTL_LOCALES.includes(locale);
@@ -13,9 +28,16 @@ export function isLocale(x: string): x is Locale {
   return (LOCALES as readonly string[]).includes(x);
 }
 
-const DICTIONARIES: Record<Locale, Record<string, string>> = { en };
+const DICTIONARIES: Record<Locale, Record<string, string>> = {
+  en,
+  ru,
+  es,
+  'zh-CN': zhCN,
+  fa,
+  ar,
+};
 
-const NON_EN_LOCALES: readonly string[] = LOCALES.filter((l) => l !== 'en');
+const NON_EN_LOCALES = LOCALES.filter((l): l is Exclude<Locale, 'en'> => l !== 'en');
 
 let currentLocale: Locale = 'en';
 
@@ -37,11 +59,9 @@ export function t(key: string): string {
   return value;
 }
 
-/** Strip a known non-English locale prefix from a path → its base form (`/`, …).
- * The locale list is a parameter so the branches stay exercisable while the
- * site ships English only. */
-export function stripLocale(path: string, locales: readonly string[] = NON_EN_LOCALES): string {
-  for (const l of locales) {
+/** Strip a known non-English locale prefix from a path → its base form (`/`, …). */
+export function stripLocale(path: string): string {
+  for (const l of NON_EN_LOCALES) {
     if (path === `/${l}` || path === `/${l}/`) return '/';
     if (path.startsWith(`/${l}/`)) return path.slice(l.length + 1);
   }
@@ -49,7 +69,7 @@ export function stripLocale(path: string, locales: readonly string[] = NON_EN_LO
 }
 
 /** Prefix a base (English) path with a locale. English stays at the root. */
-export function withLocale(base: string, locale: string): string {
+export function withLocale(base: string, locale: Locale): string {
   if (locale === 'en') return base;
   if (base === '/') return `/${locale}/`;
   return `/${locale}${base}`;

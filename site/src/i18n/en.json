@@ -72,7 +72,8 @@
   "home.room.h2": "Room we have kept open",
   "home.room.anno": "5 · decided per product",
   "home.room.intro": "We would rather be clear now about the decisions we take one at a time, so that nothing we do later arrives as a surprise.",
-  "home.room.link_aria": "Link to this decision",
+  "home.room.link_aria": "Copy a link to this decision",
+  "home.clause.copied": "Link copied",
   "home.room.price_t": "On price",
   "home.room.price_b": "Costing nothing is where our work has started. We weigh that individually for each piece of work, and when something is worth paying for we will say so plainly and price it honestly.",
   "home.room.price_s": "so far: both free",
@@ -92,8 +93,7 @@
   "home.floor.h2": "What is settled",
   "home.floor.anno": "4 · decided for good",
   "home.floor.intro": "The section above is where we have deliberately left ourselves room. A page that left itself room everywhere would be worth very little, so here is the floor underneath it. These four do not move, whatever we go on to build.",
-  "home.floor.card": "The floor",
-  "home.floor.link_aria": "Link to this commitment",
+  "home.floor.link_aria": "Copy a link to this commitment",
   "home.floor.f1_t": "Your things stay yours",
   "home.floor.f1_b": "Whatever you put into something we make stays readable and portable by you, and we will not sell it or turn it into a profile of you.",
   "home.floor.f2_t": "Nothing is advertised at you",
@@ -111,10 +111,16 @@
   "home.talk.address": "hello@c0nn3ct.info",
 
   "footer.byline": "c0nn3ct.info",
+  "footer.receipts.show": "see every request",
+  "footer.receipts.hide": "hide the list",
+  "footer.receipts.intro": "Every request this page made, as your browser recorded it:",
+  "footer.receipts.third": "to anyone else:",
+  "footer.receipts.none": "none",
   "footer.this_page": "This page",
   "footer.colophon": "A static page with no analytics and no cookies. It makes no third-party requests.",
   "footer.reach": "Reach us",
   "footer.mail": "hello@c0nn3ct.info",
   "footer.github": "github.com/c0nn3ct-info",
-  "footer.site": "c0nn3ct.info"
+
+  "console.note": "Looking under the hood is the right instinct for a page that asks to be checked. hello@c0nn3ct.info answers."
 }

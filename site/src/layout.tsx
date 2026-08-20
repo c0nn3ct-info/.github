@@ -1,11 +1,59 @@
-import type { ReactNode } from 'react';
-import { ExternalLink, Github, Globe, Mail } from 'lucide-react';
+import { useState, type ReactNode } from 'react';
+import { ExternalLink, Github, Mail } from 'lucide-react';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
-import { CONTACT_MAILTO, ORG_URL, SITE_URL } from '@/constants';
+import { CONTACT_MAILTO, ORG_URL } from '@/constants';
 import { t } from './i18n';
 
 interface LayoutProps {
   children: ReactNode;
+}
+
+/** The colophon's claim, checkable in place: the browser's own record of every
+ * request this page made. Hidden without JS (the `.js` root class), since a
+ * dead button would be worse than the plain sentence. */
+function RequestReceipts() {
+  const [rows, setRows] = useState<[string, string][] | null>(null);
+  const inspect = () => {
+    const seen = new Map<string, [string, string]>();
+    for (const e of performance.getEntriesByType('resource') as PerformanceResourceTiming[]) {
+      const u = new URL(e.name);
+      const label = u.origin === window.location.origin ? u.pathname : e.name;
+      seen.set(label, [label, e.initiatorType]);
+    }
+    setRows([...seen.values()]);
+  };
+  const foreign = (rows ?? []).filter(([label]) => label.startsWith('http'));
+  return (
+    <>
+      {' '}
+      <button
+        type="button"
+        className="receipts-toggle underline underline-offset-4 hover:text-on-surface"
+        aria-expanded={rows !== null}
+        onClick={rows === null ? inspect : () => setRows(null)}
+      >
+        {rows === null ? t('footer.receipts.show') : t('footer.receipts.hide')}
+      </button>
+      {rows !== null && (
+        <ul className="mt-2 space-y-0.5 font-mono text-label-small text-on-surface-variant">
+          <li>{t('footer.receipts.intro')}</li>
+          {rows.map(([label, type]) => (
+            <li key={label}>
+              {label} · {type}
+            </li>
+          ))}
+          <li>
+            {t('footer.receipts.third')}{' '}
+            {foreign.length === 0 ? (
+              <span className="text-success-on-container">{t('footer.receipts.none')}</span>
+            ) : (
+              <span className="text-error">{foreign.length}</span>
+            )}
+          </li>
+        </ul>
+      )}
+    </>
+  );
 }
 
 export function Layout({ children }: LayoutProps) {
@@ -53,7 +101,10 @@ export function Layout({ children }: LayoutProps) {
           <div>
             <div className="dim-label mb-2 text-label-small uppercase tracking-[0.12em]">{t('footer.this_page')}</div>
             <ul className="space-y-1.5">
-              <li>{t('footer.colophon')}</li>
+              <li>
+                {t('footer.colophon')}
+                <RequestReceipts />
+              </li>
             </ul>
           </div>
           <div>
@@ -75,12 +126,6 @@ export function Layout({ children }: LayoutProps) {
                   <Github className="h-3.5 w-3.5" />
                   {t('footer.github')}
                   <ExternalLink className="h-3 w-3" aria-hidden />
-                </a>
-              </li>
-              <li>
-                <a className="inline-flex items-center gap-2 underline-offset-4 hover:underline" href={SITE_URL}>
-                  <Globe className="h-3.5 w-3.5" />
-                  {t('footer.site')}
                 </a>
               </li>
             </ul>

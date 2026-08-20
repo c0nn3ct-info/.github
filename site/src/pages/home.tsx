@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Check, Download, Link as LinkIcon } from 'lucide-react';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
 import { ProductWindow } from '@/components/product-window';
 import { WireStrip } from '@/components/wire-strip';
-import { Section } from '@/components/m3/section';
 import { initReveals } from '@/lib/reveal';
 import {
   ARIA2T_LICENSE,
@@ -29,7 +28,8 @@ function ClaimChips({ product }: { product: 'noctis' | 'aria2t' }) {
     <ul className="claims" aria-label={t('home.made.claims_aria')}>
       {CLAIMS.map((k) => (
         <li key={k}>
-          <Check className="h-3 w-3 text-success" aria-hidden />
+          {/* on-container green: the readable verify-green in both themes. */}
+          <Check className="h-3 w-3 text-success-on-container" aria-hidden />
           {t(`home.made.${product}_${k}`)}
         </li>
       ))}
@@ -60,7 +60,7 @@ function MonoBadge({
   download?: boolean;
   title?: string;
 }) {
-  const cls = `inline-flex h-6 items-center gap-1 whitespace-nowrap rounded-pill px-2.5 font-mono text-label-small leading-none tracking-[-0.01em] ${
+  const cls = `m3-state-layer inline-flex h-6 items-center gap-1 whitespace-nowrap rounded-pill px-2.5 font-mono text-label-small leading-none tracking-[-0.01em] ${
     tonal ? 'bg-secondary-container text-secondary-foreground' : 'border border-outline-variant text-on-surface-variant'
   }`;
   return (
@@ -72,9 +72,23 @@ function MonoBadge({
 }
 
 function ClauseAnchor({ id, aria }: { id: string; aria: string }) {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+  const copy = () => {
+    // The hash still navigates; the clipboard is the considered extra, and a
+    // browser that refuses it silently falls back to the address bar.
+    navigator.clipboard?.writeText(`${window.location.origin}/#${id}`).catch(() => {});
+    setCopied(true);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setCopied(false), 1800);
+  };
   return (
-    <a className="anchor" href={`#${id}`} aria-label={aria}>
-      <LinkIcon aria-hidden />
+    <a className="anchor" href={`#${id}`} aria-label={aria} onClick={copy}>
+      {copied ? <Check className="text-success-on-container" aria-hidden /> : <LinkIcon aria-hidden />}
+      <span className="sr-only" role="status">
+        {copied ? t('home.clause.copied') : ''}
+      </span>
     </a>
   );
 }
@@ -84,6 +98,10 @@ export function HomePage() {
   return (
     <Layout>
       <div className="hero-atmosphere">
+        <div className="wire" aria-hidden>
+          <span className="wire-progress" />
+          <span className="wire-dot" />
+        </div>
         <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-10 sm:px-6">
           <section className="relative flex flex-col items-start gap-7 pb-16 pt-[72px]">
             <div className="hero-mark" aria-hidden>
@@ -115,7 +133,7 @@ export function HomePage() {
               <h2>{t('home.made.h2')}</h2>
               <span className="anno">{t('home.made.anno')}</span>
             </div>
-            <p className="prose-dim mb-10 max-w-[72ch] text-body-medium">{t('home.made.scope')}</p>
+            <p className="prose-dim mb-10 max-w-[72ch] text-pretty text-body-medium">{t('home.made.scope')}</p>
 
             <div className="grid items-center gap-8 min-[980px]:grid-cols-[1.25fr_1fr] min-[980px]:gap-12">
               <ProductWindow
@@ -130,10 +148,10 @@ export function HomePage() {
                 height={800}
               />
               <div className="flex min-w-0 flex-col items-start gap-3.5">
-                <h3 className="flex items-center gap-2.5">
-                  <span className="led led-noctis" aria-hidden />
+                <h3 className="product-title flex items-center gap-2.5">
+                  <span className="led led-noctis h-2.5 w-2.5" aria-hidden />
                   <a
-                    className="text-[clamp(22px,2.4vw,28px)] font-medium tracking-[-0.015em] hover:underline hover:underline-offset-4"
+                    className="text-[clamp(24px,2.8vw,32px)] font-medium tracking-[-0.015em] hover:underline hover:underline-offset-4"
                     href={NOCTIS_SITE}
                   >
                     noctis
@@ -141,7 +159,9 @@ export function HomePage() {
                 </h3>
                 <p className="prose-dim max-w-[26rem] text-body-large">{t('home.made.noctis_desc')}</p>
                 <ClaimChips product="noctis" />
-                <div className="flex flex-wrap gap-1.5">
+                {/* Wider interval than the 14px column gap: proximity marks the
+                    acquisition row off from the claims above it. */}
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
                   <MonoBadge href={NOCTIS_STORE} tonal>{t('home.made.badge_cws')}</MonoBadge>
                   <MonoBadge href={NOCTIS_RELEASES}>{t('home.made.badge_helper')}</MonoBadge>
                   <MonoBadge href={NOCTIS_SHA} download title={t('home.made.badge_sha_title')}>{t('home.made.badge_sha')}</MonoBadge>
@@ -152,25 +172,8 @@ export function HomePage() {
             </div>
 
             <div className="mt-[72px] grid items-center gap-8 min-[980px]:grid-cols-[1fr_1.25fr] min-[980px]:gap-12">
-              <div className="flex min-w-0 flex-col items-start gap-3.5 min-[980px]:order-1">
-                <h3 className="flex items-center gap-2.5">
-                  <span className="led led-aria2t" aria-hidden />
-                  <a
-                    className="text-[clamp(22px,2.4vw,28px)] font-medium tracking-[-0.015em] hover:underline hover:underline-offset-4"
-                    href={ARIA2T_SITE}
-                  >
-                    aria2t
-                  </a>
-                </h3>
-                <p className="prose-dim max-w-[26rem] text-body-large">{t('home.made.aria2t_desc')}</p>
-                <ClaimChips product="aria2t" />
-                <div className="flex flex-wrap gap-1.5">
-                  <MonoBadge href={ARIA2T_RELEASES} tonal>{t('home.made.badge_releases')}</MonoBadge>
-                  <MonoBadge href={ARIA2T_SHA} download title={t('home.made.badge_sha_title')}>{t('home.made.badge_sha')}</MonoBadge>
-                  <MonoBadge href={ARIA2T_LICENSE}>{t('home.made.badge_apache')}</MonoBadge>
-                  <MonoBadge href={ARIA2T_PRIVACY}>{t('home.made.privacy_page')}</MonoBadge>
-                </div>
-              </div>
+              {/* Window first in DOM so both products stack window-then-text
+                  below 980px; the order utilities keep it on the right above. */}
               <ProductWindow
                 className="min-[980px]:order-2"
                 href={ARIA2T_SITE}
@@ -184,6 +187,25 @@ export function HomePage() {
                 height={495}
                 zoom
               />
+              <div className="flex min-w-0 flex-col items-start gap-3.5 min-[980px]:order-1">
+                <h3 className="product-title flex items-center gap-2.5">
+                  <span className="led led-aria2t h-2.5 w-2.5" aria-hidden />
+                  <a
+                    className="text-[clamp(24px,2.8vw,32px)] font-medium tracking-[-0.015em] hover:underline hover:underline-offset-4"
+                    href={ARIA2T_SITE}
+                  >
+                    aria2t
+                  </a>
+                </h3>
+                <p className="prose-dim max-w-[26rem] text-body-large">{t('home.made.aria2t_desc')}</p>
+                <ClaimChips product="aria2t" />
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  <MonoBadge href={ARIA2T_RELEASES} tonal>{t('home.made.badge_releases')}</MonoBadge>
+                  <MonoBadge href={ARIA2T_SHA} download title={t('home.made.badge_sha_title')}>{t('home.made.badge_sha')}</MonoBadge>
+                  <MonoBadge href={ARIA2T_LICENSE}>{t('home.made.badge_apache')}</MonoBadge>
+                  <MonoBadge href={ARIA2T_PRIVACY}>{t('home.made.privacy_page')}</MonoBadge>
+                </div>
+              </div>
             </div>
 
             {/* The section's one raised voice: the claim a visitor can actually check. */}
@@ -198,8 +220,12 @@ export function HomePage() {
               <span className="anno">{t('home.how.anno')}</span>
             </div>
             <div className="mb-11 max-w-[66ch]">
-              <p className="body-xl">{t('home.how.p1')}</p>
-              <p className="body-xl">{t('home.how.p2')}</p>
+              {/* The mission carries the section's raised voice; the second
+                  paragraph and the practices stay in the quiet register. */}
+              <p className="text-[clamp(19px,1.6vw,22px)] leading-[1.55] tracking-[0.1px] text-on-surface">
+                {t('home.how.p1')}
+              </p>
+              <p className="body-xl mt-5">{t('home.how.p2')}</p>
             </div>
             <div>
               {PRACTICES.map((k) => (
@@ -220,7 +246,7 @@ export function HomePage() {
             <div className="ledger">
               {ROOMS.map((k) => (
                 <div className="ledger-row" id={`on-${k}`} key={k}>
-                  <h3 className="m-0 text-title-small">
+                  <h3 className="m-0 text-[17px] font-medium leading-[1.35] tracking-[-0.01em]">
                     {t(`home.room.${k}_t`)}
                     <ClauseAnchor id={`on-${k}`} aria={t('home.room.link_aria')} />
                   </h3>
@@ -236,29 +262,32 @@ export function HomePage() {
               <h2>{t('home.floor.h2')}</h2>
               <span className="anno">{t('home.floor.anno')}</span>
             </div>
-            <div className="grid gap-8 min-[980px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] min-[980px]:items-center min-[980px]:gap-12">
-              <p className="prose-dim text-body-large">{t('home.floor.intro')}</p>
-              <div className="reveal">
-                <Section header={t('home.floor.card')} icon={Check} count={FLOORS.length}>
-                  <ul className="space-y-2 px-2 pb-2 pt-1">
-                    {FLOORS.map((k) => (
-                      <li className="floor-item flex items-start gap-3 rounded-md px-2 py-2" id={FLOOR_IDS[k]} key={k}>
-                        <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-secondary-container text-secondary-foreground">
-                          <Check className="h-3.5 w-3.5" />
-                        </span>
-                        <div className="min-w-0">
-                          <h3 className="m-0 text-title-small">
-                            {t(`home.floor.${k}_t`)}
-                            <ClauseAnchor id={FLOOR_IDS[k]} aria={t('home.floor.link_aria')} />
-                          </h3>
-                          <div className="prose-dim text-body-medium">{t(`home.floor.${k}_b`)}</div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </Section>
-              </div>
-            </div>
+            <p className="prose-dim mb-8 max-w-[70ch] text-body-large">{t('home.floor.intro')}</p>
+            {/* The floor speaks in the page's raised voice: the room above
+                files its reversible decisions in a dense ledger, and these
+                four are set large and slow because they do not move. */}
+            <ul className="reveal">
+              {FLOORS.map((k) => (
+                <li
+                  className="floor-item grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 border-t border-outline-variant py-7 last:border-b"
+                  id={FLOOR_IDS[k]}
+                  key={k}
+                >
+                  {/* The settled commitments join the verify-green grammar the
+                      claim chips and the strip pill already speak. */}
+                  <span className="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-success-container text-success-on-container">
+                    <Check className="h-4 w-4" />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="m-0 text-balance text-[clamp(21px,2.4vw,27px)] font-medium leading-[1.4] tracking-[-0.015em]">
+                      {t(`home.floor.${k}_t`)}
+                      <ClauseAnchor id={FLOOR_IDS[k]} aria={t('home.floor.link_aria')} />
+                    </h3>
+                    <p className="prose-dim mt-2 max-w-[62ch] text-body-medium">{t(`home.floor.${k}_b`)}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section className="flex flex-col items-start gap-5 pb-8">
@@ -270,7 +299,7 @@ export function HomePage() {
             <p className="prose-dim max-w-[70ch] text-body-large">{t('home.talk.p2')}</p>
             <div className="flex flex-wrap items-center gap-4">
               <a
-                className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-pill bg-secondary-container px-6 py-2 text-sm font-medium text-secondary-foreground transition-[transform,box-shadow] duration-short ease-emph hover:shadow-e1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97]"
+                className="inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-pill bg-primary px-6 py-2 text-sm font-medium text-primary-foreground transition-[transform,box-shadow] duration-short ease-emph hover:shadow-e1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97]"
                 href={CONTACT_MAILTO}
               >
                 {t('home.talk.cta')}

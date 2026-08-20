@@ -42,7 +42,7 @@ export function ConnectionVisual({ state, size = 188, className }: Props) {
       <span className={cn('absolute rounded-full', s.ring)} style={{ width: ringSize, height: ringSize }} />
       <span
         className={cn(
-          'relative grid place-items-center rounded-full shadow-e2 transition-colors duration-med ease-emph',
+          'relative grid place-items-center rounded-full shadow-e2',
           s.core,
         )}
         style={{ width: coreSize, height: coreSize }}

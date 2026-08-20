@@ -1,7 +1,11 @@
-import { describe, expect, it } from 'vitest';
-import { render, screen } from '../test/render';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { render, screen, userEvent, waitFor } from '../test/render';
 import { HomePage } from './home';
 import { NotFoundPage } from './not-found';
+
+function stubClipboard(value: { writeText: (text: string) => Promise<void> } | undefined) {
+  Object.defineProperty(navigator, 'clipboard', { value, configurable: true });
+}
 
 describe('HomePage', () => {
   it('opens with the positioning line and one filled action', () => {
@@ -85,6 +89,41 @@ describe('HomePage', () => {
       expect(link).toHaveAttribute('title', expect.stringContaining('checksum'));
       expect(link.querySelector('svg')).not.toBeNull();
     }
+  });
+});
+
+describe('ClauseAnchor', () => {
+  afterEach(() => {
+    stubClipboard(undefined);
+  });
+
+  it('copies the clause link, acknowledges it, then settles back', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    stubClipboard({ writeText });
+    render(<HomePage />);
+    const anchor = screen.getAllByRole('link', { name: 'Copy a link to this decision' })[0];
+    await userEvent.click(anchor);
+    expect(writeText).toHaveBeenCalledWith(`${window.location.origin}/#on-price`);
+    // A second click restarts the acknowledgment window instead of stacking timers.
+    await userEvent.click(anchor);
+    expect(screen.getByText('Link copied')).toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText('Link copied')).toBeNull(), { timeout: 3000 });
+  });
+
+  it('still acknowledges when the browser offers no clipboard', async () => {
+    stubClipboard(undefined);
+    render(<HomePage />);
+    await userEvent.click(screen.getAllByRole('link', { name: 'Copy a link to this commitment' })[0]);
+    expect(screen.getByText('Link copied')).toBeInTheDocument();
+  });
+
+  it('swallows a refused clipboard write', async () => {
+    const writeText = vi.fn().mockRejectedValue(new Error('denied'));
+    stubClipboard({ writeText });
+    render(<HomePage />);
+    await userEvent.click(screen.getAllByRole('link', { name: 'Copy a link to this decision' })[1]);
+    expect(writeText).toHaveBeenCalled();
+    expect(screen.getByText('Link copied')).toBeInTheDocument();
   });
 });
 

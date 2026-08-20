@@ -258,26 +258,90 @@
   .body-xl + .body-xl {
     margin-top: 20px;
   }
-  .measure {
-    max-width: 38rem;
-  }
-
   .nav-blur {
     background: var(--nav-bg);
     backdrop-filter: blur(12px);
   }
 
   .hero-h1 {
-    font-size: clamp(38px, 4.5vw, 64px);
-    font-weight: 480;
+    font-size: clamp(40px, 5vw, 74px);
+    font-weight: 520;
     line-height: 1.06;
-    letter-spacing: -0.033em;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
   /* Positioning context for the hero mark; the page ground itself stays plain. */
   .hero-atmosphere {
     overflow-x: clip;
     position: relative;
+  }
+
+  /* The wire, drawn: a hairline in the wide-screen margin that the scroll
+   * position draws from the hero to the close, with an 8px dot riding the
+   * tip. Owner-approved (2026-08-20) as a deliberate exception to the plain
+   * ground. Absent wherever scroll-driven animation, width, or motion
+   * preference cannot carry it; the fallback is the page as it was. */
+  .wire {
+    display: none;
+  }
+  @supports (animation-timeline: scroll()) {
+    @media (min-width: 1300px) and (prefers-reduced-motion: no-preference) {
+      .wire {
+        display: block;
+        position: absolute;
+        top: 24px;
+        bottom: 24px;
+        left: calc((100% - 1200px) / 2 - 44px);
+        width: 1px;
+        background: hsl(var(--outline-variant));
+      }
+      .wire-progress {
+        position: absolute;
+        inset: 0;
+        background: hsl(var(--on-surface-variant));
+        transform-origin: top;
+        animation: wire-draw linear both;
+        animation-timeline: scroll(root);
+      }
+      .wire-dot {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 0;
+        height: calc(100% - 8px);
+        animation: wire-ride linear both;
+        animation-timeline: scroll(root);
+      }
+      .wire-dot::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: hsl(var(--on-surface));
+      }
+      @keyframes wire-draw {
+        from {
+          transform: scaleY(0);
+        }
+      }
+      @keyframes wire-ride {
+        to {
+          transform: translateY(100%);
+        }
+      }
+    }
+  }
+
+  /* Without JS the receipts button is a dead control; the sentence alone is
+   * the honest no-JS experience. */
+  .receipts-toggle {
+    display: none;
+  }
+  .js .receipts-toggle {
+    display: inline;
   }
   .hero-mark {
     position: absolute;
@@ -294,11 +358,19 @@
     display: block;
   }
   /* Small screens keep a quieter mark instead of losing the brand artwork:
-   * it sits behind the z-[1] hero text and the ink tokens are already faint. */
+   * it sits behind the z-[1] hero text and the ink tokens are already faint.
+   * Tablet gets a middle step so the mark does not fall to icon size while
+   * the h1 leaves a broad empty shoulder beside it. */
   @media (max-width: 899px) {
     .hero-mark {
-      top: 18px;
+      top: 24px;
       right: -10px;
+      width: clamp(128px, 22vw, 200px);
+    }
+  }
+  @media (max-width: 639px) {
+    .hero-mark {
+      top: 18px;
       width: 128px;
     }
   }
@@ -414,8 +486,31 @@
   .window-frame .led {
     position: relative;
   }
+  /* The product names reward the same curiosity the window frames do. */
+  .product-title .led {
+    position: relative;
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .product-title:hover .led::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      animation: pulse-ring 1.8s var(--ease-emph) infinite;
+    }
+    .product-title:hover .led-noctis::after {
+      border-color: var(--led-noctis);
+    }
+    .product-title:hover .led-aria2t::after {
+      border-color: var(--led-aria2t);
+    }
+  }
+  /* 139% puts the clipped right edge at ~x921 of the 1280px capture, inside
+   * the SIZE/SPEED gutter that is ink-free in both themes, so no column or
+   * key-bar hint is cut mid-glyph. */
   .window-zoom img {
-    width: 150%;
+    width: 139%;
     max-width: none;
   }
 
@@ -452,6 +547,11 @@
   .practice-row:last-child {
     border-bottom: 1px solid hsl(var(--outline-variant));
   }
+  @media (min-width: 768px) {
+    .practice-row {
+      grid-template-columns: 260px minmax(0, 1fr);
+    }
+  }
   @media (min-width: 900px) {
     .practice-row {
       grid-template-columns: 340px minmax(0, 1fr);
@@ -473,8 +573,17 @@
     scroll-margin-top: 88px;
   }
   @media (min-width: 900px) {
+    /* The rows subgrid onto one shared track set so a long status widens the
+     * third column for every row instead of squeezing only its own body. The
+     * 210px first track nets to 190px inside the row's 20px edge padding. */
+    .ledger {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr) auto;
+      column-gap: 40px;
+    }
     .ledger-row {
-      grid-template-columns: 190px minmax(0, 1fr) auto;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
       align-items: baseline;
     }
     .ledger-row .status {
@@ -485,6 +594,34 @@
   .ledger-row:target,
   .floor-item:target {
     background: hsl(var(--secondary-container) / 0.45);
+  }
+  /* A followed clause link lands with a settle: the tint holds raised while
+   * the fragment scroll is still travelling, then relaxes to the resting
+   * highlight, so the addressed row is findable even mid-page. Reduced motion
+   * keeps the instant tint above. */
+  @keyframes clause-settle {
+    0%,
+    45% {
+      background-color: hsl(var(--secondary-container) / 0.9);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ledger-row:target,
+    .floor-item:target {
+      animation: clause-settle 1300ms var(--ease-emph);
+    }
+    /* Arrival choreography: while the addressed clause settles, its siblings
+     * hold back for the same beat, scoped to the clause's own group. */
+    .ledger:has(.ledger-row:target) .ledger-row:not(:target),
+    ul:has(> .floor-item:target) .floor-item:not(:target) {
+      animation: hold-back 1300ms var(--ease-emph);
+    }
+  }
+  @keyframes hold-back {
+    0%,
+    45% {
+      opacity: 0.55;
+    }
   }
   .floor-item:target {
     border-radius: 16px;
@@ -598,8 +735,10 @@
   }
 
   @media print {
+    /* :not(.light) matches the runtime dark selector's 0-3-0 specificity, so
+     * this later block wins and a dark-mode visitor still prints on white. */
     :root,
-    :root.dark,
+    :root.dark:not(.light),
     :root[data-theme='dark'] {
       --background: 0 0% 100%;
       --on-surface: 220 15% 10%;
@@ -616,8 +755,10 @@
       position: static;
     }
     .hero-mark,
-    .anchor {
-      display: none;
+    .anchor,
+    .wire,
+    .receipts-toggle {
+      display: none !important;
     }
     .window-frame,
     .node-card {

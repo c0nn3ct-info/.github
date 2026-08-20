@@ -1,6 +1,5 @@
 export const ORG_URL = 'https://github.com/c0nn3ct-info';
 export const CONTACT_MAILTO = 'mailto:hello@c0nn3ct.info';
-export const SITE_URL = 'https://c0nn3ct.info';
 export const NOCTIS_SITE = 'https://noctis.c0nn3ct.info';
 export const ARIA2T_SITE = 'https://aria2t.c0nn3ct.info';
 export const NOCTIS_STORE =

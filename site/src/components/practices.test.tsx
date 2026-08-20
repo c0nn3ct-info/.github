@@ -13,19 +13,31 @@ describe('Practices', () => {
     );
   });
 
+  it('speaks as "we" in every title, so the list has one voice', () => {
+    render(<Practices />);
+    for (const tab of screen.getAllByRole('tab')) {
+      // The ordinal leads, then the title; the title is what must say "we".
+      const title = tab.textContent?.replace(/^\d+/, '') ?? '';
+      expect({ title, we: title.trim().startsWith('We ') || title.includes('we ') }).toEqual({
+        title,
+        we: true,
+      });
+    }
+  });
+
   it('follows the pointer', async () => {
     render(<Practices />);
-    await userEvent.hover(screen.getByRole('tab', { name: /Remove as carefully as we add/ }));
+    await userEvent.hover(screen.getByRole('tab', { name: /We test against the real thing/ }));
     expect(screen.getByRole('tabpanel')).toHaveTextContent(
-      'Software grows heavier by accumulation',
+      'tests that only confirm what we already believed',
     );
     expect(screen.getByRole('tabpanel')).toHaveTextContent('05');
   });
 
   it('commits on a click', async () => {
     render(<Practices />);
-    await userEvent.click(screen.getByRole('tab', { name: /Build on work that already holds up/ }));
-    expect(screen.getByRole('tab', { name: /Build on work/ })).toHaveAttribute(
+    await userEvent.click(screen.getByRole('tab', { name: /We build on work that already holds up/ }));
+    expect(screen.getByRole('tab', { name: /We build on work/ })).toHaveAttribute(
       'aria-selected',
       'true',
     );

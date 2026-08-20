@@ -16,7 +16,7 @@ describe('Promises', () => {
     const items = screen.getAllByRole('listitem');
     expect(items).toHaveLength(4);
     expect(screen.getByRole('heading', { name: "It's yours, and it stays yours" })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'We answer for our own mistakes' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'It keeps working if we stop' })).toBeInTheDocument();
     expect(items[3]).toHaveTextContent('04');
   });
 

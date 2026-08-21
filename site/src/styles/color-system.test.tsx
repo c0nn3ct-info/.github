@@ -47,9 +47,11 @@ describe('product colour', () => {
   // the row background and the title's weight, all achromatic, so a reader who
   // cannot separate the two hues still sees which row is open.
   it('never spends the product hue on selection state', () => {
+    // The marker moved off the selected row and onto the list when it learned
+    // to travel; what it must not do is take the product's colour with it.
     const marker = CSS.slice(
-      CSS.indexOf(".rail-btn[aria-selected='true']::before"),
-      CSS.indexOf('}', CSS.indexOf(".rail-btn[aria-selected='true']::before")),
+      CSS.indexOf('.rail-list::before'),
+      CSS.indexOf('}', CSS.indexOf('.rail-list::before')),
     );
     expect(marker).toContain('background: hsl(var(--on-surface))');
     expect(marker).not.toContain('--led');

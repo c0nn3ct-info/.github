@@ -35,7 +35,9 @@ export function Promises() {
           </a>
         </div>
 
-        <ul className="grid gap-4 min-[900px]:col-span-7 min-[900px]:grid-cols-2 min-[900px]:grid-rows-2">
+        <ul
+          className="grid gap-4 min-[900px]:col-span-7 min-[900px]:grid-cols-2 min-[900px]:grid-rows-2"
+        >
           {FLOOR.map((k, i) => (
             <li
               className="flex flex-col rounded-lg border border-outline-variant bg-surface-container-low p-5"

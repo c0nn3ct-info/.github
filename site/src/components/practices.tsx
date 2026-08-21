@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Arrow } from '@/components/arrow';
 import { nextIndex } from '@/lib/roving';
 import { t } from '../i18n';
@@ -11,6 +11,29 @@ const HABITS = ['p1', 'p2', 'p3', 'p4', 'p5'] as const;
 export function Practices() {
   const [i, setI] = useState(0);
   const list = useRef<HTMLDivElement>(null);
+  const [panel, setPanel] = useState<HTMLDivElement | null>(null);
+  const shown = useRef(i);
+
+  // The panel follows the pointer, so this is a preview rather than a
+  // committed choice, and it used to change with a hard cut: sweeping the five
+  // habits strobed the card. It dips instead of blinking, from 0.45 rather
+  // than from nothing, so a fast sweep reads as the panel tracking the pointer
+  // and a single deliberate move reads as a soft arrival. No movement, because
+  // a preview that slides would be five slides on the way past.
+  useEffect(() => {
+    if (!panel || i === shown.current) {
+      shown.current = i;
+      return;
+    }
+    shown.current = i;
+    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+    for (const el of panel.querySelectorAll('[data-swap]')) {
+      // `ease` rather than `ease-out` for a crossfade: nothing is entering or
+      // leaving, one reading replaces another, and the gentler curve keeps a
+      // fast sweep down the list from feeling like five separate hits.
+      el.animate([{ opacity: 0.45 }, { opacity: 1 }], { duration: 160, easing: 'ease' });
+    }
+  }, [panel, i]);
 
   const onKeyDown = (e: KeyboardEvent) => {
     const n = nextIndex(e.key, i, HABITS.length);
@@ -26,7 +49,9 @@ export function Practices() {
       aria-labelledby="how-h"
       className="page-pad flex min-h-[100svh] flex-col justify-center gap-[var(--gap-band)] border-y border-outline-variant bg-surface py-16"
     >
-      <div className="page-col flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+      <div
+        className="page-col flex flex-wrap items-end justify-between gap-x-10 gap-y-5"
+      >
         <h2
           id="how-h"
           className="m-0 text-balance text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[var(--track-display)]"
@@ -74,19 +99,23 @@ export function Practices() {
         </div>
 
         <div
+          ref={setPanel}
           className="block-card flex flex-col justify-between p-6"
           id="practice-panel"
           role="tabpanel"
           aria-labelledby={`habit-${HABITS[i]}`}
           tabIndex={-1}
         >
-          <span className="text-[clamp(72px,9vw,150px)] font-bold leading-[0.8] tracking-[var(--track-display)]">
+          <span
+            data-swap
+            className="text-[clamp(72px,9vw,150px)] font-bold leading-[0.8] tracking-[var(--track-display)]"
+          >
             {`0${i + 1}`}
           </span>
-          <p className="m-0 text-pretty text-[15px] leading-normal text-on-block-dim">
+          <p data-swap className="m-0 text-pretty text-[15px] leading-normal text-on-block-dim">
             {t(`home.how.${HABITS[i]}_b`)}
           </p>
-          <span aria-hidden className="block-ring" />
+          <span aria-hidden data-loop className="block-ring" />
         </div>
       </div>
     </section>

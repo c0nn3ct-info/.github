@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { describe, expect, it } from 'vitest';
 import { render, screen, userEvent } from '../test/render';
+import { animations, fireResize, setReducedMotion } from '../test/setup';
 import { Work, type Project } from './work';
 
 /** The page owns the choice, so the harness does too. */
@@ -48,6 +49,122 @@ describe('Work rail', () => {
     screen.getAllByRole('tab')[0].focus();
     await userEvent.keyboard('{End}');
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'noctis');
+  });
+});
+
+describe('Work rail marker', () => {
+  /** jsdom has no layout, so the rows are given boxes to be measured from. */
+  function measure(container: HTMLElement, height = 78) {
+    container.querySelectorAll<HTMLElement>('[role="tab"]').forEach((row, i) => {
+      Object.defineProperty(row, 'offsetTop', {
+        value: i * height,
+        configurable: true,
+      });
+      Object.defineProperty(row, 'offsetHeight', {
+        value: height,
+        configurable: true,
+      });
+    });
+  }
+  const mark = (container: HTMLElement) => {
+    const list = container.querySelector<HTMLElement>('.rail-list')!;
+    return [list.style.getPropertyValue('--mark-y'), list.style.getPropertyValue('--mark-h')];
+  };
+
+  // The marker used to be a ::before on whichever row was selected, destroyed
+  // on one row and created on another, so the selection teleported.
+  it('travels to the row that is open', async () => {
+    const { container } = render(<Harness />);
+    measure(container);
+    fireResize();
+    expect(mark(container)).toEqual(['0px', '78']);
+    await userEvent.click(screen.getByRole('tab', { name: /the workshop/ }));
+    expect(mark(container)).toEqual(['156px', '78']);
+  });
+
+  // A row wraps its name at a narrow width, and the marker has to match its
+  // length without waiting for the next selection.
+  it('follows a row that changes height under it', () => {
+    const { container } = render(<Harness />);
+    measure(container, 78);
+    fireResize();
+    expect(mark(container)).toEqual(['0px', '78']);
+    measure(container, 104);
+    fireResize();
+    expect(mark(container)).toEqual(['0px', '104']);
+  });
+
+  it('stays put when there is no open row to measure', () => {
+    const { container } = render(<Harness />);
+    const list = container.querySelector<HTMLElement>('.rail-list')!;
+    list.querySelectorAll('[role="tab"]').forEach((r) => r.setAttribute('aria-selected', 'false'));
+    expect(() => fireResize()).not.toThrow();
+    expect(mark(container)).toEqual(['0px', '0']);
+  });
+});
+
+describe('Work swap', () => {
+  /** The translateY the pane entered from, or null if it did not animate. */
+  const entry = () => {
+    const a = animations.at(-1);
+    return a ? String(a.keyframes[0].transform) : null;
+  };
+
+  // Choosing a product replaced the whole pane with no acknowledgement at all:
+  // a different capture, name, sentence and set of facts simply appeared.
+  it('acknowledges a swap, entering from the direction the rail moved', async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    expect(entry()).toBe('translateY(10px)');
+    await userEvent.click(screen.getByRole('tab', { name: /noctis/ }));
+    expect(entry()).toBe('translateY(-10px)');
+  });
+
+  // The animation rides a stable wrapper instead of a remounted pane. Keying
+  // the pane on the product would restart it cleanly but tear the capture out
+  // of the document and put a fresh one back, which flashes.
+  it('runs on a wrapper that survives the swap', async () => {
+    render(<Harness />);
+    const shot = screen.getByRole('img');
+    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    const target = animations.at(-1)?.target as HTMLElement;
+    expect(target).toContainElement(screen.getByRole('img'));
+    // React keeps both the wrapper and the image node, and swaps the source.
+    expect(screen.getByRole('img')).toBe(shot);
+    expect(shot).toHaveAttribute('src', '/media/aria2t-dark.png');
+    await userEvent.click(screen.getByRole('tab', { name: /noctis/ }));
+    expect(animations.at(-1)?.target).toBe(target);
+  });
+
+  it('lands on an already-visible resting state, so a failed script hides nothing', async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    expect(animations.at(-1)?.keyframes.at(-1)).toEqual({
+      opacity: 1,
+      transform: 'none',
+    });
+  });
+
+  it('is a routine state change, not a focal entrance', async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    const { duration, easing } = animations.at(-1)!.options;
+    expect(duration).toBeLessThanOrEqual(300);
+    expect(easing).toBe('cubic-bezier(0.16, 1, 0.3, 1)');
+  });
+
+  it('says nothing on first paint, because nothing was replaced', () => {
+    render(<Harness />);
+    expect(animations).toHaveLength(0);
+  });
+
+  it('stays still when the reader asked for reduced motion', async () => {
+    setReducedMotion(true);
+    render(<Harness />);
+    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    expect(animations).toHaveLength(0);
+    // The swap still happened; only its motion did not.
+    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'aria2t');
   });
 });
 

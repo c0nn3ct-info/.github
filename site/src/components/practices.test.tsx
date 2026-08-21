@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, userEvent } from '../test/render';
+import { animations, setReducedMotion } from '../test/setup';
 import { Practices } from './practices';
 
 describe('Practices', () => {
@@ -23,6 +24,33 @@ describe('Practices', () => {
     expect(panel).toHaveAccessibleName(/It starts as something we needed ourselves/);
     await userEvent.click(screen.getByRole('tab', { name: /We test against the real thing/ }));
     expect(panel).toHaveAccessibleName(/We test against the real thing/);
+  });
+
+  // The panel follows the pointer, so it is a preview, and it used to change
+  // with a hard cut: sweeping the five habits strobed the card.
+  it('dips rather than blinks when the panel follows the pointer', async () => {
+    render(<Practices />);
+    await userEvent.hover(screen.getByRole('tab', { name: /We test against the real thing/ }));
+    // Both halves of the card, the ordinal and the reasoning, move together.
+    expect(animations).toHaveLength(2);
+    expect(animations[0].keyframes).toEqual([{ opacity: 0.45 }, { opacity: 1 }]);
+    expect(animations[0].options.duration).toBe(160);
+  });
+
+  it('says nothing on first paint, and nothing when the same habit is re-entered', async () => {
+    render(<Practices />);
+    expect(animations).toHaveLength(0);
+    const first = screen.getAllByRole('tab')[0];
+    await userEvent.hover(first);
+    expect(animations).toHaveLength(0);
+  });
+
+  it('changes without moving when the reader asked for reduced motion', async () => {
+    setReducedMotion(true);
+    render(<Practices />);
+    await userEvent.click(screen.getByRole('tab', { name: /We test against the real thing/ }));
+    expect(animations).toHaveLength(0);
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('05');
   });
 
   it('speaks as "we" in every title, so the list has one voice', () => {

@@ -21,7 +21,7 @@ function Run({ hidden }: { hidden?: boolean }) {
 export function Marquee() {
   return (
     <div className="marquee" role="group" aria-label={t('home.strip.aria')}>
-      <div className="marquee-track">
+      <div className="marquee-track" data-loop>
         <Run />
         <Run hidden />
       </div>

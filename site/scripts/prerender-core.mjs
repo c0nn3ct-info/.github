@@ -294,6 +294,15 @@ export async function main() {
           // The theme class mirrors the capturing browser's color scheme, not
           // the visitor's; the shell's inline script re-adds the right one.
           document.documentElement.classList.remove('dark', 'light');
+          // The loop pauser writes animation-play-state onto whatever is off
+          // screen, and at capture time most of the page is. Serialized, that
+          // ships every visitor a paused marquee until their own observer
+          // corrects it, and under reduced motion the pauser returns early and
+          // never would.
+          for (const el of document.querySelectorAll('[data-loop]')) {
+            el.style.removeProperty('animation-play-state');
+            if (!el.getAttribute('style')) el.removeAttribute('style');
+          }
           // Serialization merges adjacent text nodes, which hydrateRoot then
           // cannot split back (React #425). renderToString solves this with
           // empty comment separators between text nodes; emit the same.

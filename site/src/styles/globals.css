@@ -34,9 +34,9 @@
     font-weight: 400 800;
     font-display: swap;
     src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-      U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-      U+FEFF, U+FFFD;
+    unicode-range:
+      U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+      U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
   @font-face {
     font-family: 'JetBrains Mono';
@@ -80,8 +80,9 @@
   @font-face {
     font-family: 'JetBrains Fallback';
     src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono');
-    unicode-range: U+0000-036F, U+0400-045F, U+0490-0491, U+04B0-04B1, U+1E00-1EFF,
-      U+2000-2BFF, U+A720-A7FF, U+FB00-FB4F;
+    unicode-range:
+      U+0000-036F, U+0400-045F, U+0490-0491, U+04B0-04B1, U+1E00-1EFF, U+2000-2BFF, U+A720-A7FF,
+      U+FB00-FB4F;
     size-adjust: 100%;
     ascent-override: 102%;
     descent-override: 30%;
@@ -151,8 +152,8 @@
 
     --shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 3px 1px rgb(0 0 0 / 0.03);
     --shadow-2: 0 1px 2px 0 rgb(0 0 0 / 0.08), 0 2px 6px 2px rgb(0 0 0 / 0.04);
-    --shadow-3: 0 4px 8px 3px rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.10);
-    --shadow-4: 0 6px 10px 4px rgb(0 0 0 / 0.08), 0 2px 3px 0 rgb(0 0 0 / 0.10);
+    --shadow-3: 0 4px 8px 3px rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    --shadow-4: 0 6px 10px 4px rgb(0 0 0 / 0.08), 0 2px 3px 0 rgb(0 0 0 / 0.1);
 
     /* M3 tone-based surfaces. The light set is the design's palette exactly. */
     --background: 220 25% 99%;
@@ -621,7 +622,21 @@
     opacity: 1;
     background: rgb(128 128 128 / 0.22);
   }
+  /* A menu that appears with no opening reads as a rendering glitch rather than
+   * as something the button did. It grows from the corner it hangs off. */
+  @media (prefers-reduced-motion: no-preference) {
+    .lang-menu {
+      animation: menu-open 160ms var(--ease-emph-decel);
+    }
+  }
+  @keyframes menu-open {
+    from {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.97);
+    }
+  }
   .lang-menu {
+    transform-origin: 100% 0;
     position: absolute;
     inset-inline-end: 0;
     top: 44px;
@@ -632,6 +647,9 @@
     border: 1px solid hsl(var(--outline-variant));
     box-shadow: 0 20px 52px rgb(0 0 0 / 0.32);
     z-index: 60;
+  }
+  [dir='rtl'] .lang-menu {
+    transform-origin: 0 0;
   }
   .lang-menu a {
     display: block;
@@ -969,13 +987,32 @@
     background: hsl(var(--surface-container-low));
   }
   /* Logical inline marker, so the selected rail reads correctly under rtl. */
-  .rail-btn[aria-selected='true']::before {
+  /* The marker used to be a ::before on whichever row was selected, so it was
+   * destroyed on one row and created on another: the selection teleported. One
+   * marker on the list travels instead, which is the same move the pane makes
+   * beside it and in the same direction.
+   *
+   * It is 1px tall and scaled rather than resized, so both the position and the
+   * length ride a transform and neither costs layout. transform-origin sits at
+   * the top so the scale grows downward from the row's own top edge. */
+  .rail-list {
+    position: relative;
+  }
+  .rail-list::before {
     content: '';
     position: absolute;
-    inset-block: -1px;
     inset-inline-start: 0;
+    top: 0;
     width: 3px;
+    height: 1px;
     background: hsl(var(--on-surface));
+    transform: translateY(var(--mark-y, 0)) scaleY(var(--mark-h, 0));
+    transform-origin: 0 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .rail-list::before {
+      transition: transform 280ms var(--ease-emph);
+    }
   }
   /* Dimming the whole ordinal to 0.4 dragged --faint-ink to 1.63:1 on white,
    * and would have taken the lamp under its 3:1 floor with it. The figures

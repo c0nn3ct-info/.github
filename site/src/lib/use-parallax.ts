@@ -13,6 +13,10 @@ export function useParallax(ref: RefObject<HTMLElement | null>): void {
     const clamp = (v: number) => Math.max(-0.5, Math.min(0.5, v));
     const onMove = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
+      // The listener is on the window, so it also fires while the reader is
+      // four sections further down. Two custom properties written onto the
+      // stage would invalidate style on a hero nobody is looking at.
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
       el.style.setProperty('--px', String(clamp((e.clientX - r.left) / r.width - 0.5)));
       el.style.setProperty('--py', String(clamp((e.clientY - r.top) / r.height - 0.5)));
     };

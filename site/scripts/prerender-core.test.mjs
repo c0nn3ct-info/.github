@@ -264,7 +264,14 @@ describe('main', () => {
     // The capturing browser's own color scheme lands on <html>; the cleanup
     // must strip it so a light-system visitor never inherits `dark`.
     document.documentElement.classList.add('dark');
-    document.body.innerHTML = '<div id="root"><p>hydrated</p></div>';
+    // The loop pauser writes animation-play-state onto whatever is off screen,
+    // and at capture time most of the page is. Left in, every visitor is served
+    // a paused marquee; under reduced motion the pauser never clears it.
+    document.body.innerHTML =
+      '<div id="root">' +
+      '<span data-loop style="animation-play-state: paused"></span>' +
+      '<span data-loop style="animation-play-state: paused; color: red"></span>' +
+      '<p>hydrated</p></div>';
     // Two adjacent text nodes, as React renders around an expression child;
     // the serializer must fence them so hydration can split them again.
     document.querySelector('p').appendChild(document.createTextNode('!'));
@@ -281,6 +288,13 @@ describe('main', () => {
     expect(home).toContain('rel="canonical"');
     // The capture's own theme class is gone, so the shipped page hydrates clean.
     expect(document.documentElement.classList.contains('dark')).toBe(false);
+    // Both loops ship running. The one that had nothing else in its style
+    // attribute loses the attribute too, rather than shipping an empty one.
+    expect(home).not.toContain('animation-play-state');
+    const loops = [...document.querySelectorAll('[data-loop]')].map((el) =>
+      el.getAttribute('style'),
+    );
+    expect(loops).toEqual([null, 'color: red;']);
     expect(home).toContain('hydrated<!---->!');
     expect(launch).toHaveBeenCalledWith({ headless: true });
     expect(closed.server).toBe(1);

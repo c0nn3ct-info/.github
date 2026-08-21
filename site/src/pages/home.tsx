@@ -5,6 +5,7 @@ import { Practices } from '@/components/practices';
 import { Promises } from '@/components/promises';
 import { Talk } from '@/components/talk';
 import { Work, type Project } from '@/components/work';
+import { useIdleLoops } from '@/lib/use-loops';
 import { useSectionSettle } from '@/lib/use-settle';
 import { Layout } from '../layout';
 
@@ -13,6 +14,9 @@ export function HomePage() {
   // lives above both of them.
   const [project, setProject] = useState<Project>('noctis');
   useSectionSettle();
+  // The workshop pane brings two more loops with it, so the set is gathered
+  // again whenever the open product changes.
+  useIdleLoops(project);
   return (
     <Layout home>
       <main className="flex-1">

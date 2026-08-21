@@ -77,7 +77,7 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
             strokeWidth="1.25"
             strokeDasharray="1400"
           />
-          <circle className="wire-dot" r="4.5" />
+          <circle className="wire-dot" data-loop r="4.5" />
         </svg>
 
         {/* The wordmark is the brand as scenery, not as text to read. */}
@@ -89,6 +89,7 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
           <circle cx="400" cy="400" r="392" fill="none" stroke="#fff" strokeOpacity=".22" strokeWidth="1" />
           <circle
             className="ring-dash"
+            data-loop
             cx="400"
             cy="400"
             r="330"

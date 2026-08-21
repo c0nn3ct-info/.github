@@ -16,10 +16,10 @@ export function Talk() {
         className="absolute inset-0 bg-[radial-gradient(58%_62%_at_82%_16%,rgb(var(--glow-noctis)/0.2),transparent_70%)]"
       />
       <div className="page-col relative grid items-end gap-x-5 gap-y-7 min-[900px]:grid-cols-12">
-        <div className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-7">
-          <span className="eyebrow text-white/60">
-            {t('home.talk.eyebrow')}
-          </span>
+        <div
+          className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-7"
+        >
+          <span className="eyebrow text-white/60">{t('home.talk.eyebrow')}</span>
           <h2
             id="contact-h"
             className="m-0 text-balance text-[clamp(30px,3.6vw,54px)] font-[580] leading-[1.04] tracking-[var(--track-display)]"
@@ -33,7 +33,9 @@ export function Talk() {
           </a>
         </div>
 
-        <div className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-5">
+        <div
+          className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-5"
+        >
           <span className="tag text-white/50">{t('home.talk.lines_head')}</span>
           {LINES.map((k) => (
             <a className="talk-line" href={mailto(t(`mail.${k}`))} key={k}>

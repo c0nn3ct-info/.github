@@ -10,10 +10,11 @@ export function Promises() {
     <section
       id="settled"
       aria-labelledby="settled-h"
+      data-enter-section
       className="page-pad flex min-h-[100svh] flex-col justify-center py-16"
     >
       <div className="page-col grid gap-[var(--gap-part)] min-[900px]:grid-cols-12">
-        <div className="block-card flex flex-col p-7 min-[900px]:col-span-5">
+        <div data-enter className="block-card flex flex-col p-7 min-[900px]:col-span-5">
           <span className="eyebrow text-on-block-faint">{t('home.floor.eyebrow')}</span>
           <h2
             id="settled-h"
@@ -36,6 +37,7 @@ export function Promises() {
         </div>
 
         <ul
+          data-enter-stagger="wipe"
           className="grid gap-4 min-[900px]:col-span-7 min-[900px]:grid-cols-2 min-[900px]:grid-rows-2"
         >
           {FLOOR.map((k, i) => (

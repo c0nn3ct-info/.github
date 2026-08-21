@@ -212,6 +212,25 @@ export function setPageHidden(hidden: boolean): void {
 window.IntersectionObserver = IntersectionObserverShim as unknown as typeof IntersectionObserver;
 globalThis.IntersectionObserver = window.IntersectionObserver;
 
+// ── CSS.supports ─────────────────────────────────────────────────────────────
+// The entrances are a scroll-driven CSS animation where `view()` timelines
+// exist and a JS fallback where they do not, and jsdom answers `supports` too
+// generously to tell the two apart on its own.
+let viewTimelines = false;
+
+/** Choose which entrance path is live for this test. */
+export function setScrollDriven(on: boolean): void {
+  viewTimelines = on;
+}
+
+if (typeof CSS === 'undefined') {
+  (globalThis as { CSS?: unknown }).CSS = {};
+}
+CSS.supports = ((property: string, value?: string) =>
+  property === 'animation-timeline' || value === 'view()'
+    ? viewTimelines
+    : false) as typeof CSS.supports;
+
 // ── ResizeObserver ───────────────────────────────────────────────────────────
 // jsdom has none, and the rail's marker follows its rows with one. jsdom also
 // has no layout, so the shim never fires on its own; a test drives it.
@@ -257,5 +276,6 @@ afterEach(() => {
   animations.length = 0;
   observers.clear();
   resizers.clear();
+  viewTimelines = false;
   Object.defineProperty(document, 'hidden', { value: false, configurable: true });
 });

@@ -47,9 +47,11 @@ export function Practices() {
     <section
       id="how"
       aria-labelledby="how-h"
+      data-enter-section
       className="page-pad flex min-h-[100svh] flex-col justify-center gap-[var(--gap-band)] border-y border-outline-variant bg-surface py-16"
     >
       <div
+        data-enter
         className="page-col flex flex-wrap items-end justify-between gap-x-10 gap-y-5"
       >
         <h2
@@ -70,6 +72,7 @@ export function Practices() {
 
       <div className="page-col grid items-stretch gap-[var(--gap-part)] [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(0,1fr)_minmax(240px,0.44fr)]">
         <div
+          data-enter-stagger="wipe"
           className="flex flex-col"
           role="tablist"
           aria-label={t('home.how.list_aria')}
@@ -100,6 +103,7 @@ export function Practices() {
 
         <div
           ref={setPanel}
+          data-enter
           className="block-card flex flex-col justify-between p-6"
           id="practice-panel"
           role="tabpanel"

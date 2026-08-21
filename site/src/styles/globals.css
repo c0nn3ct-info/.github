@@ -100,6 +100,10 @@
     --ease-emph: cubic-bezier(0.2, 0, 0, 1);
     --ease-emph-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
     --ease-pane: cubic-bezier(0.27, 1.06, 0.18, 1);
+    /* Everything that arrives is timed on this one: a strong ease-out, so the
+     * motion is quickest at the moment the reader's eye lands on it. Read from
+     * here by src/lib/ease.ts rather than retyped into each animation. */
+    --ease-enter: cubic-bezier(0.23, 1, 0.32, 1);
     --dur-x-short: 80ms;
     --dur-short: 120ms;
     --dur-med: 250ms;
@@ -1243,6 +1247,67 @@
   @media (prefers-reduced-motion: no-preference) {
     .lightbox img {
       animation: pop-in 420ms var(--ease-emph-decel);
+    }
+  }
+
+  /* ── section entrances ─────────────────────────────────────────────────────
+   *
+   * Tied to where the element is, not to a clock. A fixed 440ms timeline had
+   * no relationship to the scroll: measured at an ordinary wheel speed, every
+   * entrance began around 1100px below the fold and finished above the top of
+   * the screen, so whatever the reader caught was an arbitrary phase of it that
+   * then snapped to done. That decoupling is what read as jerky, and no amount
+   * of easing fixes it, because the eye is tracking position and the animation
+   * was tracking time.
+   *
+   * A view() timeline makes progress a function of position instead. Scroll
+   * fast, slow, or stop, and the element is always at exactly the state its
+   * place on screen calls for. The cascade down a list stops being a stack of
+   * timed delays and becomes what it looks like: each row arriving as it gets
+   * there.
+   *
+   * Transform and opacity only, both composited, because the standards are
+   * right that everything else pays in paint. The mask reveal this replaced
+   * looked better in a still frame and cost a paint layer per element to run.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      [data-enter],
+      [data-enter-stagger] > * {
+        animation: enter-rise linear both;
+        animation-timeline: view();
+        /* Measured against the whole overlap rather than the element's own
+         * height, so a tall pane and a short row take a comparable run of
+         * scroll instead of the big one crawling. */
+        animation-range: cover 0% cover 22%;
+      }
+      /* A sequence arrives along the line it is read on. */
+      [data-enter='wipe'],
+      [data-enter-stagger='wipe'] > * {
+        animation-name: enter-line;
+      }
+    }
+  }
+  @keyframes enter-rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.985);
+    }
+  }
+  @keyframes enter-line {
+    from {
+      opacity: 0;
+      transform: translateX(-14px);
+    }
+  }
+  [dir='rtl'] [data-enter='wipe'],
+  [dir='rtl'] [data-enter-stagger='wipe'] > * {
+    animation-name: enter-line-rtl;
+  }
+  @keyframes enter-line-rtl {
+    from {
+      opacity: 0;
+      transform: translateX(14px);
     }
   }
 

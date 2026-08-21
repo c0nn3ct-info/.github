@@ -9,6 +9,7 @@ export function Talk() {
     <section
       id="contact"
       aria-labelledby="contact-h"
+      data-enter-section
       className="stage-slab page-pad relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-stage pb-20 pt-24 text-white"
     >
       <div
@@ -17,6 +18,7 @@ export function Talk() {
       />
       <div className="page-col relative grid items-end gap-x-5 gap-y-7 min-[900px]:grid-cols-12">
         <div
+          data-enter
           className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-7"
         >
           <span className="eyebrow text-white/60">{t('home.talk.eyebrow')}</span>
@@ -34,6 +36,7 @@ export function Talk() {
         </div>
 
         <div
+          data-enter-stagger="wipe"
           className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-5"
         >
           <span className="tag text-white/50">{t('home.talk.lines_head')}</span>

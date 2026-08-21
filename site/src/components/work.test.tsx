@@ -150,7 +150,8 @@ describe('Work swap', () => {
     await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
     const { duration, easing } = animations.at(-1)!.options;
     expect(duration).toBeLessThanOrEqual(300);
-    expect(easing).toBe('cubic-bezier(0.16, 1, 0.3, 1)');
+    // The same curve the page's entrances use, read from the same token.
+    expect(easing).toBe('ease-out');
   });
 
   it('says nothing on first paint, because nothing was replaced', () => {

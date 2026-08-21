@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Arrow } from '@/components/arrow';
+import { enterEase } from '@/lib/ease';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
 import { Lightbox, type Shot } from '@/components/lightbox';
 import { nextIndex } from '@/lib/roving';
@@ -217,7 +218,7 @@ export function Work({ project, onPick }: WorkProps) {
         { opacity: 0, transform: `translateY(${to > from ? 10 : -10}px)` },
         { opacity: 1, transform: 'none' },
       ],
-      { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+      { duration: 260, easing: enterEase() },
     );
   }, [project]);
 
@@ -234,6 +235,7 @@ export function Work({ project, onPick }: WorkProps) {
     <section
       id="work"
       aria-labelledby="work-h"
+      data-enter-section
       /* Geometric centre reads low here, because the block's own weight sits
          under its top edge: the rail's three rows and the screenshot are dark
          mass, and the fact cards below them are mostly ground. The extra
@@ -246,7 +248,7 @@ export function Work({ project, onPick }: WorkProps) {
     >
       <div className="page-col grid items-start gap-6 [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(190px,236px)_minmax(0,1fr)]">
         <div className="flex flex-col min-[900px]:sticky min-[900px]:top-24">
-          <div className="flex items-baseline justify-between gap-2.5 pb-3">
+          <div data-enter className="flex items-baseline justify-between gap-2.5 pb-3">
             <h2
               id="work-h"
               className="m-0 text-balance text-[clamp(24px,2.6vw,34px)] font-semibold leading-none tracking-[var(--track-display)]"
@@ -257,6 +259,7 @@ export function Work({ project, onPick }: WorkProps) {
           </div>
 
           <div
+            data-enter-stagger="wipe"
             className="rail-list flex flex-col"
             role="tablist"
             aria-label={t('home.work.rail_aria')}
@@ -287,7 +290,7 @@ export function Work({ project, onPick }: WorkProps) {
             ))}
           </div>
 
-          <p className="note mt-4 text-on-surface-variant">
+          <p data-enter className="note mt-4 text-on-surface-variant">
             {t('home.work.note')}
           </p>
         </div>
@@ -302,7 +305,7 @@ export function Work({ project, onPick }: WorkProps) {
             section with 251px of dead air under it at 1440x900. Its natural
             height rides the section's own justify-center now, the same way
             #how and #settled do. */}
-        <div ref={pane} className="flex flex-col gap-[var(--gap-part)]">
+        <div ref={pane} data-enter className="flex flex-col gap-[var(--gap-part)]">
           <Pane project={project} onOpen={setShot} />
         </div>
       </div>

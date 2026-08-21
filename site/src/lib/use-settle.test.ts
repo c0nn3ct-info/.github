@@ -23,7 +23,7 @@ function stopAt(y: number) {
     setScrollY(y);
     vi.advanceTimersByTime(90);
   });
-  now += 200;
+  now += 300;
   act(() => {
     vi.advanceTimersByTime(90);
   });
@@ -71,11 +71,12 @@ describe('pickEdge', () => {
   });
 
   it('leaves an edge that is already met alone', () => {
-    expect(pickEdge([2, 900], 768)).toBeNull();
+    expect(pickEdge([6, 900], 768)).toBeNull();
   });
 
   it('leaves a deliberate stop mid-section alone', () => {
     expect(pickEdge([400], 768)).toBeNull();
+    expect(pickEdge([200], 768)).toBeNull(); // inside the old 40% band
   });
 
   it('picks the nearest edge on either side', () => {
@@ -107,7 +108,7 @@ describe('useSectionSettle', () => {
   });
 
   it('leaves a deliberate stop in the middle of a section alone', () => {
-    sections(500); // further than 40% of the 768px viewport
+    sections(200); // further than 18% of the 768px viewport
     renderHook(() => useSectionSettle());
     stopAt(300);
     expect(frames).toHaveLength(0);
@@ -120,7 +121,7 @@ describe('useSectionSettle', () => {
       setScrollY(300);
       vi.advanceTimersByTime(90);
     });
-    now += 50; // not yet the 150ms that counts as stopped
+    now += 200; // not yet the 260ms that counts as stopped
     act(() => {
       vi.advanceTimersByTime(90);
     });
@@ -150,7 +151,7 @@ describe('useSectionSettle', () => {
   });
 
   it('does not re-pull while a glide it just started is still landing', () => {
-    sections(20);
+    sections(120);
     renderHook(() => useSectionSettle());
     stopAt(300);
     frames = [];
@@ -159,7 +160,7 @@ describe('useSectionSettle', () => {
   });
 
   it('stops mid-glide when real input arrives', () => {
-    sections(200);
+    sections(120);
     renderHook(() => useSectionSettle());
     stopAt(300);
     frame(50);

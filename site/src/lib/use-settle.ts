@@ -7,11 +7,14 @@ export function easeInOutCubic(p: number): number {
 
 /** The section edge worth closing to, given every section's distance from the
  * viewport top. Null when the nearest edge is already met, or is far enough
- * away that stopping there was clearly deliberate. */
+ * away that stopping there was clearly deliberate. The 18% band is narrow on
+ * purpose: at 40% of the viewport almost every resting position was inside
+ * reach of some edge, so the closer read as scroll-snap rather than as a
+ * nudge. */
 export function pickEdge(tops: readonly number[], vh: number): number | null {
   let best: number | null = null;
   for (const top of tops) if (best === null || Math.abs(top) < Math.abs(best)) best = top;
-  if (best === null || Math.abs(best) < 3 || Math.abs(best) > vh * 0.4) return null;
+  if (best === null || Math.abs(best) < 8 || Math.abs(best) > vh * 0.18) return null;
   return best;
 }
 
@@ -62,7 +65,9 @@ export function useSectionSettle(): void {
     };
 
     // A position watcher rather than the scroll event: it settles the same way
-    // for wheel, keyboard, touch fling and programmatic jumps.
+    // for wheel, keyboard, touch fling and programmatic jumps. The 260ms of
+    // stillness has to outlast the pause between two wheel notches, or the
+    // closer fights a scroll that is still in progress.
     const watch = window.setInterval(() => {
       const y = window.scrollY;
       if (y !== watchY) {
@@ -70,7 +75,7 @@ export function useSectionSettle(): void {
         moved = performance.now();
         return;
       }
-      if (moved !== null && performance.now() - moved > 150) {
+      if (moved !== null && performance.now() - moved > 260) {
         moved = null;
         settle();
       }

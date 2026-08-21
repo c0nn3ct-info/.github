@@ -216,7 +216,7 @@ export function Work({ project, onPick }: WorkProps) {
                 tabIndex={p === project ? 0 : -1}
                 onClick={() => onPick(p)}
               >
-                <span className="ordinal">{`0${i + 1}`}</span>
+                <span className="ordinal" data-product={p}>{`0${i + 1}`}</span>
                 <span className="flex min-w-0 flex-col gap-0.5">
                   <span className="rail-name">{name(p)}</span>
                   <span className="tag text-on-surface-variant">

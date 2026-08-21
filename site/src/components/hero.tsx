@@ -12,18 +12,22 @@ const WIRE = 'M-20 640 C 220 640 240 300 480 300 S 760 470 1020 470';
  * the travelling, the click decides which product is waiting on arrival. */
 function IndexRow({
   ordinal,
+  product,
   name,
   status,
   onPick,
 }: {
   ordinal: string;
+  product: Project;
   name: string;
   status: string;
   onPick?: () => void;
 }) {
   const body = (
     <>
-      <span className="ordinal">{ordinal}</span>
+      <span className="ordinal" data-product={product}>
+        {ordinal}
+      </span>
       <span className="flex min-w-0 flex-col gap-1">
         <span
           className={`text-[clamp(19px,1.9vw,26px)] font-[560] leading-none tracking-[var(--track-title)] ${
@@ -129,18 +133,21 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
 
         <IndexRow
           ordinal="01"
+          product="noctis"
           name="noctis"
           status={t('home.index.noctis_status')}
           onPick={() => onPick('noctis')}
         />
         <IndexRow
           ordinal="02"
+          product="aria2t"
           name="aria2t"
           status={t('home.index.aria2t_status')}
           onPick={() => onPick('aria2t')}
         />
         <IndexRow
           ordinal="03"
+          product="next"
           name={t('home.index.next_name')}
           status={t('home.index.next_status')}
         />

@@ -479,11 +479,37 @@
   /* A position in a sequence, so it is the one label with figures in it. */
   .ordinal {
     @apply font-mono;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: var(--track-ordinal);
     font-variant-numeric: tabular-nums;
     color: var(--faint-ink);
+  }
+  /* The product coding used to appear only inside a product's own pane, which
+   * is the one place a reader cannot need it: nothing else is on screen to
+   * tell it apart from. It belongs to the two lists where all three sit
+   * together, so an ordinal that names a product carries that product's lamp.
+   *
+   * A lamp rather than tinted figures because of what the numbers say: the ink
+   * pair measures 4.23 and 4.25 on the index ground, under AA for text at this
+   * size, while a non-text mark needs 3 and the LED itself clears 3.65 in
+   * light and 6.12 in dark on every ground it lands on. */
+  .ordinal[data-product]::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--led);
+  }
+  /* Unlit, because nothing has shipped. Hollow rather than merely grey, so the
+   * one row that differs differs in shape as well as in colour. */
+  .ordinal[data-product='next']::before {
+    background: none;
+    box-shadow: inset 0 0 0 1.5px var(--led);
   }
   /* Supporting prose, set below body: the rail's note and the fact cards used
    * to be 13px and 13.5px respectively for no reason either could give. */
@@ -951,11 +977,12 @@
     width: 3px;
     background: hsl(var(--on-surface));
   }
-  .rail-btn .ordinal {
-    opacity: 0.4;
-  }
+  /* Dimming the whole ordinal to 0.4 dragged --faint-ink to 1.63:1 on white,
+   * and would have taken the lamp under its 3:1 floor with it. The figures
+   * carry the unselected state on their own colour instead, and the lamp keeps
+   * its contrast, because the product it names is true either way. */
   .rail-btn[aria-selected='true'] .ordinal {
-    opacity: 1;
+    color: hsl(var(--on-surface));
   }
   .rail-name {
     font-size: 22px;

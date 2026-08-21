@@ -28,17 +28,17 @@ export function Practices() {
       <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
         <h2
           id="how-h"
-          className="m-0 text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[-0.048em]"
+          className="m-0 text-balance text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[var(--track-display)]"
         >
           {t('home.how.h2_a')}
           <br />
           {t('home.how.h2_b')}
         </h2>
         <div className="flex max-w-[38ch] flex-col gap-2">
-          <p className="m-0 text-base leading-normal text-on-surface-variant">
+          <p className="m-0 text-pretty text-base leading-normal text-on-surface-variant">
             {t('home.how.intro')}
           </p>
-          <span className="eyebrow text-faint">{t('home.how.hint')}</span>
+          <span className="tag text-faint">{t('home.how.hint')}</span>
         </div>
       </div>
 
@@ -81,10 +81,10 @@ export function Practices() {
           aria-labelledby={`habit-${HABITS[i]}`}
           tabIndex={-1}
         >
-          <span className="text-[clamp(72px,9vw,150px)] font-bold leading-[0.8] tracking-[-0.07em]">
+          <span className="text-[clamp(72px,9vw,150px)] font-bold leading-[0.8] tracking-[var(--track-display)]">
             {`0${i + 1}`}
           </span>
-          <p className="m-0 text-[15px] leading-normal text-on-block-dim">
+          <p className="m-0 text-pretty text-[15px] leading-normal text-on-block-dim">
             {t(`home.how.${HABITS[i]}_b`)}
           </p>
           <span aria-hidden className="block-ring" />

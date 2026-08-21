@@ -6,6 +6,48 @@ export default {
   content: ['./src/**/*.{ts,tsx,html}', './pages/**/index.html'],
   theme: {
     extend: {
+      /* Four tiers, in this order: the webfont, its metric-matched local twin
+       * (range-limited in globals.css to what that webfont actually draws),
+       * the platform UI face for every script the webfont has no glyph for,
+       * then the named Arabic and CJK faces for platforms whose UI face does
+       * not cover them.
+       *
+       * The platform tier is what carries Russian, because Hanken Grotesk has
+       * no Cyrillic; leaving it out sent Russian body copy to Arial. The same
+       * tier is why `mono` is not the usual monospace list: a monospaced
+       * Arabic label reads worse than an unmonospaced one, so once JetBrains
+       * Mono runs out of glyphs the chain hands the text to a text face rather
+       * than to Courier New. `monospace` stays last as the backstop it is. */
+      fontFamily: {
+        sans: [
+          'Hanken Grotesk',
+          'Hanken Fallback',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Noto Sans Arabic',
+          'Geeza Pro',
+          'PingFang SC',
+          'Microsoft YaHei',
+          'Noto Sans CJK SC',
+          'sans-serif',
+        ],
+        mono: [
+          'JetBrains Mono',
+          'JetBrains Fallback',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Noto Sans Arabic',
+          'Geeza Pro',
+          'PingFang SC',
+          'Microsoft YaHei',
+          'Noto Sans CJK SC',
+          'monospace',
+        ],
+      },
       colors: {
         /* Page roles that are not M3 tones: the dark block card, the hero
          * stage, the AA-safe faint ink, and the per-product LED pair a

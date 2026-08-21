@@ -23,11 +23,11 @@ export function SiteHeader({ home }: { home: boolean }) {
         aria-label={t('nav.home_aria')}
       >
         <C0nn3ctMark className="h-[26px] w-[26px] flex-none" />
-        <span className="text-[15px] font-[560] tracking-[-0.02em]">c0nn3ct.info</span>
+        <span className="text-[15px] font-[560] tracking-[var(--track-name)]">c0nn3ct.info</span>
       </a>
 
       {home && (
-        <nav className="mono flex min-w-0 flex-1 basis-[220px] flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.14em]">
+        <nav className="tag flex min-w-0 flex-1 basis-[220px] flex-wrap items-center justify-center gap-x-6 gap-y-2">
           {SECTIONS.map(([href, key]) => (
             <a className="text-inherit hover:opacity-70" href={href} key={href}>
               {t(key)}

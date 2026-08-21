@@ -68,7 +68,7 @@ function Screen({ project, onOpen }: { project: Project; onOpen: (s: Shot) => vo
         />
         <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 p-6">
           <span className="eyebrow text-white/55">{t('home.work.next_eyebrow')}</span>
-          <span className="text-[clamp(19px,2.2vw,32px)] font-[580] leading-tight tracking-[-0.045em]">
+          <span className="text-balance text-[clamp(19px,2.2vw,32px)] font-[580] leading-tight tracking-[var(--track-display)]">
             {t('home.work.next_caption')}
             <span
               aria-hidden
@@ -118,15 +118,15 @@ function Pane({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void
             <div className="flex items-center gap-3">
               <C0nn3ctMark className="h-[34px] w-[34px] flex-none text-led" />
               <span className="flex min-w-0 flex-col gap-px">
-                <h3 className="m-0 text-[clamp(26px,3vw,42px)] font-[640] leading-[0.98] tracking-[-0.05em]">
+                <h3 className="m-0 text-[clamp(26px,3vw,42px)] font-[640] leading-[0.98] tracking-[var(--track-display)]">
                   {name(project)}
                 </h3>
-                <span className="mono text-[9px] font-bold uppercase tracking-[0.15em] text-led-ink">
+                <span className="tag text-led-ink">
                   {t(`home.work.${project}_own`)}
                 </span>
               </span>
             </div>
-            <p className="m-0 text-[clamp(16px,1.5vw,20px)] leading-snug tracking-[-0.02em]">
+            <p className="m-0 text-pretty text-[clamp(16px,1.5vw,20px)] leading-snug tracking-[var(--track-name)]">
               {t(`home.work.${project}_lead`)}
             </p>
             <div className="mt-auto flex flex-wrap items-center gap-x-1.5 gap-y-0.5 border-t border-outline-variant pt-2">
@@ -148,7 +148,7 @@ function Pane({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void
           {['f1', 'f2', 'f3'].map((f, i) => (
             <div className="fact-card" key={f}>
               <span className="ordinal">{`0${i + 1}`}</span>
-              <span className="text-pretty text-[13.5px] leading-snug">
+              <span className="note">
                 {t(`home.work.${project}_${f}`)}
               </span>
             </div>
@@ -188,7 +188,7 @@ export function Work({ project, onPick }: WorkProps) {
           <div className="flex items-baseline justify-between gap-2.5 pb-3">
             <h2
               id="work-h"
-              className="m-0 text-[clamp(24px,2.6vw,34px)] font-semibold leading-none tracking-[-0.045em]"
+              className="m-0 text-balance text-[clamp(24px,2.6vw,34px)] font-semibold leading-none tracking-[var(--track-display)]"
             >
               {t('home.work.h2')}
             </h2>
@@ -218,7 +218,7 @@ export function Work({ project, onPick }: WorkProps) {
                 <span className="ordinal">{`0${i + 1}`}</span>
                 <span className="flex min-w-0 flex-col gap-0.5">
                   <span className="rail-name">{name(p)}</span>
-                  <span className="mono text-[10px] uppercase tracking-[0.1em] text-on-surface-variant">
+                  <span className="tag text-on-surface-variant">
                     {t(`home.work.${p}_kind`)}
                   </span>
                 </span>
@@ -226,7 +226,7 @@ export function Work({ project, onPick }: WorkProps) {
             ))}
           </div>
 
-          <p className="mt-4 text-[13px] leading-normal text-on-surface-variant">
+          <p className="note mt-4 text-on-surface-variant">
             {t('home.work.note')}
           </p>
         </div>

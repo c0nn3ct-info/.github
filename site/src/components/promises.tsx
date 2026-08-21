@@ -16,17 +16,17 @@ export function Promises() {
           <span className="eyebrow text-on-block-faint">{t('home.floor.eyebrow')}</span>
           <h2
             id="settled-h"
-            className="m-0 text-[clamp(30px,3.6vw,54px)] font-[620] leading-[0.96] tracking-[-0.048em]"
+            className="m-0 text-balance text-[clamp(30px,3.6vw,54px)] font-[620] leading-[0.96] tracking-[var(--track-display)]"
           >
             {t('home.floor.h2_a')}
             <br />
             {t('home.floor.h2_b')}
           </h2>
-          <p className="m-0 text-[15px] leading-normal text-on-block-dim">
+          <p className="m-0 text-pretty text-[15px] leading-normal text-on-block-dim">
             {t('home.floor.intro')}
           </p>
           <a
-            className="eyebrow inline-flex items-center gap-2.5 self-start text-on-block-dim hover:text-on-block"
+            className="tag inline-flex items-center gap-2.5 self-start text-on-block-dim hover:text-on-block"
             href="#contact"
           >
             {t('home.floor.cta')}
@@ -44,10 +44,10 @@ export function Promises() {
                 {`0${i + 1}`}
                 <span aria-hidden className="h-px flex-1 bg-outline-variant" />
               </span>
-              <h3 className="m-0 text-[clamp(19px,1.7vw,23px)] font-[580] leading-tight tracking-[-0.028em]">
+              <h3 className="m-0 text-balance text-[clamp(19px,1.7vw,23px)] font-[580] leading-tight tracking-[var(--track-title)]">
                 {t(`home.floor.${k}_t`)}
               </h3>
-              <p className="m-0 text-sm leading-normal text-on-surface-variant">
+              <p className="note m-0 text-on-surface-variant">
                 {t(`home.floor.${k}_b`)}
               </p>
             </li>

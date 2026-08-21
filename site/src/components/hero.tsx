@@ -25,13 +25,13 @@ function IndexRow({
       <span className="ordinal">{ordinal}</span>
       <span className="flex min-w-0 flex-col gap-[3px]">
         <span
-          className={`text-[clamp(19px,1.9vw,26px)] font-[560] leading-none tracking-[-0.03em] ${
+          className={`text-[clamp(19px,1.9vw,26px)] font-[560] leading-none tracking-[var(--track-title)] ${
             onPick ? '' : 'text-on-surface-variant'
           }`}
         >
           {name}
         </span>
-        <span className="mono text-[10px] uppercase tracking-[0.1em] text-on-surface-variant">
+        <span className="tag text-on-surface-variant">
           {status}
         </span>
       </span>
@@ -99,18 +99,18 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
 
         <div className="glass">
           <div className="glass-inner">
-            <span className="rise-1 mono whitespace-nowrap text-[clamp(9px,1.9svh,10px)] font-semibold uppercase tracking-[0.14em] text-white/75">
+            <span className="rise-1 eyebrow whitespace-nowrap text-[clamp(9px,1.9svh,10px)] text-white/75">
               {t('home.hero.eyebrow')}
             </span>
-            <h1 className="rise-2 m-0 text-balance text-[clamp(23px,min(5.4svh,8.5vw),46px)] font-[520] leading-[1.06] tracking-[-0.038em] text-white">
+            <h1 className="rise-2 m-0 text-balance text-[clamp(23px,min(5.4svh,8.5vw),46px)] font-[520] leading-[1.06] tracking-[var(--track-h1)] text-white">
               {t('home.hero.h1_a')}{' '}
               <em className="font-semibold not-italic">{t('home.hero.h1_em')}</em>
             </h1>
-            <p className="rise-3 m-0 max-w-[36ch] text-pretty text-[clamp(12px,min(2.7svh,3.6vw),15px)] leading-normal text-white/75">
+            <p className="rise-3 m-0 max-w-[36ch] text-pretty text-[clamp(13px,min(2.7svh,3.6vw),15px)] leading-normal text-white/75">
               {t('home.hero.lede')}
             </p>
             <a
-              className="rise-4 cta-invert inline-flex h-[clamp(38px,8.3svh,46px)] items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5svh,14px)] font-semibold tracking-[-0.01em] text-[#111]"
+              className="rise-4 cta-invert inline-flex h-[clamp(38px,8.3svh,46px)] items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5svh,14px)] font-semibold tracking-[var(--track-body)] text-[#111]"
               href="#work"
             >
               {t('home.hero.cta')}
@@ -123,7 +123,7 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
       </div>
 
       <aside className="hero-index" aria-label={t('home.index.aria')}>
-        <div className="mono flex items-baseline justify-between gap-3 px-[clamp(18px,2vw,26px)] pb-3.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant">
+        <div className="tag flex items-baseline justify-between gap-3 px-[clamp(18px,2vw,26px)] pb-3.5 text-on-surface-variant">
           <span>{t('home.index.head')}</span>
           <span>{t('home.index.status')}</span>
         </div>
@@ -147,11 +147,11 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
         />
 
         <div className="mt-auto flex flex-col gap-3.5 px-[clamp(18px,2vw,26px)] pt-6">
-          <p className="m-0 max-w-[32ch] text-base leading-snug tracking-[-0.015em]">
+          <p className="m-0 max-w-[32ch] text-pretty text-base leading-snug tracking-[var(--track-body)]">
             {t('home.index.note')}
           </p>
           <a
-            className="mono inline-flex items-center gap-2.5 text-[10px] font-bold uppercase tracking-[0.16em] text-on-surface-variant hover:text-on-surface"
+            className="tag inline-flex items-center gap-2.5 text-on-surface-variant hover:text-on-surface"
             href={mailto(t('mail.hello'))}
           >
             hello@c0nn3ct.info<span aria-hidden>→</span>

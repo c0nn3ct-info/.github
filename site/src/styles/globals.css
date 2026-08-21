@@ -12,6 +12,82 @@
     src: url('/fonts/hanken-grotesk-var.woff2') format('woff2');
   }
 
+  /* The label role carries the eyebrows, the ordinals and every status tag, so
+   * it needs a face of its own. It used to be Tailwind's `fontFamily.mono`,
+   * which ships nothing: the reader got SF Mono, Consolas, Liberation Mono or
+   * Courier New depending on their machine, and the tracking below was tuned
+   * against exactly one of those. JetBrains Mono is the terminal face aria2t
+   * itself runs in, so the label role now looks the same everywhere and looks
+   * like the product it describes. OFL, licence beside the files.
+   *
+   * Split on unicode-range so a locale pays only for the script it sets: five
+   * of the six fetch latin alone and ru adds cyrillic. Google also publishes a
+   * latin-ext cut, and it is not here because no character in any of the six
+   * dictionaries lands in it. Add it back with the locale that needs it.
+   *
+   * Arabic, Persian and Chinese are in none of these on purpose: the fallback
+   * chain in tailwind.config.ts hands them to a text face instead, because a
+   * monospaced Arabic label is worse than an unmonospaced one. */
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+      U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+      U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url('/fonts/jetbrains-mono-cyrillic.woff2') format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  }
+
+  /* Both faces load with `swap`, so a cold cache paints the fallback first and
+   * then reflows the whole page when the real one arrives. These two faces are
+   * the local fallback wearing the metrics of the webfont, measured off the
+   * shipped files rather than guessed: Hanken Grotesk sets 0.63% wider than
+   * Arial with a 100/30 ascent-descent pair, and JetBrains Mono's 0.6em
+   * advance is what every standard monospace already has, so only its vertical
+   * metrics need stating. The swap then changes the shapes without moving a
+   * single line.
+   *
+   * Both carry a unicode-range, and it is load-bearing rather than tidiness. A
+   * local() face with no range claims every codepoint the local font happens
+   * to hold, and on macOS Arial and Courier New hold Arabic and Cyrillic: left
+   * open, they caught scripts the webfont cannot draw at all, which put the
+   * Persian headline in Arial and the Arabic labels in a monospaced Courier
+   * instead of letting them reach a real Arabic face.
+   *
+   * So each range is that webfont's own coverage, read off the rendered page
+   * rather than assumed. They differ by design: JetBrains Mono ships a
+   * cyrillic subset and Hanken Grotesk has no Cyrillic at all, so Russian body
+   * copy has no webfont to be held in place for and belongs to the system face
+   * further down the chain. */
+  @font-face {
+    font-family: 'Hanken Fallback';
+    src: local('Arial'), local('Helvetica'), local('Liberation Sans');
+    unicode-range: U+0000-036F, U+1E00-1EFF, U+2000-2BFF, U+A720-A7FF, U+FB00-FB4F;
+    size-adjust: 100.63%;
+    ascent-override: 99.37%;
+    descent-override: 29.81%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: 'JetBrains Fallback';
+    src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono');
+    unicode-range: U+0000-036F, U+0400-045F, U+0490-0491, U+04B0-04B1, U+1E00-1EFF,
+      U+2000-2BFF, U+A720-A7FF, U+FB00-FB4F;
+    size-adjust: 100%;
+    ascent-override: 102%;
+    descent-override: 30%;
+    line-gap-override: 0%;
+  }
+
   :root {
     --shape-xs: 8px;
     --shape-sm: 12px;
@@ -28,6 +104,26 @@
     --dur-med: 250ms;
     --dur-long: 450ms;
     --dur-x-long: 600ms;
+
+    /* Tracking is a property of the script, not of the page. A Latin grotesk
+     * wants it negative as the type grows and positive under small uppercase;
+     * Arabic and Persian join their letters, so any tracking at all pulls the
+     * joins apart and the word stops reading as one; Chinese sets solid on its
+     * em, so a negative value overlaps the glyphs while a positive one suits
+     * it. Every tracked role reads these, and the two blocks below are the
+     * only place those exceptions live.
+     *
+     * The values are the design's own, rounded onto one ladder: -0.045, -0.048
+     * and -0.05 were three names for the same intent and are now the display
+     * step, which also brings the page back inside the -0.04em floor. */
+    --track-display: -0.04em;
+    --track-h1: -0.038em;
+    --track-title: -0.028em;
+    --track-name: -0.02em;
+    --track-body: -0.01em;
+    --track-eyebrow: 0.16em;
+    --track-tag: 0.12em;
+    --track-ordinal: 0.1em;
 
     --shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 3px 1px rgb(0 0 0 / 0.03);
     --shadow-2: 0 1px 2px 0 rgb(0 0 0 / 0.08), 0 2px 6px 2px rgb(0 0 0 / 0.04);
@@ -108,6 +204,40 @@
      * alike, so the tint that suits them is the light-mode LED in both. */
     --glow-noctis: 152 84 241;
     --glow-aria2t: 46 125 233;
+  }
+
+  /* Arabic and Persian are cursive: the letters of a word are drawn joined, so
+   * letter-spacing inserts a gap inside the word rather than between words.
+   * The hero eyebrow measured 4.1% wider on ar and 4.7% on fa purely from
+   * tracking meant for Latin caps, with the joins visibly stretched. Nothing
+   * on these pages is tracked.
+   *
+   * This keys off the document language rather than the run of text, because
+   * the copy is not marked up per string. The Latin that does appear on these
+   * pages is the wordmark and the address, and both carry their own tracking
+   * below for exactly this reason. */
+  :root:lang(ar),
+  :root:lang(fa) {
+    --track-display: 0em;
+    --track-h1: 0em;
+    --track-title: 0em;
+    --track-name: 0em;
+    --track-body: 0em;
+    --track-eyebrow: 0em;
+    --track-tag: 0em;
+    --track-ordinal: 0em;
+  }
+
+  /* Chinese does not join, so the positive label tracking stays: an ideograph
+   * sits on a square em and takes the air well. The negative steps go, because
+   * on a solid em they are not tightening a sidebearing, they are overlapping
+   * the next glyph. */
+  :root:lang(zh) {
+    --track-display: 0em;
+    --track-h1: 0em;
+    --track-title: 0em;
+    --track-name: 0em;
+    --track-body: 0em;
   }
 
   /* The :not(.light) guard keeps a stale prerendered `dark` class from
@@ -245,10 +375,7 @@
   }
   html,
   body {
-    @apply bg-background text-on-surface;
-    font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      'Noto Sans Arabic', 'Geeza Pro', 'PingFang SC', 'Microsoft YaHei',
-      'Noto Sans CJK SC', sans-serif;
+    @apply bg-background font-sans text-on-surface;
     -webkit-font-smoothing: antialiased;
     overflow-x: clip;
   }
@@ -288,25 +415,59 @@
 }
 
 @layer components {
-  /* ── shared type roles ─────────────────────────────────────────────────── */
+  /* ── shared type roles ─────────────────────────────────────────────────────
+   *
+   * The page had one label class and then overrode it almost everywhere it was
+   * used: 48 label nodes rendered 28 different combinations of size, weight
+   * and tracking, spread over 9px to 13px, 400 to 700, and 0.10em to 0.20em.
+   * None of that spread carried meaning; it is what a design file's per-element
+   * drift looks like after a faithful port.
+   *
+   * Three roles replace it, told apart by the job rather than by the value:
+   * `.eyebrow` names a section, `.tag` labels a thing beside it, `.ordinal`
+   * gives a position in a sequence. If a fourth label appears, it belongs to
+   * one of these or it needs a reason of its own written here. */
   .mono {
-    font-family: theme('fontFamily.mono');
+    @apply font-mono;
     font-variant-numeric: tabular-nums;
   }
+  /* Names the section it opens. One per section. */
   .eyebrow {
-    font-family: theme('fontFamily.mono');
+    @apply font-mono;
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: var(--track-eyebrow);
     text-transform: uppercase;
   }
+  /* Labels the thing it sits with: a status, a kind, a caption's kicker. Set
+   * one weight below the eyebrow so the two never compete when they meet. */
+  .tag {
+    @apply font-mono;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: var(--track-tag);
+    text-transform: uppercase;
+    /* Tracked uppercase runs long, and these sit in narrow columns: the
+     * longest of them drops its last word alone on a second line otherwise.
+     * A label is a handful of words, which is the case balance is for. */
+    text-wrap: balance;
+  }
+  /* A position in a sequence, so it is the one label with figures in it. */
   .ordinal {
-    font-family: theme('fontFamily.mono');
+    @apply font-mono;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: var(--track-ordinal);
     font-variant-numeric: tabular-nums;
     color: var(--faint-ink);
+  }
+  /* Supporting prose, set below body: the rail's note and the fact cards used
+   * to be 13px and 13.5px respectively for no reason either could give. */
+  .note {
+    font-size: 14px;
+    line-height: 1.45;
+    letter-spacing: var(--track-body);
+    text-wrap: pretty;
   }
   .hoverable:hover {
     background: var(--hover);
@@ -345,6 +506,12 @@
       transform: translateY(-118%);
     }
   }
+  /* The jump list wears the tag role, and takes the one step up the role does
+   * not give it: these are the only labels on the page a reader clicks, and
+   * interactive text earns the larger size where a caption does not. */
+  .site-header .tag {
+    font-size: 11px;
+  }
   /* Both pills invert against their ground, so the ring takes the pill's own
    * fill: white over the dark stage, ink over the light bar. */
   .header-cta,
@@ -366,7 +533,7 @@
     color: #111;
     font-size: 13px;
     font-weight: 620;
-    letter-spacing: -0.01em;
+    letter-spacing: var(--track-body);
     transition:
       background var(--dur-med) var(--ease-emph),
       color var(--dur-med) var(--ease-emph);
@@ -485,6 +652,9 @@
     transform: rotate(180deg);
     font-size: clamp(80px, 26svh, 280px);
     font-weight: 600;
+    /* The one place tighter than the display step, and the only role that can
+     * safely be: it is a single fixed Latin word set as scenery at up to
+     * 280px, where the sidebearings the floor protects are simply too big. */
     letter-spacing: -0.06em;
     line-height: 0.9;
     color: #fff;
@@ -579,7 +749,7 @@
     .site-header nav {
       display: none;
     }
-    /* The index sits under the stage rather than beside it, so it no longer
+  /* The index sits under the stage rather than beside it, so it no longer
      * has a fixed bar to clear. */
     .hero-index {
       padding-top: 22px;
@@ -640,7 +810,7 @@
     padding: 14px 13px;
     font-size: clamp(15px, 1.5vw, 21px);
     font-weight: 520;
-    letter-spacing: -0.025em;
+    letter-spacing: var(--track-title);
     white-space: nowrap;
   }
 
@@ -685,7 +855,7 @@
   .rail-name {
     font-size: 22px;
     font-weight: 580;
-    letter-spacing: -0.03em;
+    letter-spacing: var(--track-title);
     line-height: 1.05;
     color: hsl(var(--on-surface-variant));
   }
@@ -768,7 +938,7 @@
     border-radius: var(--shape-sm);
     font-size: 13px;
     font-weight: 560;
-    letter-spacing: -0.01em;
+    letter-spacing: var(--track-body);
     color: hsl(var(--on-surface));
     transition: background 160ms var(--ease-emph);
   }
@@ -801,7 +971,7 @@
   .practice-title {
     font-size: clamp(18px, 2vw, 27px);
     font-weight: 540;
-    letter-spacing: -0.028em;
+    letter-spacing: var(--track-title);
     line-height: 1.15;
     color: hsl(var(--on-surface-variant));
     transition: color 200ms var(--ease-emph);
@@ -844,7 +1014,7 @@
     color: #fff;
     font-size: clamp(26px, 4.6vw, 68px);
     font-weight: 600;
-    letter-spacing: -0.05em;
+    letter-spacing: var(--track-display);
     line-height: 0.95;
     word-break: break-word;
     border-bottom: 2px solid rgb(255 255 255 / 0.24);

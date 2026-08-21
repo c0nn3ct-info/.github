@@ -22,10 +22,14 @@ export function Practices() {
   return (
     <section
       id="how"
+      aria-labelledby="how-h"
       className="flex min-h-[100svh] flex-col justify-center gap-7 border-y border-outline-variant bg-surface px-5 py-16"
     >
       <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-        <h2 className="m-0 text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[-0.048em]">
+        <h2
+          id="how-h"
+          className="m-0 text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[-0.048em]"
+        >
           {t('home.how.h2_a')}
           <br />
           {t('home.how.h2_b')}
@@ -51,6 +55,7 @@ export function Practices() {
             <button
               type="button"
               key={k}
+              id={`habit-${k}`}
               className="practice-row hoverable"
               role="tab"
               aria-selected={n === i}
@@ -73,7 +78,8 @@ export function Practices() {
           className="block-card flex flex-col justify-between p-6"
           id="practice-panel"
           role="tabpanel"
-          aria-live="polite"
+          aria-labelledby={`habit-${HABITS[i]}`}
+          tabIndex={-1}
         >
           <span className="text-[clamp(72px,9vw,150px)] font-bold leading-[0.8] tracking-[-0.07em]">
             {`0${i + 1}`}

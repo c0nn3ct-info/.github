@@ -60,7 +60,7 @@ function Screen({ project, onOpen }: { project: Project; onOpen: (s: Shot) => vo
       <div className="pane pane-shot border-0 text-white">
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(62%_72%_at_76%_16%,rgba(152,84,241,.24),transparent_72%)]"
+          className="absolute inset-0 bg-[radial-gradient(62%_72%_at_76%_16%,rgb(var(--glow-noctis)/0.24),transparent_72%)]"
         />
         <div
           aria-hidden
@@ -82,7 +82,14 @@ function Screen({ project, onOpen }: { project: Project; onOpen: (s: Shot) => vo
   const alt = t(`home.work.${project}_alt`);
   return (
     <div className="pane pane-shot">
-      <img src={src} alt={alt} width={1280} height={project === 'noctis' ? 800 : 495} />
+      <img
+        src={src}
+        alt={alt}
+        width={1280}
+        height={project === 'noctis' ? 800 : 495}
+        loading="lazy"
+        decoding="async"
+      />
       <button
         type="button"
         className="absolute inset-0 z-[4] cursor-zoom-in border-0 bg-transparent"
@@ -173,12 +180,16 @@ export function Work({ project, onPick }: WorkProps) {
   return (
     <section
       id="work"
+      aria-labelledby="work-h"
       className="flex min-h-[100svh] flex-col justify-center gap-[18px] px-5 pb-8 pt-[78px]"
     >
       <div className="grid items-start gap-6 [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(190px,236px)_minmax(0,1fr)]">
         <div className="flex flex-col min-[900px]:sticky min-[900px]:top-24">
           <div className="flex items-baseline justify-between gap-2.5 pb-3">
-            <h2 className="m-0 text-[clamp(24px,2.6vw,34px)] font-semibold leading-none tracking-[-0.045em]">
+            <h2
+              id="work-h"
+              className="m-0 text-[clamp(24px,2.6vw,34px)] font-semibold leading-none tracking-[-0.045em]"
+            >
               {t('home.work.h2')}
             </h2>
             <span className="eyebrow text-on-surface-variant">{t('home.work.anno')}</span>

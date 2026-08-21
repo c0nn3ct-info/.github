@@ -134,13 +134,37 @@ describe('Work lightbox', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
 
-  it('shows the capture it was opened from, alt text and all', async () => {
+  it('shows the capture it was opened from, and names itself after it once', async () => {
     render(<Harness start="aria2t" />);
     await userEvent.click(screen.getByRole('button', { name: 'Open the screenshot full size' }));
-    const shots = screen.getAllByRole('img');
-    expect(shots[shots.length - 1]).toHaveAttribute('src', '/media/aria2t-dark.png');
-    expect(screen.getByRole('dialog')).toHaveAccessibleName(
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.querySelector('img')).toHaveAttribute('src', '/media/aria2t-dark.png');
+    expect(dialog).toHaveAccessibleName(
       'The aria2t download list running in a terminal, with progress, speed and time remaining.',
     );
+    // The description is the dialog's name, so the image itself stays out of
+    // the tree rather than reading the same sentence a second time.
+    expect(dialog.querySelector('img')).toHaveAttribute('alt', '');
+  });
+
+  // aria-modal hides the page behind from a screen reader but leaves the tab
+  // ring alone, so without this Tab walked into content the reader could not
+  // see and gave no way back.
+  it('keeps Tab inside the dialog', async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getByRole('button', { name: 'Open the screenshot full size' }));
+    const close = screen.getByRole('button', { name: 'Close the preview' });
+    await userEvent.tab();
+    expect(close).toHaveFocus();
+    await userEvent.tab({ shift: true });
+    expect(close).toHaveFocus();
+  });
+
+  it('hands the keyboard back to the thumbnail it was opened from', async () => {
+    render(<Harness />);
+    const opener = screen.getByRole('button', { name: 'Open the screenshot full size' });
+    await userEvent.click(opener);
+    await userEvent.keyboard('{Escape}');
+    expect(opener).toHaveFocus();
   });
 });

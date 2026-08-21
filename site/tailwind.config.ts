@@ -15,8 +15,6 @@ export default {
         'on-block-dim': 'var(--on-block-dim)',
         'on-block-faint': 'var(--on-block-faint)',
         stage: 'var(--stage)',
-        'on-stage-dim': 'var(--on-stage-dim)',
-        'on-stage-faint': 'var(--on-stage-faint)',
         faint: 'var(--faint-ink)',
         led: 'var(--led)',
         'led-ink': 'var(--led-ink)',

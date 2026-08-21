@@ -13,6 +13,18 @@ describe('Practices', () => {
     );
   });
 
+  // The panel used to be a bare aria-live region, which announced itself on top
+  // of the tab a reader had just moved to. Naming it after the selected tab is
+  // what a tablist owes, and it is how the work rail next door already reads.
+  it('names its panel after whichever habit is open', async () => {
+    render(<Practices />);
+    const panel = screen.getByRole('tabpanel');
+    expect(panel).not.toHaveAttribute('aria-live');
+    expect(panel).toHaveAccessibleName(/It starts as something we needed ourselves/);
+    await userEvent.click(screen.getByRole('tab', { name: /We test against the real thing/ }));
+    expect(panel).toHaveAccessibleName(/We test against the real thing/);
+  });
+
   it('speaks as "we" in every title, so the list has one voice', () => {
     render(<Practices />);
     for (const tab of screen.getAllByRole('tab')) {

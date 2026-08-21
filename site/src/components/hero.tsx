@@ -99,22 +99,22 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
 
         <div className="glass">
           <div className="glass-inner">
-            <span className="rise-1 mono whitespace-nowrap text-[clamp(9px,1.9vh,10px)] font-semibold uppercase tracking-[0.14em] text-white/75">
+            <span className="rise-1 mono whitespace-nowrap text-[clamp(9px,1.9svh,10px)] font-semibold uppercase tracking-[0.14em] text-white/75">
               {t('home.hero.eyebrow')}
             </span>
-            <h1 className="rise-2 m-0 text-balance text-[clamp(23px,min(5.4vh,8.5vw),46px)] font-[520] leading-[1.06] tracking-[-0.038em] text-white">
+            <h1 className="rise-2 m-0 text-balance text-[clamp(23px,min(5.4svh,8.5vw),46px)] font-[520] leading-[1.06] tracking-[-0.038em] text-white">
               {t('home.hero.h1_a')}{' '}
               <em className="font-semibold not-italic">{t('home.hero.h1_em')}</em>
             </h1>
-            <p className="rise-3 m-0 max-w-[36ch] text-pretty text-[clamp(12px,min(2.7vh,3.6vw),15px)] leading-normal text-white/75">
+            <p className="rise-3 m-0 max-w-[36ch] text-pretty text-[clamp(12px,min(2.7svh,3.6vw),15px)] leading-normal text-white/75">
               {t('home.hero.lede')}
             </p>
             <a
-              className="rise-4 inline-flex h-[clamp(38px,8.3vh,46px)] items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5vh,14px)] font-semibold tracking-[-0.01em] text-[#111]"
+              className="rise-4 cta-invert inline-flex h-[clamp(38px,8.3svh,46px)] items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5svh,14px)] font-semibold tracking-[-0.01em] text-[#111]"
               href="#work"
             >
               {t('home.hero.cta')}
-              <span className="grid h-[clamp(24px,5.4vh,30px)] w-[clamp(24px,5.4vh,30px)] place-items-center rounded-full bg-[#111] text-white">
+              <span className="grid h-[clamp(24px,5.4svh,30px)] w-[clamp(24px,5.4svh,30px)] place-items-center rounded-full bg-[#111] text-white">
                 <ArrowDown className="h-3.5 w-3.5" aria-hidden />
               </span>
             </a>

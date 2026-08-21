@@ -65,6 +65,23 @@ describe('dictionaries', () => {
     }
   });
 
+  // The port updated the headline and left the head behind, so every locale
+  // shipped a tab title and a search snippet claiming a positioning the page
+  // itself had dropped. The tie is asserted rather than remembered.
+  it('title and description carry the headline the page actually shows', () => {
+    for (const [locale, dict] of Object.entries(DICTS)) {
+      const claim = dict['home.hero.h1_em'];
+      expect({ locale, inTitle: dict['home.title'].includes(claim) }).toEqual({
+        locale,
+        inTitle: true,
+      });
+      expect({ locale, inDesc: dict['home.description'].includes(claim) }).toEqual({
+        locale,
+        inDesc: true,
+      });
+    }
+  });
+
   it('leave no value empty', () => {
     for (const [locale, dict] of Object.entries(DICTS)) {
       for (const [k, v] of Object.entries(dict)) {

@@ -8,12 +8,16 @@ export function Promises() {
   return (
     <section
       id="settled"
+      aria-labelledby="settled-h"
       className="flex min-h-[100svh] flex-col justify-center gap-4 px-5 py-16"
     >
       <div className="grid gap-3.5 min-[900px]:grid-cols-12">
         <div className="block-card flex flex-col justify-between gap-6 p-7 min-[900px]:col-span-5">
           <span className="eyebrow text-on-block-faint">{t('home.floor.eyebrow')}</span>
-          <h2 className="m-0 text-[clamp(30px,3.6vw,54px)] font-[620] leading-[0.96] tracking-[-0.048em]">
+          <h2
+            id="settled-h"
+            className="m-0 text-[clamp(30px,3.6vw,54px)] font-[620] leading-[0.96] tracking-[-0.048em]"
+          >
             {t('home.floor.h2_a')}
             <br />
             {t('home.floor.h2_b')}

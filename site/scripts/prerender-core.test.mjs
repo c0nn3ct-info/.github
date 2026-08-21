@@ -125,7 +125,7 @@ describe('getMeta', () => {
   it('reads title and description from the catalogue and builds canonical urls', () => {
     const meta = core.getMeta('home', 'en');
     expect(meta.title).toContain('c0nn3ct.info');
-    expect(meta.description).toContain('side of the wire');
+    expect(meta.description).toContain('answers to you');
     expect(meta.canonical).toBe('https://c0nn3ct.info/');
     expect(meta.og.siteName).toBe('c0nn3ct.info');
     expect(meta.og.localeAlternate).toEqual(['ru_RU', 'es_ES', 'zh_CN', 'fa_IR', 'ar_AR']);

@@ -86,8 +86,6 @@
     --on-block-dim: rgb(255 255 255 / 0.74);
     --on-block-faint: rgb(255 255 255 / 0.58);
     --stage: #0d0d0f;
-    --on-stage-dim: rgb(255 255 255 / 0.74);
-    --on-stage-faint: rgb(255 255 255 / 0.62);
     --bar: rgb(255 255 255 / 0.86);
 
     /* Product coding. The -ink pair is the same hue pulled to AA on the light
@@ -100,6 +98,12 @@
     --led-next-ink: #63636e;
     --wire-go: #4b9022;
     --wire-go-on-dark: #9ece6a;
+
+    /* Atmosphere tints for the stage and the contact ground. Deliberately not
+     * redefined per theme: both grounds are dark in light mode and dark mode
+     * alike, so the tint that suits them is the light-mode LED in both. */
+    --glow-noctis: 152 84 241;
+    --glow-aria2t: 46 125 233;
   }
 
   /* The :not(.light) guard keeps a stale prerendered `dark` class from
@@ -142,6 +146,11 @@
     --hover: color-mix(in oklab, hsl(0 0% 98%) 10%, transparent);
     --block: hsl(0 0% 17%);
     --on-block: hsl(0 0% 98%);
+    /* The card lightens from #111 to #2b2b2b here, so the two alphas tuned
+     * against #111 have to rise to keep the same weight: 0.84 holds 10.4:1
+     * and 0.64 holds 6.8:1, matching what they measure in light. */
+    --on-block-dim: rgb(255 255 255 / 0.84);
+    --on-block-faint: rgb(255 255 255 / 0.64);
     --stage: #08080a;
     --bar: rgb(13 13 15 / 0.86);
 
@@ -195,6 +204,11 @@
       --hover: color-mix(in oklab, hsl(0 0% 98%) 10%, transparent);
       --block: hsl(0 0% 17%);
       --on-block: hsl(0 0% 98%);
+      /* The card lightens from #111 to #2b2b2b here, so the two alphas tuned
+       * against #111 have to rise to keep the same weight: 0.84 holds 10.4:1
+       * and 0.64 holds 6.8:1, matching what they measure in light. */
+      --on-block-dim: rgb(255 255 255 / 0.84);
+      --on-block-faint: rgb(255 255 255 / 0.64);
       --stage: #08080a;
       --bar: rgb(13 13 15 / 0.86);
 
@@ -229,9 +243,15 @@
     color: hsl(var(--on-secondary-container));
   }
   /* One focus language for plain links too; :where keeps specificity at the
-   * pseudo-class alone, so component-level ring utilities still win. */
+   * pseudo-class alone, so component-level ring utilities still win.
+   *
+   * currentColor is right everywhere the element's ink already contrasts with
+   * what is behind it, which is everywhere except the inverted pills: their
+   * ink is the colour of the ground they sit on, so a currentColor ring lands
+   * at 1.03:1 and disappears. Those set --focus-ring to their own fill, and
+   * the 2px offset then reads as a gap rather than hiding the ring. */
   :where(a, button):focus-visible {
-    outline: 2px solid currentColor;
+    outline: 2px solid var(--focus-ring, currentColor);
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -310,6 +330,15 @@
     .site-header[data-hidden='true'] {
       transform: translateY(-118%);
     }
+  }
+  /* Both pills invert against their ground, so the ring takes the pill's own
+   * fill: white over the dark stage, ink over the light bar. */
+  .header-cta,
+  .cta-invert {
+    --focus-ring: #fff;
+  }
+  .site-header[data-ground='page'] .header-cta {
+    --focus-ring: hsl(var(--on-surface));
   }
   .header-cta {
     flex: none;
@@ -401,8 +430,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(58% 46% at 54% 46%, rgb(152 84 241 / 0.16), transparent 72%),
-      radial-gradient(70% 60% at 30% 90%, rgb(46 125 233 / 0.12), transparent 70%);
+      radial-gradient(58% 46% at 54% 46%, rgb(var(--glow-noctis) / 0.16), transparent 72%),
+      radial-gradient(70% 60% at 30% 90%, rgb(var(--glow-aria2t) / 0.12), transparent 70%);
   }
   .wire-dot {
     display: none;
@@ -457,15 +486,15 @@
    * unset at rest, so the resting position needs no styles of its own. The
    * ring travels further than the glass, which is what reads as depth. */
   .stage-ring {
-    width: min(76vh, 680px);
-    height: min(76vh, 680px);
+    width: min(76svh, 680px);
+    height: min(76svh, 680px);
     opacity: 0.55;
     transform: translate(calc(-42% + var(--px, 0) * 44px), calc(-50% + var(--py, 0) * 36px));
   }
   .glass {
     transform: translate(calc(-42% + var(--px, 0) * 26px), calc(-50% + var(--py, 0) * 22px));
-    width: min(62vh, 540px);
-    height: min(62vh, 540px);
+    width: min(62svh, 540px);
+    height: min(62svh, 540px);
     border-radius: 50%;
     border: 1px solid rgb(255 255 255 / 0.2);
     background: rgb(14 14 18 / 0.62);
@@ -476,7 +505,6 @@
     display: grid;
     place-items: center;
     text-align: center;
-    will-change: transform;
   }
   /* inset-inline-start flips with the writing direction but translate() does
    * not, so the pull back over the element's own width has to flip by hand or
@@ -497,7 +525,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: clamp(8px, 2vh, 18px);
+    gap: clamp(8px, 2svh, 18px);
   }
   /* Below the split, the stage is the whole width: the 52% offset that read as
    * centred beside the index no longer does, the circle is wider than the
@@ -516,14 +544,14 @@
     }
     .stage-ring,
     [dir='rtl'] .stage-ring {
-      width: min(76vh, 92vw);
-      height: min(76vh, 92vw);
+      width: min(76svh, 92vw);
+      height: min(76svh, 92vw);
       transform: translate(calc(-50% + var(--px, 0) * 44px), calc(-50% + var(--py, 0) * 36px));
     }
     .glass,
     [dir='rtl'] .glass {
-      width: min(62vh, 86vw);
-      height: min(62vh, 86vw);
+      width: min(62svh, 86vw);
+      height: min(62svh, 86vw);
       transform: translate(calc(-50% + var(--px, 0) * 26px), calc(-50% + var(--py, 0) * 22px));
     }
     /* A narrow circle holds less than a wide one; give the copy more of it. */
@@ -749,20 +777,23 @@
     font: inherit;
     color: inherit;
     cursor: pointer;
-    opacity: 0.5;
-    transition: opacity 200ms var(--ease-emph);
   }
   .practice-row:last-of-type {
     border-bottom: 1px solid hsl(var(--outline-variant));
   }
-  .practice-row[aria-selected='true'] {
-    opacity: 1;
-  }
+  /* The unselected state used to be opacity .5 on the whole row, which pulled
+   * the ordinal to 1.9:1 and the title to 3.3:1. Only the title dims now, and
+   * it dims to a token that is itself AA on this ground. */
   .practice-title {
     font-size: clamp(18px, 2vw, 27px);
     font-weight: 540;
     letter-spacing: -0.028em;
     line-height: 1.15;
+    color: hsl(var(--on-surface-variant));
+    transition: color 200ms var(--ease-emph);
+  }
+  .practice-row[aria-selected='true'] .practice-title {
+    color: hsl(var(--on-surface));
   }
   .block-card {
     position: relative;
@@ -811,16 +842,27 @@
     padding: 17px 4px;
     border-top: 1px solid rgb(255 255 255 / 0.16);
     color: rgb(255 255 255 / 0.9);
-    transition:
-      padding-inline-start var(--dur-med) var(--ease-emph),
-      color var(--dur-med) var(--ease-emph);
+    transition: color var(--dur-med) var(--ease-emph);
   }
   .talk-line:last-of-type {
     border-bottom: 1px solid rgb(255 255 255 / 0.16);
   }
   .talk-line:hover {
-    padding-inline-start: 12px;
     color: #fff;
+  }
+  /* The nudge rides the label rather than the row's padding: a transform costs
+   * no layout, and the row's own rule stays put so its border does not slide.
+   * translate() is physical, so rtl needs the mirrored value by hand. */
+  .talk-line > span:first-child {
+    transition: transform var(--dur-med) var(--ease-emph);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .talk-line:hover > span:first-child {
+      transform: translateX(12px);
+    }
+    [dir='rtl'] .talk-line:hover > span:first-child {
+      transform: translateX(-12px);
+    }
   }
 
   /* ── lightbox ──────────────────────────────────────────────────────────── */
@@ -937,8 +979,9 @@
       animation: caret 1.1s steps(1) infinite;
     }
   }
-  /* The dot rides the wire through SMIL, which prefers-reduced-motion cannot
-   * reach from CSS; the component drops the element instead. */
+  /* The dot rides the wire on CSS offset-path rather than SMIL, precisely so
+   * prefers-reduced-motion can reach it: the element is always in the markup
+   * and the @supports/@media pair above is what turns it on. */
 
   @media print {
     /* :not(.light) matches the runtime dark selector's 0-3-0 specificity, so

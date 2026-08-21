@@ -58,6 +58,35 @@ describe('the page column', () => {
   });
 });
 
+describe('the full-height spine', () => {
+  const FULL = /(work|practices|promises|talk)\.tsx$/;
+
+  // Every band except the hero reserves a screen and centres what it holds, so
+  // a reader arriving at one lands on its content rather than on its ceiling.
+  it('centres what a reserved screen holds', () => {
+    const bands = SOURCES.filter(([f]) => FULL.test(f));
+    expect(bands.length).toBe(4);
+    for (const [file, src] of bands) {
+      const cn = src.match(/<section\b[^>]*className="([^"]*)"/)![1];
+      expect({ file, tall: cn.includes('min-h-[100svh]'), centred: cn.includes('justify-center') })
+        .toEqual({ file, tall: true, centred: true });
+    }
+  });
+
+  // Reserving the screen a second time on a block inside the section is how
+  // that centring gets lost: the work pane asked for calc(100svh - 124px), grew
+  // taller than its own contents, and hung the whole thing from the top of the
+  // section with 251px of dead air under it at 1440x900.
+  it('reserves that screen once, on the section itself', () => {
+    for (const [file, src] of SOURCES) {
+      const inner = [...src.matchAll(/min-h-\[([^\]]*)\]/g)]
+        .map((m) => m[1])
+        .filter((v) => v.includes('svh') && v !== '100svh');
+      expect({ file, inner }).toEqual({ file, inner: [] });
+    }
+  });
+});
+
 describe('the proximity scale', () => {
   const step = (name: string) => {
     const m = CSS.match(new RegExp(`--gap-${name}:\\s*(\\d+)px`));

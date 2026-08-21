@@ -182,7 +182,15 @@ export function Work({ project, onPick }: WorkProps) {
     <section
       id="work"
       aria-labelledby="work-h"
-      className="page-pad flex min-h-[100svh] flex-col justify-center gap-6 pb-8 pt-20"
+      /* Geometric centre reads low here, because the block's own weight sits
+         under its top edge: the rail's three rows and the screenshot are dark
+         mass, and the fact cards below them are mostly ground. The extra
+         bottom padding lifts it 24px above the middle, which is the optical
+         centre rather than the arithmetic one. It is scoped to the two-column
+         width, because below 900px the block is taller than the screen it
+         sits in and there is no slack to spend: the lift would land as 48px of
+         extra ground above the next section's border instead. */
+      className="page-pad flex min-h-[100svh] flex-col justify-center gap-6 py-16 min-[900px]:pb-28"
     >
       <div className="page-col grid items-start gap-6 [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(190px,236px)_minmax(0,1fr)]">
         <div className="flex flex-col min-[900px]:sticky min-[900px]:top-24">
@@ -232,10 +240,17 @@ export function Work({ project, onPick }: WorkProps) {
           </p>
         </div>
 
-        {/* The rail is sticky and top-aligned, so the pane has to share its top
-            edge rather than centre itself in the column: centred, the two halves
-            of one section began 260px apart on a 1080-tall screen. */}
-        <div className="flex min-h-[calc(100svh-124px)] flex-col gap-[var(--gap-part)]">
+        {/* Two different centrings, and only one of them is wanted. The pane
+            keeps the rail's top edge, because the grid is items-start and
+            centring it inside its own column put the two halves of one section
+            260px apart on a 1080-tall screen. The pair then centres together in
+            the section, which is what the height reservation used to prevent:
+            asking the pane for calc(100svh - 124px) made the column taller than
+            its contents, so the block hung from the top of a full-height
+            section with 251px of dead air under it at 1440x900. Its natural
+            height rides the section's own justify-center now, the same way
+            #how and #settled do. */}
+        <div className="flex flex-col gap-[var(--gap-part)]">
           <Pane project={project} onOpen={setShot} />
         </div>
       </div>

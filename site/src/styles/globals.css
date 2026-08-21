@@ -219,10 +219,15 @@
 
     /* Product coding. The -ink pair is the same hue pulled to AA on the light
      * card; the plain token stays the LED itself, for fills and lamps. */
-    --led-noctis: #9854f1;
-    --led-noctis-ink: #924bf0;
-    --led-aria2t: #2e7de9;
-    --led-aria2t-ink: #1970e7;
+    /* Each product's own default accent, taken from its extension rather than
+     * chosen here: noctis ships `neutral`, aria2t ships `storm`. The -ink pair
+     * keeps its name because a later product may need a darker cut for text,
+     * but neither of these does: both clear 4.5:1 as they stand, at 16.5 and
+     * 7.3 on the card, where the pair they replace sat at 4.31 and 4.02. */
+    --led-noctis: hsl(0 0% 12%);
+    --led-noctis-ink: hsl(0 0% 12%);
+    --led-aria2t: hsl(225 65% 45%);
+    --led-aria2t-ink: hsl(225 65% 45%);
     --led-next: #7a7a86;
     --led-next-ink: #63636e;
     --wire-go: #4b9022;
@@ -322,10 +327,10 @@
     --stage-edge: rgb(255 255 255 / 0.15);
     --bar: rgb(13 13 15 / 0.86);
 
-    --led-noctis: #bb9af7;
-    --led-noctis-ink: #bb9af7;
-    --led-aria2t: #7aa2f7;
-    --led-aria2t-ink: #7aa2f7;
+    --led-noctis: hsl(0 0% 92%);
+    --led-noctis-ink: hsl(0 0% 92%);
+    --led-aria2t: hsl(221 85% 72%);
+    --led-aria2t-ink: hsl(221 85% 72%);
     --led-next: #9a9aa6;
     --led-next-ink: #9a9aa6;
     --wire-go: #9ece6a;
@@ -385,10 +390,10 @@
       --stage-edge: rgb(255 255 255 / 0.15);
       --bar: rgb(13 13 15 / 0.86);
 
-      --led-noctis: #bb9af7;
-      --led-noctis-ink: #bb9af7;
-      --led-aria2t: #7aa2f7;
-      --led-aria2t-ink: #7aa2f7;
+      --led-noctis: hsl(0 0% 92%);
+      --led-noctis-ink: hsl(0 0% 92%);
+      --led-aria2t: hsl(221 85% 72%);
+      --led-aria2t-ink: hsl(221 85% 72%);
       --led-next: #9a9aa6;
       --led-next-ink: #9a9aa6;
       --wire-go: #9ece6a;
@@ -1047,22 +1052,127 @@
     aspect-ratio: 16 / 10;
     background: var(--stage);
   }
-  .pane-shot img {
+  /* A scroll container rather than a slideshow: swipe, trackpad, arrow keys and
+   * Home/End all come from the browser, and there is no index for anything to
+   * disagree about. What the page adds is a way to drive it with a mouse.
+   *
+   * timeline-scope lets the hairline read the track's scroll position from
+   * outside it, which is the only reason the two can be siblings. */
+  .pane-shot {
+    timeline-scope: --shots;
+  }
+  .shot-track {
     position: absolute;
     inset: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-timeline: --shots inline;
+    scrollbar-width: none;
+  }
+  .shot-track::-webkit-scrollbar {
+    display: none;
+  }
+  .shot-slide {
+    scroll-snap-align: center;
     display: block;
     width: 100%;
     height: 100%;
-    /* contain, not cover: the two captures have different aspect ratios and a
-     * cover crop would cut aria2t's name and speed columns out of frame. */
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+  .pane-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* contain, not cover: a cover crop would cut the columns at the edge of a
+     * capture out of frame. */
     object-fit: contain;
     transition: transform 700ms var(--ease-pane);
   }
+
+  /* Only a mouse needs these. A touch reader swipes, and two buttons sitting on
+   * the capture for them to miss is worse than the gesture they already know. */
+  .shot-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 6;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: rgb(13 13 15 / 0.66);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgb(255 255 255 / 0.2);
+    color: #fff;
+    opacity: 0;
+    --focus-ring: #fff;
+    transition: opacity var(--dur-short) var(--ease-emph);
+  }
+  .shot-nav-prev {
+    inset-inline-start: 10px;
+  }
+  .shot-nav-next {
+    inset-inline-end: 10px;
+  }
+  .pane-shot:hover .shot-nav,
+  .pane-shot:focus-within .shot-nav {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    .shot-nav {
+      display: none;
+    }
+  }
+
+  /* How far along, on the pane's own bottom edge. A readout of position rather
+   * than an animation, which is why it is not behind the motion preference:
+   * a scrollbar is not motion, and this is a scrollbar. */
+  .shot-progress {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 6;
+    height: 2px;
+    background: rgb(255 255 255 / 0.14);
+    pointer-events: none;
+  }
+  .shot-progress > span {
+    display: block;
+    width: calc(100% / var(--shots));
+    height: 100%;
+    background: rgb(255 255 255 / 0.8);
+  }
+  @supports (animation-timeline: scroll()) {
+    .shot-progress > span {
+      animation: shot-scrub linear both;
+      animation-timeline: --shots;
+    }
+  }
+  @keyframes shot-scrub {
+    to {
+      transform: translateX(calc(100% * (var(--shots) - 1)));
+    }
+  }
+
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .pane-shot:hover img {
       transform: scale(1.02);
     }
   }
+  /* The picture is a wrapper, not a box: the image stays the grid item so the
+   * lightbox's own size limits still reach it. */
+  .lightbox picture {
+    display: contents;
+  }
+
   .pane-details {
     min-width: 0;
     background: hsl(var(--surface-container-low));

@@ -64,9 +64,11 @@ describe('product colour', () => {
 });
 
 describe('the unshipped product', () => {
-  // Grey alone would be the only code, and the two hues plus grey is exactly
-  // the distinction a red-green or low-vision reader loses first. The shape
-  // carries it independently.
+  // Shape carries it independently of colour. That mattered more when the two
+  // product hues were purple and blue and collapsed into each other under
+  // red-green deficiency; on each product's own accent they now measure 0.113
+  // apart at worst. The ring stays because "nothing has shipped" is the one
+  // thing here a reader cannot read anywhere else on the row.
   it('reads as unlit by shape, not only by colour', () => {
     const rule = CSS.slice(
       CSS.indexOf(".ordinal[data-product='next']::before"),

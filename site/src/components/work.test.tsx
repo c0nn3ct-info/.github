@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen, userEvent } from '../test/render';
 import { animations, fireResize, setReducedMotion } from '../test/setup';
 import { Work, type Project } from './work';
@@ -103,6 +103,76 @@ describe('Work rail marker', () => {
   });
 });
 
+describe('Work carousel', () => {
+  const track = () => screen.getByRole('group', { name: 'Screens' });
+  const shots = () => screen.getAllByRole('img').map((i) => i.getAttribute('src'));
+  /** jsdom has no layout and no scrolling, so the track is given both. */
+  function scrollable(width = 900) {
+    const el = track();
+    Object.defineProperty(el, 'clientWidth', { value: width, configurable: true });
+    const by = vi.fn();
+    el.scrollBy = by;
+    return by;
+  }
+
+  // Every capture is in the document at once. There is no index, so nothing can
+  // disagree about which one is showing.
+  it('holds every screen the product has, each its own zoom target', () => {
+    render(<Harness />);
+    expect(shots()).toEqual([
+      '/media/noctis-home-light.webp',
+      '/media/noctis-servers-light.webp',
+      '/media/noctis-routing-light.webp',
+    ]);
+    expect(screen.getAllByRole('button', { name: /Open the screenshot full size/ })).toHaveLength(
+      3,
+    );
+  });
+
+  // A scrolling region has to be reachable and named, or a keyboard reader
+  // cannot get to what is inside it.
+  it('is a named region the keyboard can enter', () => {
+    render(<Harness />);
+    expect(track()).toHaveAttribute('tabindex', '0');
+    expect(track()).toHaveAccessibleName('Screens');
+  });
+
+  it('steps one capture at a time, in both directions', async () => {
+    render(<Harness />);
+    const by = scrollable();
+    await userEvent.click(screen.getByRole('button', { name: 'Next screen' }));
+    expect(by).toHaveBeenLastCalledWith({ left: 900, behavior: 'smooth' });
+    await userEvent.click(screen.getByRole('button', { name: 'Previous screen' }));
+    expect(by).toHaveBeenLastCalledWith({ left: -900, behavior: 'smooth' });
+  });
+
+  it('jumps rather than glides when the reader asked for reduced motion', async () => {
+    setReducedMotion(true);
+    render(<Harness />);
+    const by = scrollable();
+    await userEvent.click(screen.getByRole('button', { name: 'Next screen' }));
+    expect(by).toHaveBeenLastCalledWith({ left: 900, behavior: 'auto' });
+  });
+
+  it('opens the capture that was clicked, not whichever one is current', async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[2]);
+    expect(screen.getByRole('dialog')).toHaveAccessibleName('noctis · Routing');
+  });
+
+  it('tells the hairline how many there are', () => {
+    render(<Harness />);
+    expect(track().parentElement).toHaveStyle({ '--shots': '3' });
+  });
+
+  // The workshop has nothing to capture, so it has no track either.
+  it('is absent from a pane with no captures', () => {
+    render(<Harness start="next" />);
+    expect(screen.queryByRole('group', { name: 'Screens' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Next screen' })).toBeNull();
+  });
+});
+
 describe('Work swap', () => {
   /** The translateY the pane entered from, or null if it did not animate. */
   const entry = () => {
@@ -125,13 +195,13 @@ describe('Work swap', () => {
   // of the document and put a fresh one back, which flashes.
   it('runs on a wrapper that survives the swap', async () => {
     render(<Harness />);
-    const shot = screen.getByRole('img');
+    const shot = screen.getAllByRole('img')[0];
     await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
     const target = animations.at(-1)?.target as HTMLElement;
-    expect(target).toContainElement(screen.getByRole('img'));
+    expect(target).toContainElement(screen.getAllByRole('img')[0]);
     // React keeps both the wrapper and the image node, and swaps the source.
-    expect(screen.getByRole('img')).toBe(shot);
-    expect(shot).toHaveAttribute('src', '/media/aria2t-dark.png');
+    expect(screen.getAllByRole('img')[0]).toBe(shot);
+    expect(shot).toHaveAttribute('src', '/media/aria2t-home-light.webp');
     await userEvent.click(screen.getByRole('tab', { name: /noctis/ }));
     expect(animations.at(-1)?.target).toBe(target);
   });
@@ -172,7 +242,7 @@ describe('Work swap', () => {
 describe('Work panes', () => {
   it('gives noctis its capture, its own line and three places to go', () => {
     render(<Harness />);
-    expect(screen.getByRole('img')).toHaveAttribute('src', '/media/noctis-dark.png');
+    expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/noctis-home-light.webp');
     expect(screen.getByText('vless browser extension for chrome')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Project page/ })).toHaveAttribute(
       'href',
@@ -190,9 +260,11 @@ describe('Work panes', () => {
 
   it('gives aria2t its own capture and the two places it has', async () => {
     render(<Harness start="aria2t" />);
-    const shot = screen.getByRole('img');
-    expect(shot).toHaveAttribute('src', '/media/aria2t-dark.png');
-    expect(shot).toHaveAttribute('height', '495');
+    const shot = screen.getAllByRole('img')[0];
+    expect(shot).toHaveAttribute('src', '/media/aria2t-home-light.webp');
+    // Both products' captures are 1280x800 now, which is the pane's own 16/10,
+    // so nothing is cropped and nothing is letterboxed.
+    expect(shot).toHaveAttribute('height', '800');
     expect(screen.queryByRole('link', { name: /Chrome Web Store/ })).toBeNull();
     expect(screen.getByRole('link', { name: /Project page/ })).toHaveAttribute(
       'href',
@@ -202,7 +274,7 @@ describe('Work panes', () => {
 
   it('says plainly that the workshop has nothing to show, and offers no capture', () => {
     render(<Harness start="next" />);
-    expect(screen.queryByRole('img')).toBeNull();
+    expect(screen.queryAllByRole('img')).toHaveLength(0);
     expect(screen.getByText('Nothing to show yet')).toBeInTheDocument();
     expect(screen.getByText('A screenshot here would only be a promise')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Suggest something/ })).toHaveAttribute(
@@ -228,7 +300,9 @@ describe('Work panes', () => {
 describe('Work lightbox', () => {
   it('opens the capture full size and closes again', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('button', { name: 'Open the screenshot full size' }));
+    await userEvent.click(
+      screen.getAllByRole('button', { name: /Open the screenshot full size/ })[0],
+    );
     const dialog = screen.getByRole('dialog');
     expect(dialog).toBeInTheDocument();
     expect(screen.getByText('Click anywhere to close')).toBeInTheDocument();
@@ -240,26 +314,30 @@ describe('Work lightbox', () => {
 
   it('closes on Escape', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('button', { name: 'Open the screenshot full size' }));
+    await userEvent.click(
+      screen.getAllByRole('button', { name: /Open the screenshot full size/ })[0],
+    );
     await userEvent.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
   it('stays open for any other key', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('button', { name: 'Open the screenshot full size' }));
+    await userEvent.click(
+      screen.getAllByRole('button', { name: /Open the screenshot full size/ })[0],
+    );
     await userEvent.keyboard('{ArrowDown}');
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
 
   it('shows the capture it was opened from, and names itself after it once', async () => {
     render(<Harness start="aria2t" />);
-    await userEvent.click(screen.getByRole('button', { name: 'Open the screenshot full size' }));
-    const dialog = screen.getByRole('dialog');
-    expect(dialog.querySelector('img')).toHaveAttribute('src', '/media/aria2t-dark.png');
-    expect(dialog).toHaveAccessibleName(
-      'The aria2t download list running in a terminal, with progress, speed and time remaining.',
+    await userEvent.click(
+      screen.getAllByRole('button', { name: /Open the screenshot full size/ })[0],
     );
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.querySelector('img')).toHaveAttribute('src', '/media/aria2t-home-light.webp');
+    expect(dialog).toHaveAccessibleName('aria2t · Home');
     // The description is the dialog's name, so the image itself stays out of
     // the tree rather than reading the same sentence a second time.
     expect(dialog.querySelector('img')).toHaveAttribute('alt', '');
@@ -270,7 +348,9 @@ describe('Work lightbox', () => {
   // see and gave no way back.
   it('keeps Tab inside the dialog', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('button', { name: 'Open the screenshot full size' }));
+    await userEvent.click(
+      screen.getAllByRole('button', { name: /Open the screenshot full size/ })[0],
+    );
     const close = screen.getByRole('button', { name: 'Close the preview' });
     await userEvent.tab();
     expect(close).toHaveFocus();
@@ -280,7 +360,7 @@ describe('Work lightbox', () => {
 
   it('hands the keyboard back to the thumbnail it was opened from', async () => {
     render(<Harness />);
-    const opener = screen.getByRole('button', { name: 'Open the screenshot full size' });
+    const opener = screen.getAllByRole('button', { name: /Open the screenshot full size/ })[0];
     await userEvent.click(opener);
     await userEvent.keyboard('{Escape}');
     expect(opener).toHaveFocus();

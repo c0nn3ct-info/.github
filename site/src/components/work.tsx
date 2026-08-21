@@ -1,7 +1,24 @@
-import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
-import { Arrow } from '@/components/arrow';
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+} from 'react';
+import {
+  ArrowDown,
+  ChevronLeft,
+  ChevronRight,
+  Chrome,
+  Github,
+  Globe,
+  Mail,
+  type LucideIcon,
+} from 'lucide-react';
 import { enterEase } from '@/lib/ease';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
+import { Aria2tMark, NoctisMark } from '@/components/product-mark';
 import { Lightbox, type Shot } from '@/components/lightbox';
 import { nextIndex } from '@/lib/roving';
 import {
@@ -18,33 +35,46 @@ export type Project = 'noctis' | 'aria2t' | 'next';
 
 export const PROJECTS: readonly Project[] = ['noctis', 'aria2t', 'next'];
 
-const SHOT: Partial<Record<Project, string>> = {
-  noctis: '/media/noctis-dark.png',
-  aria2t: '/media/aria2t-dark.png',
+/** The screens each product has, in the order its carousel shows them. Both
+ * sets come from the products' own screenshot skills at 1280x800, which is the
+ * shot pane's 16/10 exactly, so nothing is cropped or letterboxed any more. */
+const SLIDES: Partial<Record<Project, readonly string[]>> = {
+  noctis: ['home', 'servers', 'routing'],
+  aria2t: ['home', 'detail', 'settings'],
+};
+
+/** Each product's own mark, from its own repository. The workshop has no
+ * product yet, so it borrows the org's. */
+const MARK: Record<Project, typeof C0nn3ctMark> = {
+  noctis: NoctisMark,
+  aria2t: Aria2tMark,
+  next: C0nn3ctMark,
 };
 
 interface PaneLink {
   label: string;
   href: string;
-  /** An in-page destination takes the arrow that means "further down". */
-  inPage?: boolean;
+  /** Named on the left rather than trailed by an arrow: three destinations of
+   * three different kinds are told apart by what they are, and an arrow on
+   * each said only that all three lead away. */
+  icon: LucideIcon;
 }
 
 function links(p: Project): PaneLink[] {
   if (p === 'noctis')
     return [
-      { label: t('home.work.link_site'), href: NOCTIS_SITE },
-      { label: t('home.work.link_store'), href: NOCTIS_STORE },
-      { label: t('home.work.link_src'), href: NOCTIS_SRC },
+      { label: t('home.work.link_site'), href: NOCTIS_SITE, icon: Globe },
+      { label: t('home.work.link_store'), href: NOCTIS_STORE, icon: Chrome },
+      { label: t('home.work.link_src'), href: NOCTIS_SRC, icon: Github },
     ];
   if (p === 'aria2t')
     return [
-      { label: t('home.work.link_site'), href: ARIA2T_SITE },
-      { label: t('home.work.link_src'), href: ARIA2T_SRC },
+      { label: t('home.work.link_site'), href: ARIA2T_SITE, icon: Globe },
+      { label: t('home.work.link_src'), href: ARIA2T_SRC, icon: Github },
     ];
   return [
-    { label: t('home.work.link_suggest'), href: mailto(t('mail.suggest')) },
-    { label: t('home.work.link_promises'), href: '#settled', inPage: true },
+    { label: t('home.work.link_suggest'), href: mailto(t('mail.suggest')), icon: Mail },
+    { label: t('home.work.link_promises'), href: '#settled', icon: ArrowDown },
   ];
 }
 
@@ -52,11 +82,38 @@ function name(p: Project): string {
   return p === 'next' ? t('home.work.next_name') : p;
 }
 
-/** The screen half of a pane: a real capture, or the placeholder that says
- * plainly there is nothing to capture yet. */
-function Screen({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void }) {
-  const src = SHOT[project];
-  if (!src) {
+/** One capture, in both themes, named after the screen it shows. The name is
+ * the product's own word for that screen, lifted from its locale files. */
+function capture(project: Project, key: string): Shot {
+  return {
+    light: `/media/${project}-${key}-light.webp`,
+    dark: `/media/${project}-${key}-dark.webp`,
+    alt: `${name(project)} · ${t(`home.work.shot_${key}`)}`,
+  };
+}
+
+/** One capture forward or back. The scroller does the rest, including the
+ * direction, which flips with the writing mode on its own. */
+function step(track: HTMLDivElement, dir: number): void {
+  const smooth = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  track.scrollBy({ left: track.clientWidth * dir, behavior: smooth ? 'smooth' : 'auto' });
+}
+
+interface ScreenProps {
+  project: Project;
+  onOpen: (s: Shot) => void;
+}
+
+/** The screen half of a pane: the product's captures as a carousel, or the
+ * placeholder that says plainly there is nothing to capture yet. */
+function Screen({ project, onOpen }: ScreenProps) {
+  // Through state rather than a ref, and the buttons wait for it: a mouse is
+  // the only thing that needs them, they are invisible until hovered anyway,
+  // and this way `step` is handed an element that exists instead of guarding
+  // against a null it can never see.
+  const [track, setTrack] = useState<HTMLDivElement | null>(null);
+  const keys = SLIDES[project];
+  if (!keys) {
     return (
       <div className="pane pane-shot border-0 text-white">
         <div
@@ -82,28 +139,82 @@ function Screen({ project, onOpen }: { project: Project; onOpen: (s: Shot) => vo
       </div>
     );
   }
-  const alt = t(`home.work.${project}_alt`);
   return (
-    <div className="pane pane-shot">
-      <img
-        src={src}
-        alt={alt}
-        width={1280}
-        height={project === 'noctis' ? 800 : 495}
-        loading="lazy"
-        decoding="async"
-      />
-      <button
-        type="button"
-        className="absolute inset-0 z-[4] cursor-zoom-in border-0 bg-transparent"
-        onClick={() => onOpen({ src, alt })}
-        aria-label={t('home.work.shot_open')}
-      />
+    <div className="pane pane-shot" style={{ '--shots': keys.length } as CSSProperties}>
+      {/* A scroll container rather than a slideshow. Swipe, trackpad, arrow
+          keys and Home/End all come from the browser, every capture keeps its
+          own zoom target so nothing has to track which one is showing, and a
+          reader who never touches it still has the first screen at full width.
+          The only thing added is a way to drive it with a mouse. */}
+      <div
+        className="shot-track"
+        tabIndex={0}
+        role="group"
+        aria-label={t('home.work.shots_aria')}
+        ref={setTrack}
+      >
+        {keys.map((k) => {
+          const shot = capture(project, k);
+          return (
+            <button
+              type="button"
+              key={k}
+              className="shot-slide"
+              onClick={() => onOpen(shot)}
+              aria-label={`${shot.alt} · ${t('home.work.shot_open')}`}
+            >
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcSet={shot.dark} />
+                <img
+                  src={shot.light}
+                  alt={shot.alt}
+                  width={1280}
+                  height={800}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </button>
+          );
+        })}
+      </div>
+      {track && (
+        <>
+          <button
+            type="button"
+            className="shot-nav shot-nav-prev"
+            onClick={() => step(track, -1)}
+            aria-label={t('home.work.shot_prev')}
+          >
+            <ChevronLeft className="h-[18px] w-[18px] rtl:-scale-x-100" aria-hidden />
+          </button>
+          <button
+            type="button"
+            className="shot-nav shot-nav-next"
+            onClick={() => step(track, 1)}
+            aria-label={t('home.work.shot_next')}
+          >
+            <ChevronRight className="h-[18px] w-[18px] rtl:-scale-x-100" aria-hidden />
+          </button>
+        </>
+      )}
+      {/* How far along, as a hairline on the pane's own bottom edge. Driven by
+          the scroller itself, so it is exact at any position and costs nothing
+          where the browser cannot do it. */}
+      <div className="shot-progress" aria-hidden>
+        <span />
+      </div>
     </div>
   );
 }
 
-function Pane({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void }) {
+interface PaneProps {
+  project: Project;
+  onOpen: (s: Shot) => void;
+}
+
+function Pane({ project, onOpen }: PaneProps) {
+  const Mark = MARK[project];
   return (
     <div
       className="flex w-full flex-none flex-col gap-[var(--gap-part)]"
@@ -123,25 +234,34 @@ function Pane({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void
 
         <div className="pane pane-details">
           <div className="flex h-full flex-col gap-[var(--gap-part)] p-7">
-            <div className="flex items-center gap-3">
-              <C0nn3ctMark className="h-[34px] w-[34px] flex-none text-led" />
-              <span className="flex min-w-0 flex-col gap-px">
-                <h3 className="m-0 text-[clamp(26px,3vw,42px)] font-[640] leading-[0.98] tracking-[var(--track-display)]">
-                  {name(project)}
-                </h3>
-                <span className="tag text-led-ink">
-                  {t(`home.work.${project}_own`)}
-                </span>
-              </span>
+            {/* A grid rather than a flex row, so the mark takes its height from
+                the type rather than from the block beside it. Stretching it in
+                a flex row was circular, the mark grew the row and the row sized
+                the mark, and it settled at 372px.
+                
+                The height is the name plus one line of the kind under it, held
+                there whatever the kind does: noctis wraps to two lines below
+                about 1300px, and a mark that followed the wrap grew a fifth
+                taller than aria2t's and closed the gap to the name. One --title
+                so the name's size and the mark's height cannot drift. */}
+            <div
+              className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3"
+              style={{ '--title': 'clamp(26px, 3vw, 42px)' } as CSSProperties}
+            >
+              <Mark className="row-span-2 h-[calc(var(--title)*0.98+26px)] w-auto text-led" />
+              <h3 className="m-0 text-[length:var(--title)] font-[640] leading-[0.98] tracking-[var(--track-display)]">
+                {name(project)}
+              </h3>
+              <span className="tag text-led-ink">{t(`home.work.${project}_own`)}</span>
             </div>
             <p className="m-0 text-pretty text-[clamp(16px,1.5vw,20px)] leading-snug tracking-[var(--track-name)]">
               {t(`home.work.${project}_lead`)}
             </p>
             <div className="mt-auto flex flex-wrap items-center gap-x-1.5 gap-y-0.5 border-t border-outline-variant pt-2">
-              {links(project).map((l) => (
-                <a className="pane-link" href={l.href} key={l.href}>
-                  {l.label}
-                  <Arrow away={!l.inPage} />
+              {links(project).map(({ label, href, icon: Icon }) => (
+                <a className="pane-link" href={href} key={href}>
+                  <Icon className="h-[1.15em] w-[1.15em] flex-none" aria-hidden />
+                  {label}
                 </a>
               ))}
             </div>
@@ -152,9 +272,7 @@ function Pane({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void
           {['f1', 'f2', 'f3'].map((f, i) => (
             <div className="fact-card" key={f}>
               <span className="ordinal">{`0${i + 1}`}</span>
-              <span className="note">
-                {t(`home.work.${project}_${f}`)}
-              </span>
+              <span className="note">{t(`home.work.${project}_${f}`)}</span>
             </div>
           ))}
         </div>
@@ -282,9 +400,7 @@ export function Work({ project, onPick }: WorkProps) {
                 <span className="ordinal" data-product={p}>{`0${i + 1}`}</span>
                 <span className="flex min-w-0 flex-col gap-0.5">
                   <span className="rail-name">{name(p)}</span>
-                  <span className="tag text-on-surface-variant">
-                    {t(`home.work.${p}_kind`)}
-                  </span>
+                  <span className="tag text-on-surface-variant">{t(`home.work.${p}_kind`)}</span>
                 </span>
               </button>
             ))}

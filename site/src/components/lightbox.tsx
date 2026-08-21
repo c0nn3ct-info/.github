@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { t } from '../i18n';
 
 export interface Shot {
-  src: string;
+  /** Both themes, because the capture is of a themed interface and the wrong
+   * one beside the page's own ground reads as a screenshot of a different
+   * product. The picture element picks, so no script decides it. */
+  light: string;
+  dark: string;
   alt: string;
 }
 
@@ -52,7 +56,10 @@ export function Lightbox({ shot, onClose }: { shot: Shot; onClose: () => void })
       />
       {/* The dialog's own name is this description, so repeating it here would
           read the screenshot out twice. */}
-      <img src={shot.src} alt="" />
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcSet={shot.dark} />
+        <img src={shot.light} alt="" />
+      </picture>
       <span className="eyebrow pointer-events-none absolute bottom-6 start-1/2 -translate-x-1/2 text-white/60 rtl:translate-x-1/2">
         {t('home.shot.close_hint')}
       </span>

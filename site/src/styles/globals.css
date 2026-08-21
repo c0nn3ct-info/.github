@@ -749,12 +749,50 @@
     .site-header nav {
       display: none;
     }
-  /* The index sits under the stage rather than beside it, so it no longer
-     * has a fixed bar to clear. */
-    .hero-index {
-      padding-top: 22px;
-      border-inline-start: 0;
-      border-top: 1px solid hsl(var(--outline-variant));
+  }
+
+  /* Under about 560px of viewport height there is no circle left that can hold
+   * four pieces of copy. Measured at 667x375 the content ran 193px inside a
+   * 189px box and at 568x320 it ran 193px inside 170px, which pushed the
+   * eyebrow and the top of the headline up behind the fixed bar and squeezed
+   * the call to action from its 38px floor down to 24px. The type is already
+   * on its 9px floor at that point, so there is nothing left to give: the
+   * circle is simply smaller than its contents.
+   *
+   * The circle therefore stops being the container and goes back to being
+   * scenery, which is what it is everywhere else. The copy leaves it, sits in
+   * normal flow with room for the bar above it, and the stage takes its height
+   * from what is actually in it rather than from a fraction of the viewport.
+   * Keyed on height alone, because a short desktop window runs out of circle
+   * for the same reason a landscape phone does. */
+  @media (max-height: 560px) {
+    .stage {
+      min-height: auto;
+      display: grid;
+      place-items: center;
+      padding: 88px clamp(20px, 5vw, 48px) 36px;
+    }
+    .glass,
+    [dir='rtl'] .glass {
+      position: static;
+      transform: none;
+      width: min(100%, 460px);
+      height: auto;
+      border: 0;
+      border-radius: 0;
+      background: none;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+    .glass-inner {
+      width: 100%;
+      height: auto;
+    }
+    /* Both framed the circle that has just gone. Left alone, the copy would
+     * sit across an outline and a word that no longer enclose anything. */
+    .stage-ring,
+    .stage-wordmark {
+      display: none;
     }
   }
 
@@ -775,6 +813,20 @@
     gap: 16px;
     padding: 17px clamp(18px, 2vw, 26px);
     border-top: 1px solid hsl(var(--outline-variant));
+  }
+
+  /* Stacked under the stage rather than beside it, the index has no fixed bar
+   * to clear and no column to its side, so it trades 84px of clearance for a
+   * top edge. This lived in the max-width block above until 2026-08-21, which
+   * is earlier in the file than the rule it overrides and carries the same
+   * specificity, so it had never once applied: every phone paid the 62px and
+   * drew the border on the wrong side. */
+  @media (max-width: 899px) {
+    .hero-index {
+      padding-top: 22px;
+      border-inline-start: 0;
+      border-top: 1px solid hsl(var(--outline-variant));
+    }
   }
 
   /* ── marquee ───────────────────────────────────────────────────────────── */

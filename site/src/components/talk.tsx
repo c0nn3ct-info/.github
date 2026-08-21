@@ -1,3 +1,4 @@
+import { Arrow } from '@/components/arrow';
 import { CONTACT_ADDRESS, mailto } from '@/constants';
 import { t } from '../i18n';
 
@@ -39,9 +40,7 @@ export function Talk() {
               <span className="text-[clamp(17px,1.7vw,22px)] font-[520] leading-snug tracking-[var(--track-title)]">
                 {t(`home.talk.${k}`)}
               </span>
-              <span aria-hidden className="mono text-[13px] text-white/50">
-                ↗
-              </span>
+              <Arrow away className="text-[15px] text-white/50" />
             </a>
           ))}
           <span className="tag pt-1.5 text-white/50">

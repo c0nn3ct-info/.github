@@ -1,4 +1,5 @@
 import { Github } from 'lucide-react';
+import { Arrow } from '@/components/arrow';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { useHeader } from '@/lib/use-header';
@@ -45,9 +46,7 @@ export function SiteHeader({ home }: { home: boolean }) {
 
       <a className="header-cta" href={mailto(t('mail.hello'))}>
         {t('nav.cta')}
-        <span aria-hidden className="opacity-55">
-          ↗
-        </span>
+        <Arrow away className="opacity-55" />
       </a>
     </header>
   );

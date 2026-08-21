@@ -1,3 +1,4 @@
+import { Arrow } from '@/components/arrow';
 import { t } from '../i18n';
 
 const FLOOR = ['f1', 'f2', 'f3', 'f4'] as const;
@@ -30,7 +31,7 @@ export function Promises() {
             href="#contact"
           >
             {t('home.floor.cta')}
-            <span aria-hidden>→</span>
+            <Arrow />
           </a>
         </div>
 

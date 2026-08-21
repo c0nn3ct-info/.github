@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
+import { Arrow } from '@/components/arrow';
 import { useParallax } from '@/lib/use-parallax';
 import { mailto } from '@/constants';
 import { t } from '../i18n';
@@ -43,9 +44,7 @@ function IndexRow({
   return (
     <a className="index-row hoverable" href="#work" onClick={onPick}>
       {body}
-      <span aria-hidden className="mono text-xs text-faint">
-        →
-      </span>
+      <Arrow className="text-faint" />
     </a>
   );
 }
@@ -99,7 +98,7 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
 
         <div className="glass">
           <div className="glass-inner">
-            <span className="rise-1 eyebrow whitespace-nowrap text-[clamp(9px,1.9svh,10px)] text-white/75">
+            <span className="rise-1 eyebrow whitespace-nowrap text-white/75">
               {t('home.hero.eyebrow')}
             </span>
             <h1 className="rise-2 m-0 text-balance text-[clamp(23px,min(5.4svh,8.5vw),46px)] font-[520] leading-[1.06] tracking-[var(--track-h1)] text-white">
@@ -154,7 +153,8 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
             className="tag inline-flex items-center gap-2.5 text-on-surface-variant hover:text-on-surface"
             href={mailto(t('mail.hello'))}
           >
-            hello@c0nn3ct.info<span aria-hidden>→</span>
+            hello@c0nn3ct.info
+            <Arrow away />
           </a>
         </div>
       </aside>

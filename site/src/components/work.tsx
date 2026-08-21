@@ -1,5 +1,5 @@
 import { useRef, useState, type KeyboardEvent } from 'react';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { Arrow } from '@/components/arrow';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
 import { Lightbox, type Shot } from '@/components/lightbox';
 import { nextIndex } from '@/lib/roving';
@@ -133,11 +133,7 @@ function Pane({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void
               {links(project).map((l) => (
                 <a className="pane-link" href={l.href} key={l.href}>
                   {l.label}
-                  {l.inPage ? (
-                    <ArrowRight className="h-3.5 w-3.5 rtl:-scale-x-100" aria-hidden />
-                  ) : (
-                    <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
-                  )}
+                  <Arrow away={!l.inPage} />
                 </a>
               ))}
             </div>

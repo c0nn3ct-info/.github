@@ -1,3 +1,4 @@
+import { Arrow } from '@/components/arrow';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
 import { ARIA2T_SITE, NOCTIS_SITE, ORG_URL, mailto } from '@/constants';
 import { t } from '../i18n';
@@ -27,8 +28,12 @@ export function SiteFooter() {
           <a className="text-sm text-white/85 hover:text-white" href={mailto(t('mail.hello'))}>
             {t('footer.mail')}
           </a>
-          <a className="text-sm text-white/85 hover:text-white" href={ORG_URL}>
-            {t('footer.github')} ↗
+          <a
+            className="inline-flex items-center gap-1.5 text-sm text-white/85 hover:text-white"
+            href={ORG_URL}
+          >
+            {t('footer.github')}
+            <Arrow away />
           </a>
         </div>
       </div>

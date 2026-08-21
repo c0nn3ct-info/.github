@@ -1,4 +1,5 @@
 import { useRef, useState, type KeyboardEvent } from 'react';
+import { Arrow } from '@/components/arrow';
 import { nextIndex } from '@/lib/roving';
 import { t } from '../i18n';
 
@@ -67,9 +68,7 @@ export function Practices() {
             >
               <span className="ordinal text-on-surface-variant">{`0${n + 1}`}</span>
               <span className="practice-title">{t(`home.how.${k}_t`)}</span>
-              <span aria-hidden className="mono text-xs text-on-surface-variant">
-                ↗
-              </span>
+              <Arrow className="text-[15px] text-on-surface-variant" />
             </button>
           ))}
         </div>

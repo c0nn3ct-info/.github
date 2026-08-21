@@ -85,7 +85,11 @@
     --on-block: #fff;
     --on-block-dim: rgb(255 255 255 / 0.74);
     --on-block-faint: rgb(255 255 255 / 0.58);
+    --on-block-line: rgb(255 255 255 / 0.2);
     --stage: #0d0d0f;
+    /* Light needs no edge on a stage slab: 95 points of L* already say where
+     * it starts. Dark cannot, so the token carries the difference. */
+    --stage-edge: transparent;
     --bar: rgb(255 255 255 / 0.86);
 
     /* Product coding. The -ink pair is the same hue pulled to AA on the light
@@ -144,14 +148,19 @@
 
     --faint-ink: hsl(0 0% 61%);
     --hover: color-mix(in oklab, hsl(0 0% 98%) 10%, transparent);
-    --block: hsl(0 0% 17%);
-    --on-block: hsl(0 0% 98%);
-    /* The card lightens from #111 to #2b2b2b here, so the two alphas tuned
-     * against #111 have to rise to keep the same weight: 0.84 holds 10.4:1
-     * and 0.64 holds 6.8:1, matching what they measure in light. */
-    --on-block-dim: rgb(255 255 255 / 0.84);
-    --on-block-faint: rgb(255 255 255 / 0.64);
+    /* The block card is the page's one full-strength pole: in light it is ink
+     * on paper, 93.9 points of L* away from the ground. A dark grey card can
+     * only reach 13.6 of that, because two near-blacks cannot separate. So the
+     * card changes sides rather than changing shade, and the relationship the
+     * design actually owns survives at 90.8. The ink alphas below are solved
+     * back to the exact weights they measure in light: 10.45:1 and 6.75:1. */
+    --block: hsl(0 0% 94%);
+    --on-block: hsl(0 0% 8%);
+    --on-block-dim: rgb(0 0 0 / 0.77);
+    --on-block-faint: rgb(0 0 0 / 0.66);
+    --on-block-line: rgb(0 0 0 / 0.14);
     --stage: #08080a;
+    --stage-edge: rgb(255 255 255 / 0.15);
     --bar: rgb(13 13 15 / 0.86);
 
     --led-noctis: #bb9af7;
@@ -202,14 +211,19 @@
 
       --faint-ink: hsl(0 0% 61%);
       --hover: color-mix(in oklab, hsl(0 0% 98%) 10%, transparent);
-      --block: hsl(0 0% 17%);
-      --on-block: hsl(0 0% 98%);
-      /* The card lightens from #111 to #2b2b2b here, so the two alphas tuned
-       * against #111 have to rise to keep the same weight: 0.84 holds 10.4:1
-       * and 0.64 holds 6.8:1, matching what they measure in light. */
-      --on-block-dim: rgb(255 255 255 / 0.84);
-      --on-block-faint: rgb(255 255 255 / 0.64);
+      /* The block card is the page's one full-strength pole: in light it is ink
+       * on paper, 93.9 points of L* away from the ground. A dark grey card can
+       * only reach 13.6 of that, because two near-blacks cannot separate. So the
+       * card changes sides rather than changing shade, and the relationship the
+       * design actually owns survives at 90.8. The ink alphas below are solved
+       * back to the exact weights they measure in light: 10.45:1 and 6.75:1. */
+      --block: hsl(0 0% 94%);
+      --on-block: hsl(0 0% 8%);
+      --on-block-dim: rgb(0 0 0 / 0.77);
+      --on-block-faint: rgb(0 0 0 / 0.66);
+      --on-block-line: rgb(0 0 0 / 0.14);
       --stage: #08080a;
+      --stage-edge: rgb(255 255 255 / 0.15);
       --bar: rgb(13 13 15 / 0.86);
 
       --led-noctis: #bb9af7;
@@ -809,7 +823,7 @@
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    border: 1px solid rgb(255 255 255 / 0.2);
+    border: 1px solid var(--on-block-line);
   }
   @media (prefers-reduced-motion: no-preference) {
     .block-ring {
@@ -818,6 +832,12 @@
   }
 
   /* ── contact ───────────────────────────────────────────────────────────── */
+  /* The stage is the deepest plane on the page, which in light is enough to
+   * announce it. In dark the ground is already near-black, so the slab is
+   * marked the way the marquee belt and the footer mark theirs: an edge. */
+  .stage-slab {
+    border-top: 1px solid var(--stage-edge);
+  }
   .talk-mail {
     display: inline-block;
     align-self: flex-start;
@@ -1002,7 +1022,9 @@
       --on-block: #111;
       --on-block-dim: #333;
       --on-block-faint: #555;
+      --on-block-line: #bbb;
       --stage: #fff;
+      --stage-edge: transparent;
     }
     .site-header,
     .stage-grid,

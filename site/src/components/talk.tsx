@@ -8,7 +8,7 @@ export function Talk() {
     <section
       id="contact"
       aria-labelledby="contact-h"
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-stage px-6 pb-20 pt-24 text-white"
+      className="stage-slab relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-stage px-6 pb-20 pt-24 text-white"
     >
       <div
         aria-hidden

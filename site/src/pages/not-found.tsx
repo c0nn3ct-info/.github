@@ -7,8 +7,8 @@ import { Layout } from '../layout';
 export function NotFoundPage() {
   return (
     <Layout home={false}>
-      <main className="flex flex-1 items-center px-6 py-24">
-        <section className="mx-auto flex w-full max-w-[1200px] flex-col items-start gap-6">
+      <main className="page-pad flex flex-1 items-center py-24">
+        <section className="page-col flex flex-col items-start gap-[var(--gap-part)]">
           {/* Nothing is served here, but somebody is clearly home. */}
           <C0nn3ctMark className="h-14 w-14 text-outline-variant" />
           <h1 className="m-0 max-w-[20ch] text-balance text-[clamp(30px,4vw,56px)] font-[560] leading-[1.05] tracking-[var(--track-display)]">

@@ -9,14 +9,14 @@ export function Talk() {
     <section
       id="contact"
       aria-labelledby="contact-h"
-      className="stage-slab relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-stage px-6 pb-20 pt-24 text-white"
+      className="stage-slab page-pad relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-stage pb-20 pt-24 text-white"
     >
       <div
         aria-hidden
         className="absolute inset-0 bg-[radial-gradient(58%_62%_at_82%_16%,rgb(var(--glow-noctis)/0.2),transparent_70%)]"
       />
-      <div className="relative mx-auto grid w-full max-w-[1440px] items-end gap-x-5 gap-y-7 min-[900px]:grid-cols-12">
-        <div className="flex min-w-0 flex-col gap-5 min-[900px]:col-span-7">
+      <div className="page-col relative grid items-end gap-x-5 gap-y-7 min-[900px]:grid-cols-12">
+        <div className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-7">
           <span className="eyebrow text-white/60">
             {t('home.talk.eyebrow')}
           </span>
@@ -28,12 +28,12 @@ export function Talk() {
             <br />
             {t('home.talk.h2_b')}
           </h2>
-          <a className="talk-mail" href={mailto(t('mail.hello'))}>
+          <a className="talk-mail mt-3" href={mailto(t('mail.hello'))}>
             {CONTACT_ADDRESS}
           </a>
         </div>
 
-        <div className="flex min-w-0 flex-col gap-2.5 min-[900px]:col-span-5">
+        <div className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-5">
           <span className="tag text-white/50">{t('home.talk.lines_head')}</span>
           {LINES.map((k) => (
             <a className="talk-line" href={mailto(t(`mail.${k}`))} key={k}>

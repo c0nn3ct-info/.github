@@ -125,6 +125,30 @@
     --track-tag: 0.12em;
     --track-ordinal: 0.1em;
 
+    /* One column for the whole document. Before this the page had three: the
+     * contact slab and the footer capped themselves at 1440, the work pane at
+     * 1200, and the habits and promises at nothing at all, so at 1920 a reader
+     * scrolling saw the left edge move 20, 240, 490, 20, 240 and nothing lined
+     * up with anything. The hero is the one section that stays full bleed,
+     * because its split is the composition. */
+    --page-max: 1440px;
+    --gutter: clamp(20px, 3vw, 40px);
+
+    /* Spacing is a ratio before it is a number: what separates two groups has
+     * to beat what separates the parts of one group, or the grouping falls to
+     * the borders and the reader reads a grid of boxes. The page had them at
+     * parity, promise cards spacing their own contents by 10px and separating
+     * the cards by 14px, so these four steps exist to keep the distance.
+     *
+     * --gap-knit  parts of one thing (a label and what it labels)
+     * --gap-group elements within a group
+     * --gap-part  one group from the next
+     * --gap-band  one band of the page from the next */
+    --gap-knit: 6px;
+    --gap-group: 12px;
+    --gap-part: 24px;
+    --gap-band: 40px;
+
     --shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 3px 1px rgb(0 0 0 / 0.03);
     --shadow-2: 0 1px 2px 0 rgb(0 0 0 / 0.08), 0 2px 6px 2px rgb(0 0 0 / 0.04);
     --shadow-3: 0 4px 8px 3px rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.10);
@@ -473,6 +497,17 @@
     background: var(--hover);
   }
 
+  /* Applied to the section for the gutter and to the block inside it for the
+   * measure, so every band of the page shares two edges. */
+  .page-pad {
+    padding-inline: var(--gutter);
+  }
+  .page-col {
+    width: 100%;
+    max-width: var(--page-max);
+    margin-inline: auto;
+  }
+
   /* ── header ────────────────────────────────────────────────────────────── */
   .site-header {
     position: fixed;
@@ -483,8 +518,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 10px 24px;
-    padding: 13px clamp(16px, 3vw, 26px);
+    gap: 8px 24px;
+    padding: 12px var(--gutter);
     background: rgb(13 13 15 / 0.72);
     backdrop-filter: blur(16px) saturate(1.2);
     border-bottom: 1px solid rgb(255 255 255 / 0.14);
@@ -525,7 +560,7 @@
     flex: none;
     display: inline-flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
     height: 38px;
     padding: 0 18px;
     border-radius: var(--shape-pill);
@@ -574,7 +609,7 @@
   }
   .lang-menu a {
     display: block;
-    padding: 10px 13px;
+    padding: 10px 12px;
     border-radius: 11px;
     font-size: 15px;
     color: hsl(var(--on-surface-variant));
@@ -709,7 +744,25 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: clamp(8px, 2svh, 18px);
+    gap: 0;
+  }
+  /* Four things at four levels of importance had one gap between them, so the
+   * eyebrow, the headline, the lede and the button read as a list of equals.
+   * The eyebrow is the headline's own label and sits knit to it; the lede
+   * belongs to the headline; the button is a different kind of thing and
+   * stands apart. Every step scales with the circle, as the type does.
+   *
+   * Measured in em on the parent rather than svh alone would not survive the
+   * short-viewport rule, where the circle is gone and there is no svh to
+   * scale against, so the clamps keep their floors. */
+  .glass-inner > h1 {
+    margin-top: clamp(6px, 1.4svh, 12px);
+  }
+  .glass-inner > p {
+    margin-top: clamp(9px, 1.9svh, 17px);
+  }
+  .glass-inner > a {
+    margin-top: clamp(16px, 3.4svh, 32px);
   }
   /* Below the split, the stage is the whole width: the 52% offset that read as
    * centred beside the index no longer does, the circle is wider than the
@@ -802,7 +855,7 @@
     flex: 1 1 340px;
     min-width: min(100%, 300px);
     flex-direction: column;
-    padding: 84px 0 26px;
+    padding: 84px 0 24px;
     background: hsl(var(--surface));
     border-inline-start: 1px solid hsl(var(--outline-variant));
   }
@@ -811,7 +864,7 @@
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: 16px;
-    padding: 17px clamp(18px, 2vw, 26px);
+    padding: 16px clamp(20px, 2vw, 28px);
     border-top: 1px solid hsl(var(--outline-variant));
   }
 
@@ -857,9 +910,9 @@
   .marquee-run {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: 24px;
     flex: none;
-    padding: 14px 13px;
+    padding: 16px 12px;
     font-size: clamp(15px, 1.5vw, 21px);
     font-weight: 520;
     letter-spacing: var(--track-title);
@@ -871,9 +924,9 @@
     display: grid;
     grid-template-columns: 22px minmax(0, 1fr);
     align-items: center;
-    gap: 14px;
+    gap: var(--gap-group);
     width: 100%;
-    padding: 15px 12px;
+    padding: 16px 12px;
     border: 0;
     border-top: 1px solid hsl(var(--outline-variant));
     background: none;
@@ -922,8 +975,7 @@
     border: 1px solid hsl(var(--outline-variant));
   }
   .pane-shot {
-    flex: 1 1 50%;
-    min-width: min(100%, 470px);
+    min-width: 0;
     aspect-ratio: 16 / 10;
     background: var(--stage);
   }
@@ -944,8 +996,7 @@
     }
   }
   .pane-details {
-    flex: 1 1 300px;
-    min-width: min(100%, 290px);
+    min-width: 0;
     background: hsl(var(--surface-container-low));
     box-shadow: 0 8px 26px rgb(13 13 15 / 0.06);
   }
@@ -965,9 +1016,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 7px;
+    gap: var(--gap-knit);
     min-height: 0;
-    padding: 14px 16px;
+    padding: 16px;
     border-radius: var(--shape-md);
     border: 1px solid hsl(var(--outline-variant));
     background: hsl(var(--surface-container-low));
@@ -1005,7 +1056,7 @@
     align-items: center;
     gap: 16px;
     width: 100%;
-    padding: 19px 6px;
+    padding: 20px 8px;
     background: none;
     border: 0;
     border-top: 1px solid hsl(var(--outline-variant));
@@ -1081,7 +1132,7 @@
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 16px;
-    padding: 17px 4px;
+    padding: 16px 4px;
     border-top: 1px solid rgb(255 255 255 / 0.16);
     color: rgb(255 255 255 / 0.9);
     transition: color var(--dur-med) var(--ease-emph);

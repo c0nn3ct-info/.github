@@ -24,7 +24,7 @@ function IndexRow({
   const body = (
     <>
       <span className="ordinal">{ordinal}</span>
-      <span className="flex min-w-0 flex-col gap-[3px]">
+      <span className="flex min-w-0 flex-col gap-1">
         <span
           className={`text-[clamp(19px,1.9vw,26px)] font-[560] leading-none tracking-[var(--track-title)] ${
             onPick ? '' : 'text-on-surface-variant'

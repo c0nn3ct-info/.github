@@ -24,9 +24,9 @@ export function Practices() {
     <section
       id="how"
       aria-labelledby="how-h"
-      className="flex min-h-[100svh] flex-col justify-center gap-7 border-y border-outline-variant bg-surface px-5 py-16"
+      className="page-pad flex min-h-[100svh] flex-col justify-center gap-[var(--gap-band)] border-y border-outline-variant bg-surface py-16"
     >
-      <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+      <div className="page-col flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
         <h2
           id="how-h"
           className="m-0 text-balance text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[var(--track-display)]"
@@ -43,7 +43,7 @@ export function Practices() {
         </div>
       </div>
 
-      <div className="grid items-stretch gap-6 [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(0,1fr)_minmax(240px,0.44fr)]">
+      <div className="page-col grid items-stretch gap-[var(--gap-part)] [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(0,1fr)_minmax(240px,0.44fr)]">
         <div
           className="flex flex-col"
           role="tablist"

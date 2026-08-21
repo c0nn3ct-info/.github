@@ -103,18 +103,23 @@ function Screen({ project, onOpen }: { project: Project; onOpen: (s: Shot) => vo
 function Pane({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void }) {
   return (
     <div
-      className="mx-auto flex w-full max-w-[1200px] flex-none flex-col gap-3.5"
+      className="flex w-full flex-none flex-col gap-[var(--gap-part)]"
       data-product={project}
       id={project}
       role="tabpanel"
       aria-labelledby={`rail-${project}`}
       tabIndex={-1}
     >
-      <div className="flex flex-wrap items-stretch gap-3.5">
+      {/* An explicit grid, because flex-wrap left the arrangement to arithmetic
+          and the answer changed twice on the way out: the three facts sat in one
+          column to 1100, spread to three to 1440, then collapsed back into a
+          234px column above 1600. Two rows now, at every width that has room
+          for them, so a reader resizing sees one layout. */}
+      <div className="grid gap-[var(--gap-part)] [grid-template-columns:minmax(0,1fr)] min-[1100px]:[grid-template-columns:minmax(0,1.5fr)_minmax(0,1fr)]">
         <Screen project={project} onOpen={onOpen} />
 
         <div className="pane pane-details">
-          <div className="flex h-full flex-col gap-3.5 p-7">
+          <div className="flex h-full flex-col gap-[var(--gap-part)] p-7">
             <div className="flex items-center gap-3">
               <C0nn3ctMark className="h-[34px] w-[34px] flex-none text-led" />
               <span className="flex min-w-0 flex-col gap-px">
@@ -140,7 +145,7 @@ function Pane({ project, onOpen }: { project: Project; onOpen: (s: Shot) => void
           </div>
         </div>
 
-        <div className="grid flex-1 basis-[230px] auto-rows-fr grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-2.5 [min-width:min(100%,215px)]">
+        <div className="grid auto-rows-fr grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-[var(--gap-group)] min-[1100px]:col-span-2">
           {['f1', 'f2', 'f3'].map((f, i) => (
             <div className="fact-card" key={f}>
               <span className="ordinal">{`0${i + 1}`}</span>
@@ -177,9 +182,9 @@ export function Work({ project, onPick }: WorkProps) {
     <section
       id="work"
       aria-labelledby="work-h"
-      className="flex min-h-[100svh] flex-col justify-center gap-[18px] px-5 pb-8 pt-[78px]"
+      className="page-pad flex min-h-[100svh] flex-col justify-center gap-6 pb-8 pt-20"
     >
-      <div className="grid items-start gap-6 [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(190px,236px)_minmax(0,1fr)]">
+      <div className="page-col grid items-start gap-6 [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(190px,236px)_minmax(0,1fr)]">
         <div className="flex flex-col min-[900px]:sticky min-[900px]:top-24">
           <div className="flex items-baseline justify-between gap-2.5 pb-3">
             <h2
@@ -227,7 +232,10 @@ export function Work({ project, onPick }: WorkProps) {
           </p>
         </div>
 
-        <div className="flex min-h-[calc(100svh-124px)] flex-col justify-center gap-3.5">
+        {/* The rail is sticky and top-aligned, so the pane has to share its top
+            edge rather than centre itself in the column: centred, the two halves
+            of one section began 260px apart on a 1080-tall screen. */}
+        <div className="flex min-h-[calc(100svh-124px)] flex-col gap-[var(--gap-part)]">
           <Pane project={project} onOpen={setShot} />
         </div>
       </div>

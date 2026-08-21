@@ -5,8 +5,8 @@ import { t } from '../i18n';
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/15 bg-stage px-6 pb-6 pt-8 text-white/60">
-      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-[repeat(auto-fit,minmax(170px,1fr))] items-start gap-x-8 gap-y-7">
+    <footer className="page-pad border-t border-white/15 bg-stage pb-6 pt-8 text-white/60">
+      <div className="page-col grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] items-start gap-x-8 gap-y-7">
         <div className="flex flex-col gap-2.5">
           <span className="inline-flex items-center gap-2.5 text-white/85">
             <C0nn3ctMark className="h-[18px] w-[18px] flex-none" />

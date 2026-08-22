@@ -31,10 +31,10 @@ export const PROJECTS: readonly Project[] = ['noctis', 'aria2t', 'next'];
  * sets come from the products' own screenshot skills at 1280x800, which is the
  * shot pane's 16/10 exactly, so nothing is cropped or letterboxed any more. */
 const SLIDES: Partial<Record<Project, readonly string[]>> = {
-  // noctis opens on its promo tile (owner-directed): it names the product and
-  // says what it refuses before the reader is asked to read an interface.
+  // Both open on their promo tile (owner-directed): it names the product and
+  // says what it does before the reader is asked to read an interface.
   noctis: ['promo', 'home', 'servers', 'routing'],
-  aria2t: ['home', 'detail', 'settings'],
+  aria2t: ['promo', 'home', 'detail', 'settings'],
 };
 
 /** Each product's own mark, from its own repository. The workshop has no

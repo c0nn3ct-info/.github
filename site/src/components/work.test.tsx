@@ -201,7 +201,7 @@ describe('Work swap', () => {
     await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
     const target = animations.at(-1)?.target as HTMLElement;
     expect(target).toContainElement(screen.getAllByRole('img')[0]);
-    expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/aria2t-home-light.webp');
+    expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/aria2t-promo-light.webp');
     await userEvent.click(screen.getByRole('tab', { name: /noctis/ }));
     expect(animations.at(-1)?.target).toBe(target);
   });
@@ -262,7 +262,7 @@ describe('Work panes', () => {
   it('gives aria2t its own capture and the two places it has', async () => {
     render(<Harness start="aria2t" />);
     const shot = screen.getAllByRole('img')[0];
-    expect(shot).toHaveAttribute('src', '/media/aria2t-home-light.webp');
+    expect(shot).toHaveAttribute('src', '/media/aria2t-promo-light.webp');
     // Both products' captures are 1280x800 now, which is the pane's own 16/10,
     // so nothing is cropped and nothing is letterboxed.
     expect(shot).toHaveAttribute('height', '800');
@@ -337,8 +337,8 @@ describe('Work lightbox', () => {
       screen.getAllByRole('button', { name: /Open the screenshot full size/ })[0],
     );
     const dialog = screen.getByRole('dialog');
-    expect(dialog.querySelector('img')).toHaveAttribute('src', '/media/aria2t-home-light.webp');
-    expect(dialog).toHaveAccessibleName('aria2t · Home');
+    expect(dialog.querySelector('img')).toHaveAttribute('src', '/media/aria2t-promo-light.webp');
+    expect(dialog).toHaveAccessibleName('aria2t · Overview');
     // The description is the dialog's name, so the image itself stays out of
     // the tree rather than reading the same sentence a second time.
     expect(dialog.querySelector('img')).toHaveAttribute('alt', '');
@@ -381,7 +381,7 @@ describe('Work lightbox', () => {
     render(<Harness start="aria2t" />);
     await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[1]);
     const dialog = screen.getByRole('dialog');
-    expect(dialog.querySelectorAll('img')).toHaveLength(3);
+    expect(dialog.querySelectorAll('img')).toHaveLength(4);
     expect(within(dialog).getByRole('button', { name: 'Next screen' })).toBeInTheDocument();
     expect(within(dialog).getByRole('button', { name: 'Previous screen' })).toBeInTheDocument();
   });

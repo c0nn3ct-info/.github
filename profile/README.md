@@ -57,23 +57,24 @@ release by how little it ends up asking of you.
 <td align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
-  <img alt="The noctis home screen, showing an active tunnel and its connection stats." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
+  <img alt="The noctis home screen, showing a connected tunnel above the list of pinned servers, with its latency and its routing set beside it." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
 </td>
 <td align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
-  <img alt="The aria2t download list running in a terminal, with progress, speed and time remaining." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
+  <img alt="The aria2t home screen, showing three active downloads with their progress and speed, above the queue that is paused." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 </td>
 </tr>
 <tr>
 <td align="center">Routes browser traffic through your own proxies, while your bank and the video call stay on your own connection.</td>
-<td align="center">Twelve downloads on one screen, with no window management. Close the terminal and the queue is still there tomorrow.</td>
+<td align="center">Twelve downloads on one screen, with no window management. Close the tab and the queue keeps running without it.</td>
 </tr>
 </table>
 
-Each one is picked the same way: small enough that we can finish it, and finished before we announce it.
+Each one is picked the same way: small enough that we can finish it, and finished before we announce it. The next one
+starts the way both of these did, as something we needed ourselves badly enough to spend a season on it.
 
 ## ✨ How we work
 

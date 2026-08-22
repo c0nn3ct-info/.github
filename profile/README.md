@@ -57,13 +57,13 @@ release by how little it ends up asking of you.
 <td align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
-  <img alt="The noctis home screen, showing a connected tunnel above the list of pinned servers, with its latency and its routing set beside it." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
+  <img alt="The noctis promo tile, headed your servers, your rules, beside the panel where a tunnel sits ready to connect above the servers most recently used." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
 </td>
 <td align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
-  <img alt="The aria2t home screen, showing three active downloads with their progress and speed, above the queue that is paused." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
+  <img alt="The aria2t promo tile, headed every file and every torrent in one queue, beside the panel where downloads are running with their progress and speed." src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 </td>
 </tr>

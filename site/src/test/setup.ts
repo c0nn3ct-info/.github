@@ -100,6 +100,29 @@ export function setScrollY(y: number): void {
 }
 window.scrollTo = ((_x: number, y: number) => setScrollY(y)) as typeof window.scrollTo;
 
+// A carousel chevron's whole job is the delta it hands its scroller, and jsdom
+// has neither Element.scrollBy nor Element.scrollTo to hand it to, so the calls
+// are recorded rather than swallowed. Before this the two chevron clicks in the
+// suite threw inside React's handler and were reported as unhandled errors
+// beside a green run.
+export interface RecordedScroll {
+  target: Element;
+  /** `by` is a delta and `to` is a destination, and the carousel uses both: one
+   * capture along, or back to the first from the last. */
+  kind: 'by' | 'to';
+  options: ScrollToOptions;
+}
+
+export const scrolls: RecordedScroll[] = [];
+
+Element.prototype.scrollBy = function scrollBy(this: Element, options?: ScrollToOptions | number) {
+  scrolls.push({ target: this, kind: 'by', options: (options ?? {}) as ScrollToOptions });
+} as typeof Element.prototype.scrollBy;
+
+Element.prototype.scrollTo = function scrollTo(this: Element, options?: ScrollToOptions | number) {
+  scrolls.push({ target: this, kind: 'to', options: (options ?? {}) as ScrollToOptions });
+} as typeof Element.prototype.scrollTo;
+
 // ── Web Animations ───────────────────────────────────────────────────────────
 // jsdom has no Element.animate, and the work pane uses it to acknowledge a
 // product swap. Recording the calls rather than swallowing them, so a test can
@@ -144,13 +167,16 @@ type IoCallback = (entries: IntersectionObserverEntry[], o: IntersectionObserver
 class IntersectionObserverShim implements IntersectionObserver {
   readonly root = null;
   readonly rootMargin: string;
-  readonly thresholds = [0];
+  readonly thresholds: number[];
   readonly targets = new Set<Element>();
   constructor(
     private readonly cb: IoCallback,
     init?: IntersectionObserverInit,
   ) {
     this.rootMargin = init?.rootMargin ?? '0px';
+    // Recorded rather than assumed: how much of a region counts as seen is a
+    // decision, and the autoplay's is different from the loop pauser's.
+    this.thresholds = [init?.threshold ?? 0].flat();
     observers.add(this);
   }
   observe(el: Element) {
@@ -191,6 +217,11 @@ export function fireRegion(region: Element, isIntersecting: boolean): void {
 /** The rootMargin each live observer was created with, one per observer. */
 export function observerMargins(): string[] {
   return [...observers].map((o) => o.rootMargin);
+}
+
+/** The threshold each live observer was created with. */
+export function observerThresholds(): number[][] {
+  return [...observers].map((o) => o.thresholds);
 }
 
 /** Everything the live observers are actually watching. */
@@ -274,6 +305,7 @@ afterEach(() => {
   media = { ...DEFAULTS };
   setScrollY(0);
   animations.length = 0;
+  scrolls.length = 0;
   observers.clear();
   resizers.clear();
   viewTimelines = false;

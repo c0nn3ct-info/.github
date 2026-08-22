@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { render, screen, userEvent } from '../test/render';
+import { render, screen, userEvent, within } from '../test/render';
 import { animations, fireResize, setReducedMotion } from '../test/setup';
 import { Work, type Project } from './work';
 
@@ -119,13 +119,16 @@ describe('Work carousel', () => {
   // disagree about which one is showing.
   it('holds every screen the product has, each its own zoom target', () => {
     render(<Harness />);
+    // The promo tile leads: it names the product and says what it refuses before
+    // the reader is asked to read an interface.
     expect(shots()).toEqual([
+      '/media/noctis-promo-light.webp',
       '/media/noctis-home-light.webp',
       '/media/noctis-servers-light.webp',
       '/media/noctis-routing-light.webp',
     ]);
     expect(screen.getAllByRole('button', { name: /Open the screenshot full size/ })).toHaveLength(
-      3,
+      4,
     );
   });
 
@@ -156,13 +159,13 @@ describe('Work carousel', () => {
 
   it('opens the capture that was clicked, not whichever one is current', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[2]);
+    await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[3]);
     expect(screen.getByRole('dialog')).toHaveAccessibleName('noctis · Routing');
   });
 
   it('tells the hairline how many there are', () => {
     render(<Harness />);
-    expect(track().parentElement).toHaveStyle({ '--shots': '3' });
+    expect(track().parentElement).toHaveStyle({ '--shots': '4' });
   });
 
   // The workshop has nothing to capture, so it has no track either.
@@ -190,18 +193,15 @@ describe('Work swap', () => {
     expect(entry()).toBe('translateY(-10px)');
   });
 
-  // The animation rides a stable wrapper instead of a remounted pane. Keying
-  // the pane on the product would restart it cleanly but tear the capture out
-  // of the document and put a fresh one back, which flashes.
+  // The animation rides a stable wrapper. Keying the pane on the product would
+  // restart it cleanly but tear the whole carousel out of the document and put
+  // a fresh one back, which flashes.
   it('runs on a wrapper that survives the swap', async () => {
     render(<Harness />);
-    const shot = screen.getAllByRole('img')[0];
     await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
     const target = animations.at(-1)?.target as HTMLElement;
     expect(target).toContainElement(screen.getAllByRole('img')[0]);
-    // React keeps both the wrapper and the image node, and swaps the source.
-    expect(screen.getAllByRole('img')[0]).toBe(shot);
-    expect(shot).toHaveAttribute('src', '/media/aria2t-home-light.webp');
+    expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/aria2t-home-light.webp');
     await userEvent.click(screen.getByRole('tab', { name: /noctis/ }));
     expect(animations.at(-1)?.target).toBe(target);
   });
@@ -242,12 +242,13 @@ describe('Work swap', () => {
 describe('Work panes', () => {
   it('gives noctis its capture, its own line and three places to go', () => {
     render(<Harness />);
-    expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/noctis-home-light.webp');
+    expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/noctis-promo-light.webp');
     expect(screen.getByText('vless browser extension for chrome')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Project page/ })).toHaveAttribute(
-      'href',
-      'https://noctis.c0nn3ct.info',
-    );
+    // The product's own page is the button across the card; the rest keep the
+    // row under the line.
+    const lead = screen.getByRole('link', { name: /Project page/ });
+    expect(lead).toHaveAttribute('href', 'https://noctis.c0nn3ct.info');
+    expect(lead).toHaveClass('pane-cta');
     expect(screen.getByRole('link', { name: /Chrome Web Store/ })).toHaveAttribute(
       'href',
       'https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn',
@@ -345,17 +346,24 @@ describe('Work lightbox', () => {
 
   // aria-modal hides the page behind from a screen reader but leaves the tab
   // ring alone, so without this Tab walked into content the reader could not
-  // see and gave no way back.
-  it('keeps Tab inside the dialog', async () => {
+  // see. The ring is closed by hand: it is a modal, not a keyboard trap, and
+  // Escape is still the way out.
+  it('keeps Tab inside the dialog, wrapping at both ends', async () => {
     render(<Harness />);
-    await userEvent.click(
-      screen.getAllByRole('button', { name: /Open the screenshot full size/ })[0],
-    );
-    const close = screen.getByRole('button', { name: 'Close the preview' });
-    await userEvent.tab();
-    expect(close).toHaveFocus();
-    await userEvent.tab({ shift: true });
-    expect(close).toHaveFocus();
+    await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[0]);
+    const dialog = screen.getByRole('dialog');
+    const inside = () => dialog.contains(document.activeElement);
+
+    // Forward from the last control lands back on the first.
+    for (let i = 0; i < 8; i++) {
+      await userEvent.tab();
+      expect(inside()).toBe(true);
+    }
+    // And backwards from the first lands on the last.
+    for (let i = 0; i < 8; i++) {
+      await userEvent.tab({ shift: true });
+      expect(inside()).toBe(true);
+    }
   });
 
   it('hands the keyboard back to the thumbnail it was opened from', async () => {
@@ -364,5 +372,34 @@ describe('Work lightbox', () => {
     await userEvent.click(opener);
     await userEvent.keyboard('{Escape}');
     expect(opener).toHaveFocus();
+  });
+
+  // Opening a capture is a zoom rather than a jump to somewhere else, so the
+  // dialog is the same carousel the pane holds: the whole set, and the reader
+  // can keep going through it without closing and reopening.
+  it('carries the pane whole rather than the one capture', async () => {
+    render(<Harness start="aria2t" />);
+    await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[1]);
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.querySelectorAll('img')).toHaveLength(3);
+    expect(within(dialog).getByRole('button', { name: 'Next screen' })).toBeInTheDocument();
+    expect(within(dialog).getByRole('button', { name: 'Previous screen' })).toBeInTheDocument();
+  });
+
+  // Clicking the capture opened it, so clicking it again closes it. The
+  // chevrons sit on top of that surface and have to be exempt, or the carousel
+  // could only ever be advanced once.
+  it('collapses on a click anywhere but the carousel controls', async () => {
+    render(<Harness />);
+    await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[0]);
+    const dialog = screen.getByRole('dialog');
+
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Next screen' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Previous screen' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    await userEvent.click(dialog.querySelector('.shot-slide') as HTMLElement);
+    expect(screen.queryByRole('dialog')).toBeNull();
   });
 });

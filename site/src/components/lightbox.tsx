@@ -1,26 +1,44 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { ShotTrack, type Shot } from '@/components/shot-track';
 import { t } from '../i18n';
 
-export interface Shot {
-  /** Both themes, because the capture is of a themed interface and the wrong
-   * one beside the page's own ground reads as a screenshot of a different
-   * product. The picture element picks, so no script decides it. */
-  light: string;
-  dark: string;
-  alt: string;
+export type { Shot };
+
+/** Everything the dialog can put focus on, in the order Tab walks them. */
+function focusables(root: HTMLElement): HTMLElement[] {
+  return [...root.querySelectorAll<HTMLElement>('button, [tabindex="0"]')];
 }
 
-/** The screenshot at full size. Anywhere is a close target, so the dialog has
- * exactly one control and it is the one under the pointer. */
-export function Lightbox({ shot, onClose }: { shot: Shot; onClose: () => void }) {
-  const close = useRef<HTMLButtonElement>(null);
+/**
+ * The captures at full size, as the same carousel the pane shows. Every surface
+ * that is not a carousel control closes: the ground around the capture, and the
+ * capture itself, which is what a reader who opened it by clicking expects to
+ * be able to click again.
+ */
+export function Lightbox({
+  shots,
+  at,
+  onClose,
+}: {
+  shots: readonly Shot[];
+  at: number;
+  onClose: () => void;
+}) {
+  const [dialog, setDialog] = useState<HTMLDivElement | null>(null);
   // Read during the first render, which is the last moment the thumbnail still
-  // holds focus: autoFocus below moves it at commit, before any effect runs.
-  // Closing hands the keyboard back here, so a reader returns to the shot they
-  // opened rather than to the top of the document.
+  // holds focus. Closing hands the keyboard back there, so a reader returns to
+  // the capture they opened rather than to the top of the document.
   const [opener] = useState(() => document.activeElement as HTMLElement);
 
+  useLayoutEffect(() => {
+    if (!dialog) return;
+    // The ground, so Enter closes the moment the dialog appears and the arrow
+    // keys reach the track on the very next Tab.
+    focusables(dialog)[0]?.focus();
+  }, [dialog]);
+
   useEffect(() => {
+    if (!dialog) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
@@ -28,38 +46,43 @@ export function Lightbox({ shot, onClose }: { shot: Shot; onClose: () => void })
       }
       // aria-modal hides the page from assistive tech but does nothing to the
       // tab ring, so Tab would otherwise walk into content the reader cannot
-      // see. One control means the trap is a loop of length one; Escape is
-      // still the way out, so this is a modal, not a keyboard trap.
-      if (e.key === 'Tab') {
-        e.preventDefault();
-        close.current?.focus();
-      }
+      // see. The ring is closed by hand instead; Escape is still the way out,
+      // so this is a modal rather than a keyboard trap.
+      if (e.key !== 'Tab') return;
+      const ring = focusables(dialog);
+      const edge = e.shiftKey ? ring[0] : ring[ring.length - 1];
+      if (document.activeElement !== edge) return;
+      e.preventDefault();
+      (e.shiftKey ? ring[ring.length - 1] : ring[0]).focus();
     };
     document.addEventListener('keydown', onKey);
     return () => {
       document.removeEventListener('keydown', onKey);
       opener.focus();
     };
-  }, [onClose, opener]);
+  }, [dialog, onClose, opener]);
 
   return (
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label={shot.alt}>
-      {/* The dialog opens with its one control already focused, so Escape and
-          Enter both work the moment it appears. */}
+    <div
+      className="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label={shots[at]?.alt}
+      ref={setDialog}
+    >
       <button
         type="button"
-        autoFocus
-        ref={close}
         className="absolute inset-0 cursor-zoom-out border-0 bg-transparent"
         onClick={onClose}
         aria-label={t('home.shot.close')}
       />
-      {/* The dialog's own name is this description, so repeating it here would
-          read the screenshot out twice. */}
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcSet={shot.dark} />
-        <img src={shot.light} alt="" />
-      </picture>
+      <ShotTrack
+        shots={shots}
+        at={at}
+        label={t('home.work.shots_aria')}
+        onSurface={onClose}
+        eager
+      />
       <span className="eyebrow pointer-events-none absolute bottom-6 start-1/2 -translate-x-1/2 text-white/60 rtl:translate-x-1/2">
         {t('home.shot.close_hint')}
       </span>

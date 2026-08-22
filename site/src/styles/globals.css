@@ -215,6 +215,12 @@
     /* Light needs no edge on a stage slab: 95 points of L* already say where
      * it starts. Dark cannot, so the token carries the difference. */
     --stage-edge: transparent;
+    /* The carousel's position readout sits on the capture rather than on the
+     * page, so it takes the capture's theme: the picture element serves a light
+     * capture to a light reader, and a white thumb on it read as a hole in the
+     * pill rather than as the marker. */
+    --shot-bar: rgb(0 0 0 / 0.18);
+    --shot-bar-ink: rgb(20 20 24 / 0.72);
     --bar: rgb(255 255 255 / 0.86);
 
     /* Product coding. The -ink pair is the same hue pulled to AA on the light
@@ -325,6 +331,8 @@
     --on-block-line: rgb(0 0 0 / 0.14);
     --stage: #08080a;
     --stage-edge: rgb(255 255 255 / 0.15);
+    --shot-bar: rgb(255 255 255 / 0.22);
+    --shot-bar-ink: rgb(255 255 255 / 0.92);
     --bar: rgb(13 13 15 / 0.86);
 
     --led-noctis: hsl(0 0% 92%);
@@ -388,6 +396,8 @@
       --on-block-line: rgb(0 0 0 / 0.14);
       --stage: #08080a;
       --stage-edge: rgb(255 255 255 / 0.15);
+      --shot-bar: rgb(255 255 255 / 0.22);
+      --shot-bar-ink: rgb(255 255 255 / 0.92);
       --bar: rgb(13 13 15 / 0.86);
 
       --led-noctis: hsl(0 0% 92%);
@@ -1047,19 +1057,40 @@
     border-radius: var(--shape-lg);
     border: 1px solid hsl(var(--outline-variant));
   }
+  /* The pane holds the row, the capture inside it holds the aspect. Pinning
+   * 16/10 to the pane itself made the left column refuse the row's height, so
+   * between 1100 and 1340, where the details card's lead and its links both
+   * wrap, the two halves of one bento ended as much as 103px apart. Now the
+   * frame centres in whatever height the row turns out to be: the composition
+   * is level by construction and no capture is cropped to get there. */
   .pane-shot {
     min-width: 0;
-    aspect-ratio: 16 / 10;
+    display: grid;
+    place-items: center;
     background: var(--stage);
   }
   /* A scroll container rather than a slideshow: swipe, trackpad, arrow keys and
    * Home/End all come from the browser, and there is no index for anything to
-   * disagree about. What the page adds is a way to drive it with a mouse.
+   * disagree about. The same track serves the pane and the dialog, so the frame
+   * is what each of those two sizes.
    *
    * timeline-scope lets the hairline read the track's scroll position from
    * outside it, which is the only reason the two can be siblings. */
-  .pane-shot {
+  .shot-frame {
+    position: relative;
     timeline-scope: --shots;
+    /* Read back by the autoplay, so the fill on the readout and the timer that
+     * moves the captures are one number rather than two that drift. */
+    --shot-dwell: 5000ms;
+  }
+  .pane-shot > .shot-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    /* The matte the frame leaves at narrow widths is the stage, so a rounded
+     * capture sits on it rather than a square one inside a rounded pane. */
+    border-radius: inherit;
+    overflow: hidden;
   }
   .shot-track {
     position: absolute;
@@ -1078,6 +1109,10 @@
   }
   .shot-slide {
     scroll-snap-align: center;
+    /* One capture per gesture. A trackpad flick otherwise carries the scroller
+     * past two of them, and a reader who wanted the next one has to come back
+     * for it. */
+    scroll-snap-stop: always;
     display: block;
     width: 100%;
     height: 100%;
@@ -1086,14 +1121,56 @@
     background: none;
     cursor: zoom-in;
   }
-  .pane-shot img {
+  /* The picture is a wrapper, not a box, so the image stays the slide's own
+   * child and the sizing below reaches it. */
+  .shot-slide picture {
+    display: contents;
+  }
+  .shot-slide img {
     display: block;
     width: 100%;
     height: 100%;
+    /* A press that slid a few pixels was dragging the screenshot rather than
+     * clicking it, and the click never arrived. */
+    user-select: none;
+    -webkit-user-drag: none;
     /* contain, not cover: a cover crop would cut the columns at the edge of a
      * capture out of frame. */
     object-fit: contain;
-    transition: transform 700ms var(--ease-pane);
+  }
+
+  /* Which capture the carousel is on, said by the carousel itself. The one
+   * filling the frame is at rest and its neighbours sit back onto the stage, so
+   * a reader sees at a glance that there is more than one capture here and which
+   * of them they are looking at, mid-swipe included.
+   *
+   * Driven by the scroller's own position rather than by a timer, for the reason
+   * the section entrances further down are: the position is the state, and a
+   * clock started by a gesture disagrees with the finger that is still moving.
+   * A browser without view() timelines gets the captures at rest and the
+   * hairline below still reports position, which is why there is no scroll
+   * listener recomputing this on every frame. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .shot-slide {
+        animation: shot-settle linear both;
+        animation-timeline: view(inline);
+      }
+    }
+  }
+  /* Scale alone, and no opacity with it. Both were on the slide first, and the
+   * dimming worked against the one thing the pane is for: mid-travel the two
+   * captures sat at 0.7 on a stage of #08080a, which is contrast spent on a
+   * transition rather than on the screenshot a reader came to look at. The size
+   * difference already says which capture is the settled one. */
+  @keyframes shot-settle {
+    0%,
+    100% {
+      transform: scale(0.9);
+    }
+    50% {
+      transform: scale(1);
+    }
   }
 
   /* Only a mouse needs these. A touch reader swipes, and two buttons sitting on
@@ -1114,7 +1191,21 @@
     color: #fff;
     opacity: 0;
     --focus-ring: #fff;
-    transition: opacity var(--dur-short) var(--ease-emph);
+    transition:
+      opacity var(--dur-short) var(--ease-emph),
+      background var(--dur-short) var(--ease-emph),
+      transform var(--dur-short) var(--ease-emph);
+  }
+  .shot-nav:hover {
+    background: rgb(13 13 15 / 0.86);
+    border-color: rgb(255 255 255 / 0.34);
+  }
+  /* The press is the one thing here that moves, so it is the one thing behind
+   * the preference; the darkening above answers a reduced-motion reader. */
+  @media (prefers-reduced-motion: no-preference) {
+    .shot-nav:active {
+      transform: translateY(-50%) scale(0.92);
+    }
   }
   .shot-nav-prev {
     inset-inline-start: 10px;
@@ -1131,46 +1222,137 @@
       display: none;
     }
   }
+  /* A chevron with nowhere to go goes away, so neither of them is ever a hit
+   * target that answers a click with nothing. The track's own scroll position
+   * decides it, which is why this needs no state and no scroll listener: at
+   * rest the animation holds its first keyframe, and the first keyframe of the
+   * one pointing off the end is the hidden one. A browser without scroll-driven
+   * animation keeps both, which is where the page already was. */
+  @supports (animation-timeline: scroll()) {
+    .shot-nav {
+      animation: linear both;
+      animation-timeline: --shots;
+    }
+    .shot-nav-prev {
+      animation-name: shot-edge-start;
+    }
+    .shot-nav-next {
+      animation-name: shot-edge-end;
+    }
+  }
+  /* Two keyframes at the same end, because visibility resolves to visible
+   * across any interval that has one visible endpoint. A pair of identical
+   * ones holds it hidden instead. */
+  @keyframes shot-edge-start {
+    0%,
+    0.4% {
+      visibility: hidden;
+    }
+    0.5%,
+    100% {
+      visibility: visible;
+    }
+  }
+  @keyframes shot-edge-end {
+    0%,
+    99.5% {
+      visibility: visible;
+    }
+    99.6%,
+    100% {
+      visibility: hidden;
+    }
+  }
 
-  /* How far along, on the pane's own bottom edge. A readout of position rather
-   * than an animation, which is why it is not behind the motion preference:
-   * a scrollbar is not motion, and this is a scrollbar. */
+  /* Which capture, out of how many. A readout of position rather than an
+   * animation, which is why it is not behind the motion preference: a scrollbar
+   * is not motion, and this is a scrollbar.
+   *
+   * It was a 2px rule from edge to edge of the pane until 2026-08-22, which was
+   * both bigger than a readout needs to be and, in the light theme, white on a
+   * near-white capture, so it said nothing at all. One mark per capture now,
+   * spaced apart so the count is legible at a glance, with the bright mark
+   * travelling between them.
+   *
+   * `--shot-dwell` is read back by the autoplay, so the fill below and the timer
+   * that moves the captures are one number. */
   .shot-progress {
+    --shot-gap: 4px;
     position: absolute;
     inset-inline: 0;
-    bottom: 0;
+    bottom: 12px;
     z-index: 6;
-    height: 2px;
-    background: rgb(255 255 255 / 0.14);
+    display: flex;
+    gap: var(--shot-gap);
+    width: clamp(48px, 16%, 80px);
+    /* Logical centring, so nothing here has to know which way the page reads. */
+    margin-inline: auto;
     pointer-events: none;
   }
-  .shot-progress > span {
-    display: block;
-    width: calc(100% / var(--shots));
-    height: 100%;
-    background: rgb(255 255 255 / 0.8);
+  .shot-seg {
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--shot-bar);
+  }
+  /* The travelling mark, over the marks. One capture wide, whatever the count
+   * and whatever the gaps take out of the row. */
+  .shot-at {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc((100% - (var(--shots) - 1) * var(--shot-gap)) / var(--shots));
+    border-radius: 999px;
+    background: var(--shot-bar-ink);
+  }
+  /* Turning over on its own, the mark starts held back and fills to full over
+   * exactly one dwell, so a reader can see the change coming rather than being
+   * surprised by it. The moment they take the carousel over, the fill goes and
+   * the mark is simply the bright one. */
+  .shot-progress[data-playing] .shot-at {
+    /* Held back rather than faded: opacity here would cap the fill above, since
+     * a group's own opacity is the ceiling for everything inside it. */
+    background: color-mix(in oklab, var(--shot-bar-ink) 42%, transparent);
+  }
+  .shot-progress[data-playing] .shot-at::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--shot-bar-ink);
+    transform-origin: left center;
+    animation: shot-dwell var(--shot-dwell) linear infinite;
+  }
+  [dir='rtl'] .shot-progress[data-playing] .shot-at::after {
+    transform-origin: right center;
+  }
+  @keyframes shot-dwell {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
   }
   @supports (animation-timeline: scroll()) {
-    .shot-progress > span {
+    .shot-at {
       animation: shot-scrub linear both;
       animation-timeline: --shots;
     }
   }
+  /* A translate is physical, and the mark starts at the inline edge the page
+   * reads from, so under rtl it has to travel the other way. Left alone it
+   * walked out of the row from the right-hand end. */
+  [dir='rtl'] .shot-progress {
+    --scrub: -1;
+  }
+  /* One mark plus one gap per step, because the marks no longer touch. */
   @keyframes shot-scrub {
     to {
-      transform: translateX(calc(100% * (var(--shots) - 1)));
+      transform: translateX(
+        calc((100% + var(--shot-gap)) * (var(--shots) - 1) * var(--scrub, 1))
+      );
     }
-  }
-
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .pane-shot:hover img {
-      transform: scale(1.02);
-    }
-  }
-  /* The picture is a wrapper, not a box: the image stays the grid item so the
-   * lightbox's own size limits still reach it. */
-  .lightbox picture {
-    display: contents;
   }
 
   .pane-details {
@@ -1210,6 +1392,29 @@
       border-color: hsl(var(--outline));
     }
   }
+  /* The product's own page is what the whole entry points at, so it is a button
+   * across the card rather than the first of three equal names in a row. Its
+   * fill is the ink of the card it sits on, which is the page's rule for a
+   * primary: no button anywhere reads as one product's colour. */
+  .pane-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    border-radius: var(--shape-pill);
+    background: hsl(var(--on-surface));
+    color: hsl(var(--surface));
+    font-size: 14px;
+    font-weight: 620;
+    letter-spacing: var(--track-body);
+    --focus-ring: hsl(var(--on-surface));
+    transition: background var(--dur-med) var(--ease-emph);
+  }
+  .pane-cta:hover {
+    background: hsl(var(--on-surface) / 0.86);
+  }
+
   .pane-link {
     display: inline-flex;
     align-items: center;
@@ -1347,15 +1552,41 @@
     background: rgb(8 8 10 / 0.86);
     backdrop-filter: blur(6px);
   }
-  .lightbox img {
-    position: relative;
-    max-width: 100%;
-    max-height: 100%;
+  /* Every capture is 16/10, so the dialog can give the frame that shape and fit
+   * it to whichever of the two axes runs out first. */
+  .lightbox .shot-frame {
+    width: min(100%, calc((100dvh - 2 * clamp(16px, 4vw, 56px)) * 1.6));
+    aspect-ratio: 16 / 10;
+    /* So the controls can be sized against the capture rather than against the
+     * window: the frame is whichever axis ran out first, and a chevron that is
+     * right on a full desktop covers a quarter of a narrow one. */
+    container-type: inline-size;
     border-radius: var(--shape-md);
+    overflow: hidden;
     box-shadow: 0 40px 120px rgb(0 0 0 / 0.6);
   }
+  /* Anything that is not a carousel control closes, the capture included. */
+  .lightbox .shot-slide {
+    cursor: zoom-out;
+  }
+  /* In the pane the chevrons appear on approach, because the capture beneath
+   * them is worth more than the controls. Here they stay out: the surface they
+   * sit on closes on a click, so they are the exception to it and have to look
+   * like one. Hidden until hover, they were a control the keyboard could focus
+   * and nobody could see. */
+  .lightbox .shot-nav {
+    width: clamp(32px, 3.2cqi, 40px);
+    height: clamp(32px, 3.2cqi, 40px);
+    opacity: 1;
+  }
+  .lightbox .shot-nav-prev {
+    inset-inline-start: clamp(8px, 1.1cqi, 14px);
+  }
+  .lightbox .shot-nav-next {
+    inset-inline-end: clamp(8px, 1.1cqi, 14px);
+  }
   @media (prefers-reduced-motion: no-preference) {
-    .lightbox img {
+    .lightbox .shot-frame {
       animation: pop-in 420ms var(--ease-emph-decel);
     }
   }

@@ -87,6 +87,20 @@ describe('the full-height spine', () => {
   });
 });
 
+describe('the bento of a work pane', () => {
+  // 16/10 on the pane itself made the left column refuse the row's height, so
+  // between 1100 and 1340, where the details card's lead and its links both
+  // wrap, the two halves of one bento ended up to 103px apart with the right
+  // card the taller of the two. The aspect belongs to the capture; the row
+  // belongs to the pane holding it.
+  it('leaves the row to the pane and the aspect to the capture', () => {
+    const flat = CSS.replace(/\s/g, '');
+    expect(flat).toMatch(/\.pane-shot\{[^}]*place-items:center;[^}]*\}/);
+    expect(flat).not.toMatch(/\.pane-shot\{[^}]*aspect-ratio/);
+    expect(flat).toMatch(/\.pane-shot>\.shot-frame\{[^}]*aspect-ratio:16\/10;/);
+  });
+});
+
 describe('the proximity scale', () => {
   const step = (name: string) => {
     const m = CSS.match(new RegExp(`--gap-${name}:\\s*(\\d+)px`));

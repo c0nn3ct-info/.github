@@ -16,45 +16,38 @@
 
 Creamos productos pequeños que podemos llevar hasta el final. Cada uno nace de una herramienta que necesitamos y seguimos usándolo en nuestros equipos después de publicarlo.
 
-## 📦 Productos
-
-### [noctis](https://github.com/c0nn3ct-info/noctis) · proxy de navegador
-
-**Proxy VLESS para Chrome**
-
-Envía el tráfico del navegador por tus proxies. La banca y las videollamadas mantienen su conexión habitual.
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · proxy VLESS para Chrome
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis con un túnel listo y los servidores proxy usados recientemente" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
 
-- Añade un enlace de conexión o una suscripción y configura las reglas de enrutamiento.
-- Si un servidor deja de responder, el navegador cambia a otro.
-- Puedes instalarlo y eliminarlo sin permisos de administrador.
+<table><tr><td width="72%">
+Envía el tráfico del navegador por tus proxies. La banca y las videollamadas mantienen su conexión habitual.
+<ul><li>Añade un enlace de conexión o una suscripción y configura las reglas de enrutamiento.</li><li>Si un servidor deja de responder, el navegador cambia a otro.</li><li>Puedes instalarlo y eliminarlo sin permisos de administrador.</li></ul>
+</td><td width="28%" align="left">
+<a href="https://noctis.c0nn3ct.info/es/"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Página de Noctis"></a><br>
+<a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=googlechrome&amp;logoColor=bb9af7" alt="Noctis en Chrome Web Store"></a><br>
+<a href="https://github.com/c0nn3ct-info/noctis/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=github&amp;logoColor=bb9af7" alt="Versiones del helper de Noctis"></a><br>
+<a href="https://noctis.c0nn3ct.info/es/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Licencia de Noctis: EULA y helper MIT"></a>
+</td></tr></table>
 
-[Página del producto](https://noctis.c0nn3ct.info/es/) · [Chrome Web Store](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn) · [Versiones en GitHub](https://github.com/c0nn3ct-info/noctis/releases) · [Licencia](https://noctis.c0nn3ct.info/es/license/)
-
-### [aria2t](https://github.com/c0nn3ct-info/aria2t) · gestor de descargas
-
-**Gestor de descargas aria2**
-
-Consulta doce descargas en una pantalla. Puedes cerrar la pestaña: aria2 seguirá descargando los archivos.
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · gestor de descargas aria2
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="aria2t muestra las descargas activas, su progreso y velocidad" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
-- Si una descarga se atasca, revisa el mapa de piezas, los pares y el progreso de cada archivo.
-- Programa límites de velocidad y deja los archivos grandes para la noche.
-- aria2t verifica los archivos con SHA-256 y descarga de nuevo las partes dañadas.
-
-[Página del producto](https://aria2t.c0nn3ct.info/es/) · [Versiones en GitHub](https://github.com/c0nn3ct-info/aria2t/releases) · [Licencia Apache-2.0](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
-
-### El próximo producto
-
-Partirá de un problema para el que tampoco nosotros encontramos una buena herramienta. Publicaremos el nombre y las capturas cuando esté listo.
+<table><tr><td width="72%">
+Consulta doce descargas en una pantalla. Puedes cerrar la pestaña: aria2 seguirá descargando los archivos.
+<ul><li>Si una descarga se atasca, revisa el mapa de piezas, los pares y el progreso de cada archivo.</li><li>Programa límites de velocidad y deja los archivos grandes para la noche.</li><li>aria2t verifica los archivos con SHA-256 y descarga de nuevo las partes dañadas.</li></ul>
+</td><td width="28%" align="left">
+<a href="https://aria2t.c0nn3ct.info/es/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Página de aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="Descargar aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Licencia de aria2t: Apache-2.0"></a>
+</td></tr></table>
 
 ## ✨ Cinco principios para nuestro trabajo
 

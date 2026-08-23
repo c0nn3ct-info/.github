@@ -16,45 +16,38 @@
 
 我们只做能够完成的小型产品。每款产品都从我们自己需要的工具开始，发布后也会继续在自己的设备上使用。
 
-## 📦 产品
-
-### [noctis](https://github.com/c0nn3ct-info/noctis) · 浏览器代理
-
-**Chrome 上的 VLESS 代理**
-
-让浏览器流量通过你自己的代理。网银和视频通话仍使用原来的网络连接。
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · Chrome 上的 VLESS 代理
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis 显示已就绪的连接和最近使用的代理服务器" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
 
-- 添加连接链接或订阅地址，再用规则设置不同网站的路由。
-- 服务器失去响应时，浏览器会切换到其他服务器。
-- 安装和卸载都不需要管理员权限。
+<table><tr><td width="72%">
+让浏览器流量通过你自己的代理。网银和视频通话仍使用原来的网络连接。
+<ul><li>添加连接链接或订阅地址，再用规则设置不同网站的路由。</li><li>服务器失去响应时，浏览器会切换到其他服务器。</li><li>安装和卸载都不需要管理员权限。</li></ul>
+</td><td width="28%" align="left">
+<a href="https://noctis.c0nn3ct.info/zh-CN/"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Noctis 产品页面"></a><br>
+<a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=googlechrome&amp;logoColor=bb9af7" alt="Chrome 应用商店中的 Noctis"></a><br>
+<a href="https://github.com/c0nn3ct-info/noctis/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=github&amp;logoColor=bb9af7" alt="Noctis 助手版本"></a><br>
+<a href="https://noctis.c0nn3ct.info/zh-CN/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Noctis 许可协议：EULA 和 MIT 助手"></a>
+</td></tr></table>
 
-[产品页面](https://noctis.c0nn3ct.info/zh-CN/) · [Chrome 应用商店](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn) · [GitHub 版本](https://github.com/c0nn3ct-info/noctis/releases) · [许可协议](https://noctis.c0nn3ct.info/zh-CN/license/)
-
-### [aria2t](https://github.com/c0nn3ct-info/aria2t) · 下载管理器
-
-**aria2 下载管理器**
-
-一个界面可以查看十二个下载任务。关闭标签页后，aria2 仍会继续下载。
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · aria2 下载管理器
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="aria2t 显示下载任务的进度和速度" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
-- 下载卡住时，查看分块图、节点列表和每个文件的进度。
-- 按计划限制速度，把大文件留到夜间下载。
-- aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块。
-
-[产品页面](https://aria2t.c0nn3ct.info/zh-CN/) · [GitHub 版本](https://github.com/c0nn3ct-info/aria2t/releases) · [Apache-2.0 许可证](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
-
-### 下一款产品
-
-它会从我们自己的需求出发，解决现有工具没有处理好的问题。产品准备好发布后，我们会公开名称和界面截图。
+<table><tr><td width="72%">
+一个界面可以查看十二个下载任务。关闭标签页后，aria2 仍会继续下载。
+<ul><li>下载卡住时，查看分块图、节点列表和每个文件的进度。</li><li>按计划限制速度，把大文件留到夜间下载。</li><li>aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块。</li></ul>
+</td><td width="28%" align="left">
+<a href="https://aria2t.c0nn3ct.info/zh-CN/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="aria2t 产品页面"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="下载 aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="aria2t 许可证：Apache-2.0"></a>
+</td></tr></table>
 
 ## ✨ 我们的五项工作原则
 

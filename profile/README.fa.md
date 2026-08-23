@@ -16,45 +16,38 @@
 
 محصول‌های کوچک و متمرکزی می‌سازیم که می‌توانیم کاملشان کنیم. هر محصول از ابزاری شروع می‌شود که خودمان نیاز داریم و پس از انتشار هم روی دستگاه‌های خودمان از آن استفاده می‌کنیم.
 
-## 📦 محصول‌ها
-
-### [noctis](https://github.com/c0nn3ct-info/noctis) · پراکسی مرورگر
-
-**پراکسی VLESS برای کروم**
-
-ترافیک مرورگر را از پراکسی‌های خودتان عبور دهید. بانک و تماس‌های تصویری از اتصال معمول استفاده می‌کنند.
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · پراکسی VLESS برای کروم
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis با اتصال آماده و پراکسی‌های تازه‌استفاده‌شده" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
 
-- پیوند اتصال یا نشانی اشتراک را اضافه کنید و قواعد مسیریابی را بسازید.
-- اگر سروری پاسخ ندهد، مرورگر به سرور دیگری می‌رود.
-- نصب و حذف آن به دسترسی مدیر نیاز ندارد.
+<table><tr><td width="72%">
+ترافیک مرورگر را از پراکسی‌های خودتان عبور دهید. بانک و تماس‌های تصویری از اتصال معمول استفاده می‌کنند.
+<ul><li>پیوند اتصال یا نشانی اشتراک را اضافه کنید و قواعد مسیریابی را بسازید.</li><li>اگر سروری پاسخ ندهد، مرورگر به سرور دیگری می‌رود.</li><li>نصب و حذف آن به دسترسی مدیر نیاز ندارد.</li></ul>
+</td><td width="28%" align="left">
+<a href="https://noctis.c0nn3ct.info/fa/"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&amp;labelColor=16161e" alt="صفحهٔ Noctis"></a><br>
+<a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=googlechrome&amp;logoColor=bb9af7" alt="Noctis در فروشگاه وب Chrome"></a><br>
+<a href="https://github.com/c0nn3ct-info/noctis/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=github&amp;logoColor=bb9af7" alt="نسخه‌های هِلپر Noctis"></a><br>
+<a href="https://noctis.c0nn3ct.info/fa/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="مجوز Noctis: EULA و هِلپر MIT"></a>
+</td></tr></table>
 
-[صفحهٔ محصول](https://noctis.c0nn3ct.info/fa/) · [فروشگاه وب Chrome](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn) · [نسخه‌های GitHub](https://github.com/c0nn3ct-info/noctis/releases) · [مجوز](https://noctis.c0nn3ct.info/fa/license/)
-
-### [aria2t](https://github.com/c0nn3ct-info/aria2t) · مدیر دانلود
-
-**مدیر دانلود aria2**
-
-دوازده دانلود را در یک صفحه ببینید. پس از بستن زبانه، aria2 دانلود فایل‌ها را ادامه می‌دهد.
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · مدیر دانلود aria2
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="aria2t دانلودهای فعال را همراه پیشرفت و سرعت نشان می‌دهد" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
-- اگر دانلودی متوقف شد، نقشهٔ قطعه‌ها، همتاها و پیشرفت هر فایل را ببینید.
-- محدودیت سرعت را زمان‌بندی کنید و فایل‌های بزرگ را شب دانلود کنید.
-- aria2t فایل‌ها را با SHA-256 بررسی و بخش‌های خراب را دوباره دانلود می‌کند.
-
-[صفحهٔ محصول](https://aria2t.c0nn3ct.info) · [نسخه‌های GitHub](https://github.com/c0nn3ct-info/aria2t/releases) · [مجوز Apache-2.0](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
-
-### محصول بعدی
-
-این محصول از نیازی شروع می‌شود که ابزار مناسبی برایش پیدا نکرده‌ایم. وقتی آمادهٔ انتشار باشد، نام و تصویرهایش را منتشر می‌کنیم.
+<table><tr><td width="72%">
+دوازده دانلود را در یک صفحه ببینید. پس از بستن زبانه، aria2 دانلود فایل‌ها را ادامه می‌دهد.
+<ul><li>اگر دانلودی متوقف شد، نقشهٔ قطعه‌ها، همتاها و پیشرفت هر فایل را ببینید.</li><li>محدودیت سرعت را زمان‌بندی کنید و فایل‌های بزرگ را شب دانلود کنید.</li><li>aria2t فایل‌ها را با SHA-256 بررسی و بخش‌های خراب را دوباره دانلود می‌کند.</li></ul>
+</td><td width="28%" align="left">
+<a href="https://aria2t.c0nn3ct.info"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="صفحهٔ aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="دانلود aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="مجوز aria2t: Apache-2.0"></a>
+</td></tr></table>
 
 ## ✨ پنج اصل در شیوهٔ کار ما
 

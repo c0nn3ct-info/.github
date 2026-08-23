@@ -16,45 +16,38 @@
 
 Мы делаем небольшие продукты, которые можем довести до конца. Каждый начинается с инструмента, нужного нам самим, и после выпуска мы продолжаем пользоваться им на своих компьютерах.
 
-## 📦 Продукты
-
-### [noctis](https://github.com/c0nn3ct-info/noctis) · прокси для браузера
-
-**VLESS-прокси для Chrome**
-
-Направляйте трафик браузера через свои прокси. Банковские сайты и видеозвонки продолжат работать через обычное подключение.
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · VLESS-прокси для Chrome
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis с готовым подключением и списком недавно использованных прокси" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
 
-- Добавьте ссылку подключения или подписку и настройте правила маршрутизации.
-- Если сервер перестанет отвечать, браузер переключится на другой.
-- Для установки и удаления не нужны права администратора.
+<table><tr><td width="72%">
+Направляйте трафик браузера через свои прокси. Банковские сайты и видеозвонки продолжат работать через обычное подключение.
+<ul><li>Добавьте ссылку подключения или подписку и настройте правила маршрутизации.</li><li>Если сервер перестанет отвечать, браузер переключится на другой.</li><li>Для установки и удаления не нужны права администратора.</li></ul>
+</td><td width="28%" align="left">
+<a href="https://noctis.c0nn3ct.info/ru/"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Страница Noctis"></a><br>
+<a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=googlechrome&amp;logoColor=bb9af7" alt="Noctis в Chrome Web Store"></a><br>
+<a href="https://github.com/c0nn3ct-info/noctis/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=github&amp;logoColor=bb9af7" alt="Выпуски помощника Noctis"></a><br>
+<a href="https://noctis.c0nn3ct.info/ru/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Лицензия Noctis: EULA и MIT для помощника"></a>
+</td></tr></table>
 
-[Страница продукта](https://noctis.c0nn3ct.info/ru/) · [Chrome Web Store](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn) · [Выпуски на GitHub](https://github.com/c0nn3ct-info/noctis/releases) · [Лицензия](https://noctis.c0nn3ct.info/ru/license/)
-
-### [aria2t](https://github.com/c0nn3ct-info/aria2t) · менеджер загрузок
-
-**Менеджер загрузок aria2**
-
-На одном экране помещаются двенадцать загрузок. Можно закрыть вкладку: aria2 продолжит скачивать файлы.
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · менеджер загрузок aria2
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="aria2t показывает активные загрузки, их прогресс и скорость" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
-- Если загрузка зависла, проверьте карту частей, список пиров и прогресс файлов.
-- Настройте ограничения скорости по расписанию и оставьте крупные файлы на ночь.
-- aria2t сверяет файлы по SHA-256 и заново скачивает повреждённые части.
-
-[Страница продукта](https://aria2t.c0nn3ct.info/ru/) · [Выпуски на GitHub](https://github.com/c0nn3ct-info/aria2t/releases) · [Лицензия Apache-2.0](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
-
-### Следующий продукт
-
-Он начнётся с задачи, для которой нам самим не хватает хорошего инструмента. Название и снимки экрана появятся, когда продукт будет готов к выпуску.
+<table><tr><td width="72%">
+На одном экране помещаются двенадцать загрузок. Можно закрыть вкладку: aria2 продолжит скачивать файлы.
+<ul><li>Если загрузка зависла, проверьте карту частей, список пиров и прогресс файлов.</li><li>Настройте ограничения скорости по расписанию и оставьте крупные файлы на ночь.</li><li>aria2t сверяет файлы по SHA-256 и заново скачивает повреждённые части.</li></ul>
+</td><td width="28%" align="left">
+<a href="https://aria2t.c0nn3ct.info/ru/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Страница aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="Скачать aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Лицензия aria2t: Apache-2.0"></a>
+</td></tr></table>
 
 ## ✨ Пять принципов нашей работы
 

@@ -16,45 +16,38 @@
 
 نصنع منتجات صغيرة ومحددة نستطيع إكمالها. يبدأ كل منتج بأداة نحتاج إليها، ونواصل استخدامه على أجهزتنا بعد إصداره.
 
-## 📦 المنتجات
-
-### [noctis](https://github.com/c0nn3ct-info/noctis) · بروكسي للمتصفّح
-
-**بروكسي VLESS لمتصفّح Chrome**
-
-مرّر حركة المتصفّح عبر خوادم البروكسي الخاصة بك. تبقى الخدمات المصرفية ومكالمات الفيديو على اتصالها المعتاد.
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · بروكسي VLESS لمتصفّح Chrome
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis يعرض اتصالًا جاهزًا وخوادم البروكسي المستخدمة مؤخرًا" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
 
-- أضف رابط اتصال أو عنوان اشتراك واضبط قواعد التوجيه.
-- إذا توقّف خادم عن الاستجابة، ينتقل المتصفّح إلى خادم آخر.
-- لا تحتاج إلى صلاحيات المسؤول عند التثبيت أو الإزالة.
+<table><tr><td width="72%">
+مرّر حركة المتصفّح عبر خوادم البروكسي الخاصة بك. تبقى الخدمات المصرفية ومكالمات الفيديو على اتصالها المعتاد.
+<ul><li>أضف رابط اتصال أو عنوان اشتراك واضبط قواعد التوجيه.</li><li>إذا توقّف خادم عن الاستجابة، ينتقل المتصفّح إلى خادم آخر.</li><li>لا تحتاج إلى صلاحيات المسؤول عند التثبيت أو الإزالة.</li></ul>
+</td><td width="28%" align="left">
+<a href="https://noctis.c0nn3ct.info/ar/"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&amp;labelColor=16161e" alt="صفحة Noctis"></a><br>
+<a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=googlechrome&amp;logoColor=bb9af7" alt="Noctis في سوق Chrome الإلكتروني"></a><br>
+<a href="https://github.com/c0nn3ct-info/noctis/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=github&amp;logoColor=bb9af7" alt="إصدارات مساعد Noctis"></a><br>
+<a href="https://noctis.c0nn3ct.info/ar/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="ترخيص Noctis: ‏EULA ومساعد MIT"></a>
+</td></tr></table>
 
-[صفحة المنتج](https://noctis.c0nn3ct.info/ar/) · [سوق Chrome الإلكتروني](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn) · [إصدارات GitHub](https://github.com/c0nn3ct-info/noctis/releases) · [الترخيص](https://noctis.c0nn3ct.info/ar/license/)
-
-### [aria2t](https://github.com/c0nn3ct-info/aria2t) · مدير تنزيلات
-
-**مدير التنزيلات aria2**
-
-تابع اثنتي عشرة عملية تنزيل في شاشة واحدة. بعد إغلاق التبويب، يواصل aria2 تنزيل الملفات.
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · مدير التنزيلات aria2
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="aria2t يعرض التنزيلات النشطة مع التقدّم والسرعة" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
-- إذا توقّف تنزيل، راجع خريطة القطع والأقران وتقدّم كل ملف.
-- اضبط حدود السرعة وفق جدول واترك الملفات الكبيرة لليل.
-- يفحص aria2t الملفات باستخدام SHA-256 ويعيد تنزيل الأجزاء التالفة.
-
-[صفحة المنتج](https://aria2t.c0nn3ct.info) · [إصدارات GitHub](https://github.com/c0nn3ct-info/aria2t/releases) · [ترخيص Apache-2.0](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
-
-### المنتج التالي
-
-سيبدأ من حاجة لدينا ولم نجد لها أداة مناسبة. سننشر الاسم ولقطات الشاشة عندما يصبح المنتج جاهزًا للإطلاق.
+<table><tr><td width="72%">
+تابع اثنتي عشرة عملية تنزيل في شاشة واحدة. بعد إغلاق التبويب، يواصل aria2 تنزيل الملفات.
+<ul><li>إذا توقّف تنزيل، راجع خريطة القطع والأقران وتقدّم كل ملف.</li><li>اضبط حدود السرعة وفق جدول واترك الملفات الكبيرة لليل.</li><li>يفحص aria2t الملفات باستخدام SHA-256 ويعيد تنزيل الأجزاء التالفة.</li></ul>
+</td><td width="28%" align="left">
+<a href="https://aria2t.c0nn3ct.info"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="صفحة aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="تنزيل aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="ترخيص aria2t: Apache-2.0"></a>
+</td></tr></table>
 
 ## ✨ خمسة مبادئ نعمل بها
 

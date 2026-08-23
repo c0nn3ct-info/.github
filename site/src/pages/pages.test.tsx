@@ -50,7 +50,7 @@ describe('HomePage', () => {
     try {
       render(<HomePage />);
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-        'Законченные программы, которые служат вам',
+        'Небольшие программы, доведённые до конца',
       );
     } finally {
       setLocale('en');

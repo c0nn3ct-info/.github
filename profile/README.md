@@ -16,7 +16,7 @@
 
 We make focused products that we can finish. Each one starts with a tool one of us needs, and we keep using it after release on our own machines.
 
-## Products
+## 📦 Products
 
 ### [noctis](https://github.com/c0nn3ct-info/noctis) · browser proxy
 
@@ -56,7 +56,7 @@ Manage twelve downloads on one screen. Close the tab and aria2 keeps the queue r
 
 We will spend a season on it if it solves a problem we face ourselves. We will publish its name and screenshots when it is ready to ship.
 
-## Five principles we put into practice
+## ✨ Five principles we put into practice
 
 - **We start with a tool we need.** Noctis and aria2t began with a task one of us could not complete with the tools at hand. We kept each product focused enough to finish.
 - **We use our products each day.** We run each product on our own machines. That daily use exposes rough edges before many users need to report them.
@@ -64,7 +64,7 @@ We will spend a season on it if it solves a problem we face ourselves. We will p
 - **We keep things close to home.** Your machine is our default. We add a remote service only when the product needs one, and we state what that service stores.
 - **We test against the real thing.** Our tests run the product under the same conditions you use it in. They cover real workflows and catch failures that isolated checks miss.
 
-## Four promises
+## 🔒 Four promises
 
 These promises apply to each product we release.
 
@@ -73,7 +73,7 @@ These promises apply to each product we release.
 - **You can read what it does before you trust it.** We document each behavior that can affect your trust, next to the product that performs it.
 - **It keeps working if we stop.** If we retire a product, installed copies keep working on their current machines. We will announce the decision before support ends.
 
-## Write to us
+## ✉️ Write to us
 
 A person reads every message sent to [hello@c0nn3ct.info](mailto:hello@c0nn3ct.info). Suggest an idea, tell us what needs work or offer to help with a product.
 

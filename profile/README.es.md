@@ -16,7 +16,7 @@
 
 Creamos productos pequeños que podemos llevar hasta el final. Cada uno nace de una herramienta que necesitamos y seguimos usándolo en nuestros equipos después de publicarlo.
 
-## Productos
+## 📦 Productos
 
 ### [noctis](https://github.com/c0nn3ct-info/noctis) · proxy de navegador
 
@@ -56,7 +56,7 @@ Consulta doce descargas en una pantalla. Puedes cerrar la pestaña: aria2 seguir
 
 Partirá de un problema para el que tampoco nosotros encontramos una buena herramienta. Publicaremos el nombre y las capturas cuando esté listo.
 
-## Cinco principios para nuestro trabajo
+## ✨ Cinco principios para nuestro trabajo
 
 - **Creamos lo que necesitamos.** Noctis y aria2t nacieron de problemas que teníamos nosotros. Asumimos el trabajo que podíamos llevar hasta el final.
 - **Usamos lo que publicamos.** Los usamos cada día en nuestros equipos. Así detectamos muchos problemas antes de recibir un mensaje de un usuario.
@@ -64,7 +64,7 @@ Partirá de un problema para el que tampoco nosotros encontramos una buena herra
 - **Mantenemos tus datos en tu dispositivo.** El producto funciona en tu dispositivo por defecto. Si necesita un servicio externo, explicaremos para qué sirve y qué datos guarda.
 - **Probamos situaciones reales.** Ejecutamos el programa completo y realizamos tareas cotidianas. Así encontramos errores que las comprobaciones aisladas no muestran.
 
-## Cuatro promesas
+## 🔒 Cuatro promesas
 
 Se aplican a nuestros productos actuales y futuros.
 
@@ -73,7 +73,7 @@ Se aplican a nuestros productos actuales y futuros.
 - **Explicamos cómo funciona cada producto.** La documentación describe con palabras claras todo lo que puede afectar a tu confianza.
 - **El producto seguirá funcionando sin nosotros.** Si dejamos de mantener un producto, las copias instaladas seguirán funcionando. Avisaremos antes de terminar el soporte.
 
-## Escríbenos
+## ✉️ Escríbenos
 
 Leemos cada mensaje enviado a [hello@c0nn3ct.info](mailto:hello@c0nn3ct.info). Sugiere una idea, informa de un problema u ofrécete a ayudar con un producto.
 

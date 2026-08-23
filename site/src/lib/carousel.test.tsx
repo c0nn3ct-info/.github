@@ -8,7 +8,7 @@ import {
   setPageHidden,
   setReducedMotion,
 } from '../test/setup';
-import { stride, useAutoplay } from './carousel';
+import { stride, useAutoplay, useLoop } from './carousel';
 
 /** The shape ShotTrack has: a frame holding the scroller and the chevrons, with
  * both elements in state so the hook sees them once they exist. */
@@ -74,15 +74,25 @@ const track = () => screen.getByTestId('track');
 const moves = () => scrolls.map((s) => `${s.kind}:${s.options.left}`);
 const beat = () => frame().getAttribute('data-beat');
 
-/** One dwell, plus the scroll the browser would have performed for it. */
+/** How long a capture is given to settle where `scrollend` never arrives. */
+const LANDING = 600;
+
+/**
+ * One dwell, then the scroll the browser would have performed for it, then the
+ * wait for that capture to settle. The dwell for the next one is measured from
+ * the settling rather than from the scroll, so a test that skips the landing
+ * would never see a second turn.
+ */
 function wait(times = 1, ms = 5000): void {
   for (let i = 0; i < times; i += 1) {
+    const before = scrolls.length;
     act(() => vi.advanceTimersByTime(ms));
     const last = scrolls.at(-1);
-    if (!last) continue;
+    if (scrolls.length === before || !last) continue;
     const left = Number(last.options.left ?? 0);
     if (last.kind === 'to') track().scrollLeft = left;
     else track().scrollLeft += left;
+    act(() => vi.advanceTimersByTime(LANDING));
   }
 }
 
@@ -314,11 +324,183 @@ describe('useAutoplay', () => {
     expect(frame()).not.toHaveAttribute('data-playing');
   });
 
+  // A glide takes a few hundred milliseconds and the loop back takes the whole
+  // track, so a clock started with the scroll had the readout filling for a
+  // capture still on its way, and gave the first capture after a loop a shorter
+  // turn than the rest.
+  it('measures the dwell from the capture settling, not from the scroll', () => {
+    render(<Carousel />);
+    onScreen(true);
+    act(() => vi.advanceTimersByTime(5000));
+    expect(moves()).toEqual(['by:640']);
+    expect(beat()).toBe('0');
+    // Still gliding: the next dwell has not started, so nothing is counted yet.
+    act(() => vi.advanceTimersByTime(5000));
+    expect(moves()).toEqual(['by:640']);
+    // It settles, which is where the beat and the next dwell both begin.
+    act(() => vi.advanceTimersByTime(LANDING));
+    expect(beat()).toBe('1');
+    act(() => vi.advanceTimersByTime(5000));
+    expect(moves()).toEqual(['by:640', 'by:640']);
+  });
+
+  // Where the browser sends the event there is no need to guess at all.
+  it('takes the settling from the scroller where it is reported', () => {
+    Object.defineProperty(window, 'onscrollend', { value: null, configurable: true });
+    try {
+      render(<Carousel />);
+      onScreen(true);
+      act(() => vi.advanceTimersByTime(5000));
+      expect(beat()).toBe('0');
+      act(() => void track().dispatchEvent(new Event('scrollend')));
+      expect(beat()).toBe('1');
+      // A scroller reports the end of one glide more than once when a snap
+      // settles after it, and the ceiling can already be queued besides. The
+      // first is the landing and the rest are nothing.
+      act(() => void track().dispatchEvent(new Event('scrollend')));
+      act(() => vi.advanceTimersByTime(LANDING));
+      expect(beat()).toBe('1');
+    } finally {
+      // @ts-expect-error the property only exists for this test
+      delete window.onscrollend;
+    }
+  });
+
+  // The reader put the pointer on it while a capture was still gliding, so the
+  // dwell that would have started on landing waits for them to leave.
+  it('holds a dwell that would have started while the reader is on it', () => {
+    render(<Carousel />);
+    onScreen(true);
+    act(() => vi.advanceTimersByTime(5000));
+    on('pointerenter');
+    act(() => vi.advanceTimersByTime(LANDING));
+    track().scrollLeft = 640;
+    act(() => vi.advanceTimersByTime(5000));
+    expect(moves()).toEqual(['by:640']);
+    on('pointerleave');
+    act(() => vi.advanceTimersByTime(5000));
+    expect(moves()).toEqual(['by:640', 'by:640']);
+  });
+
+  it('starts nothing on a landing the reader has scrolled away from', () => {
+    render(<Carousel />);
+    onScreen(true);
+    act(() => vi.advanceTimersByTime(5000));
+    onScreen(false);
+    act(() => vi.advanceTimersByTime(LANDING + 5000));
+    expect(moves()).toEqual(['by:640']);
+  });
+
+  // Two reports of the same thing are one dwell, not two racing each other.
+  it('keeps one dwell however often it is told the pane is there', () => {
+    render(<Carousel />);
+    onScreen(true);
+    onScreen(true);
+    act(() => vi.advanceTimersByTime(5000));
+    expect(moves()).toEqual(['by:640']);
+  });
+
   it('takes its timer with it when the pane goes', () => {
     const view = render(<Carousel />);
     onScreen(true);
     act(() => view.unmount());
     wait(2);
     expect(moves()).toEqual([]);
+  });
+});
+
+/** A looping track: the scroller, with the copy of the first capture at its end
+ * standing in for the fifth slide. */
+function Loop({ on = true, total = 1920, width = 640 }: { on?: boolean; total?: number; width?: number }) {
+  const [track, setTrack] = useState<HTMLDivElement | null>(null);
+  useLoop(track, on);
+  return (
+    <div
+      data-testid="track"
+      ref={(el) => {
+        measure(el, width, total);
+        setTrack(el);
+      }}
+    />
+  );
+}
+
+describe('useLoop', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  const settle = () => act(() => void track().dispatchEvent(new Event('scroll')));
+  const quiet = () => act(() => vi.advanceTimersByTime(120));
+
+  // Landing on the copy puts the scroller back at the start with no animation,
+  // on the same pixels, so nothing moves and the next step is a step forward
+  // like every other one. The loop used to go back the way it came.
+  it('closes on the copy at the end without moving anything', () => {
+    render(<Loop />);
+    track().scrollLeft = 1280;
+    settle();
+    quiet();
+    expect(scrolls).toEqual([
+      { target: track(), kind: 'to', options: { left: 0, behavior: 'auto' } },
+    ]);
+  });
+
+  it('leaves a capture in the middle of the track alone', () => {
+    render(<Loop />);
+    track().scrollLeft = 640;
+    settle();
+    quiet();
+    expect(scrolls).toEqual([]);
+  });
+
+  it('says nothing before the track has a width', () => {
+    render(<Loop width={0} total={0} />);
+    settle();
+    quiet();
+    expect(scrolls).toEqual([]);
+  });
+
+  it('stays out of a track that does not loop', () => {
+    render(<Loop on={false} />);
+    track().scrollLeft = 1280;
+    settle();
+    quiet();
+    expect(scrolls).toEqual([]);
+  });
+
+  it('waits for the scroller to be still rather than for every pixel of it', () => {
+    render(<Loop />);
+    track().scrollLeft = 1280;
+    settle();
+    act(() => vi.advanceTimersByTime(60));
+    settle();
+    act(() => vi.advanceTimersByTime(60));
+    expect(scrolls).toEqual([]);
+    quiet();
+    expect(scrolls).toHaveLength(1);
+  });
+
+  // Where the browser reports the end of a scroll there is nothing to wait out.
+  it('takes the end of the scroll from the scroller where it is reported', () => {
+    Object.defineProperty(window, 'onscrollend', { value: null, configurable: true });
+    try {
+      render(<Loop />);
+      track().scrollLeft = 1280;
+      act(() => void track().dispatchEvent(new Event('scrollend')));
+      expect(scrolls).toHaveLength(1);
+    } finally {
+      // @ts-expect-error the property only exists for this test
+      delete window.onscrollend;
+    }
+  });
+
+  it('takes its listener with it', () => {
+    const view = render(<Loop />);
+    act(() => view.unmount());
+    expect(scrolls).toEqual([]);
   });
 });

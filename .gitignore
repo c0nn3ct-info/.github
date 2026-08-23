@@ -3,6 +3,7 @@
 
 # working files for this repo, not part of the published profile
 .claude/
+.agents/
 CLAUDE.md
 prototypes/
 PRODUCT.md

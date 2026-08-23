@@ -169,7 +169,7 @@ describe('locale alternates', () => {
   });
 
   it('titles the card in the language of the page', () => {
-    expect(core.buildHeadInjection('home', 'ru')).toContain('небольшие законченные');
+    expect(core.buildHeadInjection('home', 'ru')).toContain('законченные программы');
   });
 
   it('names the identity itself when a page has no title of its own', () => {

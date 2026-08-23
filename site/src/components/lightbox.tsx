@@ -79,6 +79,9 @@ export function Lightbox({
       <ShotTrack
         shots={shots}
         at={at}
+        /* The captures keep turning over here too: a reader who opened one is
+         * looking at the set, and the dialog is where the whole set fits. */
+        auto
         label={t('home.work.shots_aria')}
         onSurface={onClose}
         eager

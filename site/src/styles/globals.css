@@ -415,7 +415,13 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 74px;
+    /* An in-page jump clears the bar exactly. 74px was a number the bar has
+     * never been: it is 63px on a desktop, so a jump stopped 11px short of the
+     * section it was aimed at, and 107px on a phone, where the row wraps and
+     * the same jump put the heading under the bar. useHeader measures the bar
+     * and publishes it here; the fallback is the old guess, for the moment
+     * before the script runs. */
+    scroll-padding-top: var(--bar-h, 74px);
   }
   html,
   body {
@@ -478,7 +484,7 @@
   /* Names the section it opens. One per section. */
   .eyebrow {
     @apply font-mono;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: var(--track-eyebrow);
     text-transform: uppercase;
@@ -487,7 +493,7 @@
    * one weight below the eyebrow so the two never compete when they meet. */
   .tag {
     @apply font-mono;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: var(--track-tag);
     text-transform: uppercase;
@@ -502,7 +508,7 @@
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: var(--track-ordinal);
     font-variant-numeric: tabular-nums;
@@ -591,7 +597,7 @@
    * not give it: these are the only labels on the page a reader clicks, and
    * interactive text earns the larger size where a caption does not. */
   .site-header .tag {
-    font-size: 11px;
+    font-size: 12px;
   }
   /* Both pills invert against their ground, so the ring takes the pill's own
    * fill: white over the dark stage, ink over the light bar. */
@@ -827,6 +833,17 @@
   .glass-inner > a {
     margin-top: clamp(16px, 3.4svh, 32px);
   }
+  /* Russian sets the same claim about a fifth longer, and the claim is fixed
+   * inside a circle. Measured at 390x844: English takes three lines and 105px,
+   * Russian took four and 141px, so the column ran 305px inside a 273px box and
+   * the flex shrink landed on the call to action, which rendered 30px against
+   * the 38px floor its own clamp names. Only the vw half of the clamp comes
+   * down, so this is a phone and narrow-window correction; on a desktop the svh
+   * half still wins and Russian sets at the same size as everything else. The
+   * button is back at its full 46px. */
+  :root:lang(ru) .glass-inner > h1 {
+    font-size: clamp(21px, min(4.8svh, 6.6vw), 42px);
+  }
   /* Below the split, the stage is the whole width: the 52% offset that read as
    * centred beside the index no longer does, the circle is wider than the
    * viewport, and the wordmark sits on top of the headline. Centre the circle
@@ -985,7 +1002,7 @@
   /* ── work ──────────────────────────────────────────────────────────────── */
   .rail-btn {
     display: grid;
-    grid-template-columns: 22px minmax(0, 1fr);
+    grid-template-columns: 30px minmax(0, 1fr);
     align-items: center;
     gap: var(--gap-group);
     width: 100%;
@@ -1067,6 +1084,14 @@
     min-width: 0;
     display: grid;
     place-items: center;
+    /* The matte the frame leaves at narrow widths, in the theme the capture is
+     * in. It was the stage, which is near-black in both, so a light reader got a
+     * light screenshot floating on a dark slab. */
+    background: hsl(var(--surface-container-high));
+  }
+  /* The workshop has no capture, so its pane is a stage rather than a matte:
+   * dark on purpose, with the glow and the white type it holds. */
+  .pane-stage {
     background: var(--stage);
   }
   /* A scroll container rather than a slideshow: swipe, trackpad, arrow keys and
@@ -1338,6 +1363,11 @@
     .shot-at {
       animation: shot-scrub linear both;
       animation-timeline: --shots;
+      /* A looping track carries one slide more than it has captures, the copy of
+       * the first that the loop closes on, so the mark finishes its travel with
+       * the last real capture rather than with the end of the scroll. Without a
+       * loop the two are the same thing and this is 100%. */
+      animation-range: normal calc(100% * (var(--shots) - 1) / var(--shot-steps));
     }
   }
   /* A translate is physical, and the mark starts at the inline edge the page

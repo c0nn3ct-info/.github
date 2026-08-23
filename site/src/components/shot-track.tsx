@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState, type CSSProperties } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { stride, useAutoplay } from '@/lib/carousel';
+import { stride, useAutoplay, useLoop } from '@/lib/carousel';
 import { t } from '../i18n';
 
 export interface Shot {
@@ -68,12 +68,23 @@ export function ShotTrack({ shots, at = 0, label, pick, onSurface, eager, auto }
   }, [track, at]);
 
   const { playing, beat } = useAutoplay(frame, track, shots.length, Boolean(auto));
+  // A looping track carries the first capture twice, and the second copy is
+  // where the loop closes: see useLoop.
+  const loop = Boolean(auto) && shots.length > 1;
+  useLoop(track, loop);
 
   return (
     <div
       className="shot-frame"
       ref={setFrame}
-      style={{ '--shots': shots.length } as CSSProperties}
+      style={
+        {
+          '--shots': shots.length,
+          // How many steps of scroll the track holds, which is one more than
+          // the captures when the loop's copy is at the end of it.
+          '--shot-steps': shots.length - 1 + Number(loop),
+        } as CSSProperties
+      }
     >
       <div
         className="shot-track"
@@ -99,6 +110,14 @@ export function ShotTrack({ shots, at = 0, label, pick, onSurface, eager, auto }
               <Capture shot={shot} eager={eager} labelled={false} />
             </div>
           ),
+        )}
+        {/* The loop's own slide: the first capture again, so closing the loop is
+            a step forward onto the same pixels rather than a rewind. Hidden from
+            everything that reads or drives the set. */}
+        {loop && (
+          <div className="shot-slide" aria-hidden>
+            <Capture shot={shots[0]} eager labelled={false} />
+          </div>
         )}
       </div>
       {track && (

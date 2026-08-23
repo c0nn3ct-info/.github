@@ -111,7 +111,7 @@ function Screen({ project, onOpen, auto }: ScreenProps) {
   const keys = SLIDES[project];
   if (!keys) {
     return (
-      <div className="pane pane-shot border-0 text-white">
+      <div className="pane pane-shot pane-stage border-0 text-white">
         {/* The same frame a capture gets, so the workshop's pane is the size of
             the other two rather than the height of the words inside it: it used
             to measure 300px against their 400 at 1440. */}

@@ -29,7 +29,7 @@ describe('HomePage', () => {
   it('carries both the habits and the floor, each headed', () => {
     render(<HomePage />);
     expect(
-      screen.getByRole('heading', { name: 'Five habits we would defend in writing' }),
+      screen.getByRole('heading', { name: 'Five principles we put into practice' }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: "Promises we can't take back" }),
@@ -50,7 +50,7 @@ describe('HomePage', () => {
     try {
       render(<HomePage />);
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-        'Небольшие законченные программы, которые отвечают перед вами',
+        'Законченные программы, которые служат вам',
       );
     } finally {
       setLocale('en');

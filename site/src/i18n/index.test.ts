@@ -95,7 +95,7 @@ describe('t', () => {
   it('resolves known keys in the current locale', () => {
     expect(t('home.hero.h1_em')).toBe('answers to you');
     setLocale('ru');
-    expect(t('home.hero.h1_em')).toBe('отвечают перед вами');
+    expect(t('home.hero.h1_em')).toBe('которые служат вам');
   });
 
   it('returns the key and warns for unknown keys', () => {

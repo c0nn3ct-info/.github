@@ -36,7 +36,7 @@ describe('Hero', () => {
     render(<Hero onPick={vi.fn()} />);
     expect(screen.getByText('in the workshop')).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /in the workshop/ })).toBeNull();
-    expect(screen.getByText('listed here once it earns the name')).toBeInTheDocument();
+    expect(screen.getByText('listed when it is ready to ship')).toBeInTheDocument();
   });
 
   it('offers the address in the index as well', () => {

@@ -18,9 +18,9 @@ describe('Talk', () => {
       'href',
       'mailto:hello@c0nn3ct.info?subject=An%20idea%20I%20want%20to%20suggest',
     );
-    expect(screen.getByRole('link', { name: /A rough edge you could smooth/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /I found something that needs work/ })).toHaveAttribute(
       'href',
-      'mailto:hello@c0nn3ct.info?subject=A%20rough%20edge',
+      'mailto:hello@c0nn3ct.info?subject=Something%20that%20needs%20work',
     );
     expect(screen.getByRole('link', { name: /I want to help with one of these/ })).toHaveAttribute(
       'href',
@@ -31,7 +31,7 @@ describe('Talk', () => {
   it('says plainly that there is no form behind it', () => {
     render(<Talk />);
     expect(
-      screen.getByText('No form, no ticket number — it lands in a real inbox'),
+      screen.getByText('Your message goes to our inbox, without a form or ticket number'),
     ).toBeInTheDocument();
   });
 });

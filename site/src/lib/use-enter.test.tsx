@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
-import { describe, expect, it } from 'vitest';
-import { render, screen } from '../test/render';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { act, render, screen } from '../test/render';
 import {
   animations,
   fireRegion,
@@ -10,7 +10,7 @@ import {
   setReducedMotion,
   setScrollDriven,
 } from '../test/setup';
-import { useSectionEntrance } from './use-enter';
+import { useJumpArrival, useSectionEntrance } from './use-enter';
 
 function Page({ stagger = 'wipe' }: { stagger?: string }) {
   useSectionEntrance();
@@ -257,5 +257,119 @@ describe('the scroll-driven path', () => {
     fireRegion(screen.getAllByTestId('work')[1], true);
     const line = animations[1].keyframes[0] as Record<string, string>;
     expect(CSS_SRC).toContain(line.transform);
+  });
+});
+
+/** The bar's jump list and the sections it points at. */
+function Jumps() {
+  useJumpArrival();
+  return (
+    <div>
+      <a href="#how" data-testid="to-how">
+        How we work
+      </a>
+      <a href="#nowhere" data-testid="to-nowhere">
+        Nowhere
+      </a>
+      <a href="https://example.com" data-testid="away">
+        Away
+      </a>
+      <section data-enter-section id="how">
+        <h2 data-enter>Five habits</h2>
+        <div data-enter-stagger="wipe">
+          <button>one</button>
+          <button>two</button>
+        </div>
+      </section>
+      <div id="nowhere">not a section</div>
+    </div>
+  );
+}
+
+describe('useJumpArrival', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  // A smooth jump spends the scroll-driven range before it lands: measured on
+  // the bar's jump list, 33ms of movement against 167ms for the same section
+  // reached by wheel. The list only exists above 900px, which is why the page
+  // looked alive on a phone and still on a desktop.
+  it('replays the arrival of the section a link lands on', () => {
+    render(<Jumps />);
+    act(() => screen.getByTestId('to-how').click());
+    // Still scrolling: the arrival belongs to the landing, not to the click.
+    expect(animations).toHaveLength(0);
+    act(() => vi.advanceTimersByTime(900));
+    expect(animations).toHaveLength(3);
+    expect(animations[0].keyframes[0]).toEqual({
+      opacity: 0,
+      transform: 'translateY(12px) scale(0.985)',
+    });
+    expect(animations[1].keyframes[0]).toEqual({ opacity: 0, transform: 'translateX(-14px)' });
+    expect(animations[1].options.delay).toBe(45);
+  });
+
+  it('takes the landing from the scroller where it is reported', () => {
+    render(<Jumps />);
+    act(() => screen.getByTestId('to-how').click());
+    act(() => void document.dispatchEvent(new Event('scrollend')));
+    expect(animations).toHaveLength(3);
+    // A second report of the same glide, and the ceiling behind it, do not play
+    // the whole thing again.
+    act(() => void document.dispatchEvent(new Event('scrollend')));
+    act(() => vi.advanceTimersByTime(900));
+    expect(animations).toHaveLength(3);
+  });
+
+  it('leaves alone a link that lands on something that is not a section', () => {
+    render(<Jumps />);
+    act(() => screen.getByTestId('to-nowhere').click());
+    act(() => vi.advanceTimersByTime(900));
+    expect(animations).toHaveLength(0);
+  });
+
+  it('leaves alone a link that leaves the page', () => {
+    render(<Jumps />);
+    act(() => screen.getByTestId('away').click());
+    act(() => vi.advanceTimersByTime(900));
+    expect(animations).toHaveLength(0);
+  });
+
+  it('ignores a click that came from no element at all', () => {
+    render(<Jumps />);
+    act(() => void document.dispatchEvent(new MouseEvent('click', { bubbles: true })));
+    act(() => vi.advanceTimersByTime(900));
+    expect(animations).toHaveLength(0);
+  });
+
+  // A second click while the first jump is still settling replaces it rather
+  // than queueing two arrivals.
+  it('keeps the arrival of the last link pressed', () => {
+    render(<Jumps />);
+    act(() => screen.getByTestId('to-how').click());
+    act(() => vi.advanceTimersByTime(300));
+    act(() => screen.getByTestId('to-how').click());
+    act(() => vi.advanceTimersByTime(900));
+    expect(animations).toHaveLength(3);
+  });
+
+  it('stays out of the way of a reader who asked for less motion', () => {
+    setReducedMotion(true);
+    render(<Jumps />);
+    act(() => screen.getByTestId('to-how').click());
+    act(() => vi.advanceTimersByTime(900));
+    expect(animations).toHaveLength(0);
+  });
+
+  it('takes its listeners with it', () => {
+    const view = render(<Jumps />);
+    act(() => screen.getByTestId('to-how').click());
+    act(() => view.unmount());
+    act(() => vi.advanceTimersByTime(900));
+    expect(animations).toHaveLength(0);
   });
 });

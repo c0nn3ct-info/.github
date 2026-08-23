@@ -294,6 +294,11 @@ export async function main() {
           // The theme class mirrors the capturing browser's color scheme, not
           // the visitor's; the shell's inline script re-adds the right one.
           document.documentElement.classList.remove('dark', 'light');
+          // The bar's measured height is this window's, and the bar wraps to a
+          // second row on a narrow one, so serializing it would hand a phone a
+          // desktop's scroll padding until its own observer corrected it. The
+          // stylesheet's fallback covers the moment before that.
+          document.documentElement.style.removeProperty('--bar-h');
           // The loop pauser writes animation-play-state onto whatever is off
           // screen, and at capture time most of the page is. Serialized, that
           // ships every visitor a paused marquee until their own observer

@@ -15,9 +15,9 @@ const SECTIONS = [
 /** The fixed bar. `home` both turns on the in-page nav and tells the bar it
  * starts over the dark hero stage rather than the page ground. */
 export function SiteHeader({ home }: { home: boolean }) {
-  const { ground, hidden } = useHeader(home);
+  const { ground, hidden, setBar } = useHeader(home);
   return (
-    <header className="site-header" data-ground={ground} data-hidden={hidden}>
+    <header className="site-header" ref={setBar} data-ground={ground} data-hidden={hidden}>
       <a
         className="inline-flex items-center gap-2.5 text-inherit"
         href={localePath('/')}

@@ -5,7 +5,7 @@ import { Practices } from '@/components/practices';
 import { Promises } from '@/components/promises';
 import { Talk } from '@/components/talk';
 import { Work, type Project } from '@/components/work';
-import { useSectionEntrance } from '@/lib/use-enter';
+import { useJumpArrival, useSectionEntrance } from '@/lib/use-enter';
 import { useIdleLoops } from '@/lib/use-loops';
 import { Layout } from '../layout';
 
@@ -18,6 +18,7 @@ export function HomePage() {
   useIdleLoops(project);
   // The hero owns the load; every section below it arrives as it comes up.
   useSectionEntrance();
+  useJumpArrival();
   return (
     <Layout home>
       <main className="flex-1">

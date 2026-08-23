@@ -8,7 +8,7 @@ describe('Marquee', () => {
     const belt = screen.getByRole('group', { name: 'How we work, in one line' });
     expect(belt).toBeInTheDocument();
     // The duplicate run is the loop's seam, so it is hidden from the tree.
-    const spoken = screen.getAllByText('Nothing here is built to be hard to leave', {
+    const spoken = screen.getAllByText('You can leave without losing your data', {
       ignore: '[aria-hidden="true"], [aria-hidden="true"] *',
     });
     expect(spoken).toHaveLength(1);

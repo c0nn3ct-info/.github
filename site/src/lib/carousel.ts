@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * How long one capture holds before the carousel moves on.
+ * How long a capture holds once it has arrived.
  *
  * Long enough to take in a dense product screenshot, short enough that a reader
  * who glanced at the pane learns there is more than one. Everything below is
@@ -14,6 +14,18 @@ import { useEffect, useState } from 'react';
  * no stylesheet to read it from.
  */
 const DWELL = 5000;
+
+/**
+ * How long to wait for a capture to settle where `scrollend` is not delivered.
+ *
+ * Longer than a one-capture glide and shorter than the dwell, so a browser
+ * without the event keeps the same rhythm with the phase approximated rather
+ * than measured.
+ */
+const LANDING = 600;
+
+/** How much stillness counts as a scroller having stopped, for the same. */
+const QUIET = 120;
 
 function dwell(frame: HTMLElement): number {
   const raw = getComputedStyle(frame).getPropertyValue('--shot-dwell').trim();
@@ -36,6 +48,48 @@ export function stride(track: HTMLElement, dir: number): number {
 /** How far the track can travel, and how far along it is, sign-free. */
 function span(track: HTMLElement): { total: number; at: number } {
   return { total: track.scrollWidth - track.clientWidth, at: Math.abs(track.scrollLeft) };
+}
+
+/**
+ * Calls back once a scroller has stopped, however it was moved.
+ *
+ * `scrollend` where the browser sends it. Where it does not, a quiet stretch is
+ * the signal instead, which is what the event itself means.
+ */
+function onSettle(track: HTMLElement, done: () => void): () => void {
+  if ('onscrollend' in window) {
+    track.addEventListener('scrollend', done);
+    return () => track.removeEventListener('scrollend', done);
+  }
+  let quiet: ReturnType<typeof setTimeout> | undefined;
+  const nudge = () => {
+    clearTimeout(quiet);
+    quiet = setTimeout(done, QUIET);
+  };
+  track.addEventListener('scroll', nudge, { passive: true });
+  return () => {
+    clearTimeout(quiet);
+    track.removeEventListener('scroll', nudge);
+  };
+}
+
+/**
+ * Closes the loop on the copy of the first capture that sits at the end.
+ *
+ * The track carries one slide more than it has captures, and the extra one is
+ * the first capture again. Landing on it puts the scroller back at the start
+ * without an animation, on the same pixels, so nothing moves and the next step
+ * is a step forward like every other. Before this the loop went back the way it
+ * came, a rewind across the whole track, which is a return rather than a loop.
+ */
+export function useLoop(track: HTMLDivElement | null, on: boolean): void {
+  useEffect(() => {
+    if (!on || !track) return;
+    return onSettle(track, () => {
+      const { total, at } = span(track);
+      if (total > 0 && at >= total - 1) track.scrollTo({ left: 0, behavior: 'auto' });
+    });
+  }, [track, on]);
 }
 
 /**
@@ -63,6 +117,13 @@ function span(track: HTMLElement): { total: number; at: number } {
  * shape a reader expects of a set that turns itself over. The way back is the
  * whole track, so it reads as a rewind, which is the honest picture of what
  * just happened.
+ *
+ * **The dwell is measured from the moment a capture settles, not from the moment
+ * the one before it began leaving.** A glide takes a few hundred milliseconds and
+ * the loop back takes the whole track, so a clock started with the scroll had the
+ * readout filling for a capture that was still on its way, and gave the first
+ * capture after a loop a visibly shorter turn than the rest. `scrollend` is the
+ * signal and `LANDING` is the ceiling for browsers that do not send it.
  */
 export function useAutoplay(
   /**
@@ -89,34 +150,79 @@ export function useAutoplay(
   useEffect(() => {
     if (!on || !frame || !track || count < 2) return;
     if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+    // Held as locals so the hoisted `turn` below sees the elements rather than
+    // the nullable props they came from.
+    const region = frame;
+    const scroller = track;
 
-    let timer: ReturnType<typeof setInterval> | undefined;
+    let hold: ReturnType<typeof setTimeout> | undefined;
+    let ceiling: ReturnType<typeof setTimeout> | undefined;
+    let settling = false;
     let seen = false;
     let held = false;
 
-    const tick = () => {
-      const { total, at } = span(track);
-      // Before layout there is nothing to page through, and nothing to be wrong
-      // about either.
-      if (total <= 0) return;
-      // Back to the first capture rather than one further into a track that has
-      // run out. `left: 0` is the start in both writing directions, since rtl
-      // counts away from zero rather than towards it.
-      if (at >= total - 1) track.scrollTo({ left: 0, behavior: 'smooth' });
-      else track.scrollBy({ left: stride(track, 1), behavior: 'smooth' });
+    const running = () => seen && !held && !document.hidden;
+
+    // Two timers with two jobs, and only one of them is the reader's business.
+    // Pausing used to clear both, which left a capture that was mid-glide
+    // waiting for a landing that had been cancelled: the dwell never started
+    // again and the carousel stopped for good on a pointer that passed over it.
+    const stop = () => {
+      clearTimeout(hold);
+      hold = undefined;
     };
+    const forget = () => {
+      clearTimeout(ceiling);
+      ceiling = undefined;
+      settling = false;
+      scroller.removeEventListener('scrollend', landed);
+    };
+
+    const arm = () => {
+      if (hold === undefined && !settling) hold = setTimeout(turn, dwell(region));
+    };
+
+    /** The capture has settled, so the next dwell starts here, and the fill with it. */
+    const landed = () => {
+      // A scroller can report the end of one glide more than once, a snap
+      // settling after the scroll being the ordinary case, and the ceiling can
+      // already be queued when the event arrives. The first one is the landing
+      // and the rest are nothing; `forget` is what takes the listener away.
+      if (!settling) return;
+      settling = false;
+      clearTimeout(ceiling);
+      ceiling = undefined;
+      setBeat((n) => n + 1);
+      if (running()) arm();
+    };
+
+    function turn() {
+      hold = undefined;
+      const { total, at } = span(scroller);
+      // Before layout there is nothing to page through, and nothing to be wrong
+      // about either, so it waits out another dwell rather than giving up.
+      if (total <= 0) {
+        arm();
+        return;
+      }
+      // One step forward, every time. A looping track has a copy of the first
+      // capture at the end and `useLoop` closes on it, so there is always a next
+      // step; the return to the start is the fallback for a track without one.
+      if (at >= total - 1) scroller.scrollTo({ left: 0, behavior: 'smooth' });
+      else scroller.scrollBy({ left: stride(scroller, 1), behavior: 'smooth' });
+      settling = true;
+      if ('onscrollend' in window) scroller.addEventListener('scrollend', landed);
+      ceiling = setTimeout(landed, LANDING);
+    }
 
     const sync = () => {
-      const run = seen && !held && !document.hidden;
-      if (run && timer === undefined) timer = setInterval(tick, dwell(frame));
-      if (!run && timer !== undefined) {
-        clearInterval(timer);
-        timer = undefined;
-      }
-      setPlaying(run);
+      const go = running();
+      setPlaying(go);
+      if (go) arm();
+      else stop();
     };
 
-    const hold = () => {
+    const grab = () => {
       held = true;
       sync();
     };
@@ -128,10 +234,8 @@ export function useAutoplay(
     // dwell of its own: the timer starts again from zero and the readout's fill
     // starts with it.
     const restart = () => {
-      if (timer !== undefined) {
-        clearInterval(timer);
-        timer = undefined;
-      }
+      stop();
+      forget();
       setBeat((n) => n + 1);
       sync();
     };
@@ -150,32 +254,33 @@ export function useAutoplay(
       // front of them rather than for one whose screen holds its top edge.
       { threshold: 0.5 },
     );
-    io.observe(frame);
+    io.observe(region);
 
-    frame.addEventListener('pointerenter', hold);
-    frame.addEventListener('pointerleave', release);
-    frame.addEventListener('focusin', hold);
-    frame.addEventListener('focusout', release);
+    region.addEventListener('pointerenter', grab);
+    region.addEventListener('pointerleave', release);
+    region.addEventListener('focusin', grab);
+    region.addEventListener('focusout', release);
     // pointerdown catches a swipe, which produces no click of its own; click
     // catches an activation that arrives without a pointer at all, from a
     // screen reader or an assistive switch.
-    frame.addEventListener('pointerdown', restart);
-    frame.addEventListener('click', restart);
-    frame.addEventListener('keydown', restart);
-    frame.addEventListener('wheel', wheel, { passive: true });
+    region.addEventListener('pointerdown', restart);
+    region.addEventListener('click', restart);
+    region.addEventListener('keydown', restart);
+    region.addEventListener('wheel', wheel, { passive: true });
     document.addEventListener('visibilitychange', sync);
 
     return () => {
-      if (timer !== undefined) clearInterval(timer);
+      stop();
+      forget();
       io.disconnect();
-      frame.removeEventListener('pointerenter', hold);
-      frame.removeEventListener('pointerleave', release);
-      frame.removeEventListener('focusin', hold);
-      frame.removeEventListener('focusout', release);
-      frame.removeEventListener('pointerdown', restart);
-      frame.removeEventListener('click', restart);
-      frame.removeEventListener('keydown', restart);
-      frame.removeEventListener('wheel', wheel);
+      region.removeEventListener('pointerenter', grab);
+      region.removeEventListener('pointerleave', release);
+      region.removeEventListener('focusin', grab);
+      region.removeEventListener('focusout', release);
+      region.removeEventListener('pointerdown', restart);
+      region.removeEventListener('click', restart);
+      region.removeEventListener('keydown', restart);
+      region.removeEventListener('wheel', wheel);
       document.removeEventListener('visibilitychange', sync);
       setPlaying(false);
     };

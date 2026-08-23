@@ -27,7 +27,7 @@ describe('Work rail', () => {
     await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'aria2t');
     expect(
-      screen.getByText('Twelve downloads on one screen, no window management.', { exact: false }),
+      screen.getByText('Manage twelve downloads on one screen.', { exact: false }),
     ).toBeInTheDocument();
   });
 
@@ -243,7 +243,7 @@ describe('Work panes', () => {
   it('gives noctis its capture, its own line and three places to go', () => {
     render(<Harness />);
     expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/noctis-promo-light.webp');
-    expect(screen.getByText('vless browser extension for chrome')).toBeInTheDocument();
+    expect(screen.getByText('VLESS extension for Chrome')).toBeInTheDocument();
     // The product's own page is the button across the card; the rest keep the
     // row under the line.
     const lead = screen.getByRole('link', { name: /Project page/ });
@@ -276,8 +276,8 @@ describe('Work panes', () => {
   it('says plainly that the workshop has nothing to show, and offers no capture', () => {
     render(<Harness start="next" />);
     expect(screen.queryAllByRole('img')).toHaveLength(0);
-    expect(screen.getByText('Nothing to show yet')).toBeInTheDocument();
-    expect(screen.getByText('A screenshot here would only be a promise')).toBeInTheDocument();
+    expect(screen.getByText('Work in progress')).toBeInTheDocument();
+    expect(screen.getByText('We will add screenshots when the product is ready')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Suggest something/ })).toHaveAttribute(
       'href',
       'mailto:hello@c0nn3ct.info?subject=An%20idea%20for%20the%20workshop',
@@ -291,7 +291,7 @@ describe('Work panes', () => {
   it('carries three checkable facts per product', () => {
     render(<Harness />);
     expect(
-      screen.getByText('Installs without admin rights, and uninstalls the same way'),
+      screen.getByText('Install and remove it without administrator access'),
     ).toBeInTheDocument();
     // Once on the rail, once on the first fact card.
     expect(screen.getAllByText('01')).toHaveLength(2);
@@ -306,7 +306,7 @@ describe('Work lightbox', () => {
     );
     const dialog = screen.getByRole('dialog');
     expect(dialog).toBeInTheDocument();
-    expect(screen.getByText('Click anywhere to close')).toBeInTheDocument();
+    expect(screen.getByText('Select anywhere outside the image to close')).toBeInTheDocument();
     const close = screen.getByRole('button', { name: 'Close the preview' });
     expect(close).toHaveFocus();
     await userEvent.click(close);
@@ -381,7 +381,9 @@ describe('Work lightbox', () => {
     render(<Harness start="aria2t" />);
     await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[1]);
     const dialog = screen.getByRole('dialog');
-    expect(dialog.querySelectorAll('img')).toHaveLength(4);
+    // Four captures, plus the copy of the first that closes the loop.
+    expect(dialog.querySelectorAll('img')).toHaveLength(5);
+    expect(dialog.querySelectorAll('.shot-slide[aria-hidden="true"]')).toHaveLength(1);
     expect(within(dialog).getByRole('button', { name: 'Next screen' })).toBeInTheDocument();
     expect(within(dialog).getByRole('button', { name: 'Previous screen' })).toBeInTheDocument();
   });

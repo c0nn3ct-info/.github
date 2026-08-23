@@ -56,6 +56,49 @@ describe('ShotTrack', () => {
   });
 });
 
+describe('the loop', () => {
+  const flat = readFileSync('src/styles/globals.css', 'utf8').replace(/\s/g, '');
+
+  // The track carries one slide more than it has captures, and the extra one is
+  // the first capture again, so closing the loop is a step forward onto the same
+  // pixels rather than a rewind across the whole track.
+  it('keeps a copy of the first capture at the end of a looping track', () => {
+    render(<ShotTrack shots={SHOTS} label="Screens" auto />);
+    const track = screen.getByRole('group', { name: 'Screens' });
+    expect(track.children).toHaveLength(SHOTS.length + 1);
+    const copy = track.lastElementChild!;
+    expect(copy).toHaveAttribute('aria-hidden', 'true');
+    expect(copy.querySelector('img')).toHaveAttribute('src', SHOTS[0].light);
+    // Not a zoom target and not a capture anything reads out: the set has the
+    // number of captures it has.
+    expect(copy.tagName).toBe('DIV');
+    // The captures a reader can open are the real ones.
+    expect(document.querySelectorAll('.shot-slide img')).toHaveLength(SHOTS.length + 1);
+    expect(document.querySelectorAll('button.shot-slide')).toHaveLength(0);
+  });
+
+  it('carries no copy where nothing turns over on its own', () => {
+    render(<ShotTrack shots={SHOTS} label="Screens" />);
+    expect(screen.getByRole('group', { name: 'Screens' }).children).toHaveLength(SHOTS.length);
+  });
+
+  it('leaves a single capture alone', () => {
+    render(<ShotTrack shots={[SHOTS[0]]} label="Screens" auto />);
+    expect(screen.getByRole('group', { name: 'Screens' }).children).toHaveLength(1);
+  });
+
+  // The mark has to finish its travel on the last real capture rather than on
+  // the copy, so the row and the track are counted separately.
+  it('counts the marks and the steps apart', () => {
+    render(<ShotTrack shots={SHOTS} label="Screens" auto />);
+    const frame = screen.getByRole('group', { name: 'Screens' }).parentElement;
+    expect(frame).toHaveStyle({ '--shots': String(SHOTS.length), '--shot-steps': String(SHOTS.length) });
+    expect(flat).toContain(
+      'animation-range:normalcalc(100%*(var(--shots)-1)/var(--shot-steps));',
+    );
+  });
+});
+
 describe('the readout under autoplay', () => {
   // The fill is the browser's animation and the only way to start one again is a
   // new element, so a dwell the reader restarted has to take the mark with it.

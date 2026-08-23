@@ -10,7 +10,7 @@ describe('Practices', () => {
     expect(tabs).toHaveLength(5);
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('tabpanel')).toHaveTextContent(
-      'Both of these began as a tool one of us wanted on an ordinary evening',
+      'Noctis and aria2t began with a task one of us could not complete',
     );
   });
 
@@ -21,7 +21,7 @@ describe('Practices', () => {
     render(<Practices />);
     const panel = screen.getByRole('tabpanel');
     expect(panel).not.toHaveAttribute('aria-live');
-    expect(panel).toHaveAccessibleName(/It starts as something we needed ourselves/);
+    expect(panel).toHaveAccessibleName(/We start with a tool we need/);
     await userEvent.click(screen.getByRole('tab', { name: /We test against the real thing/ }));
     expect(panel).toHaveAccessibleName(/We test against the real thing/);
   });
@@ -69,15 +69,15 @@ describe('Practices', () => {
     render(<Practices />);
     await userEvent.hover(screen.getByRole('tab', { name: /We test against the real thing/ }));
     expect(screen.getByRole('tabpanel')).toHaveTextContent(
-      'tests that only confirm what we already believed',
+      'same conditions you use it in',
     );
     expect(screen.getByRole('tabpanel')).toHaveTextContent('05');
   });
 
   it('commits on a click', async () => {
     render(<Practices />);
-    await userEvent.click(screen.getByRole('tab', { name: /We build on work that already holds up/ }));
-    expect(screen.getByRole('tab', { name: /We build on work/ })).toHaveAttribute(
+    await userEvent.click(screen.getByRole('tab', { name: /We build on proven work/ }));
+    expect(screen.getByRole('tab', { name: /We build on proven work/ })).toHaveAttribute(
       'aria-selected',
       'true',
     );

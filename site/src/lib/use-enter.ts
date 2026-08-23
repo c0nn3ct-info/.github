@@ -25,6 +25,10 @@ const LEAD = '0px';
 
 const DUR = 420;
 const STEP = 45;
+/** The ceiling on how long a smooth jump is given to settle, for a browser that
+ * sends no `scrollend`. Long enough for the length of this page, short enough
+ * that the arrival still belongs to the click that caused it. */
+const JUMP = 900;
 /** Five steps of lead is a fifth of a second before the last item starts.
  * Past that a list reads as waiting rather than arriving. */
 const MAX_DELAY = STEP * 5;
@@ -65,6 +69,75 @@ function arrivals(section: Element): [Element, string][] {
   return out;
 }
 
+/** The gestures, in reading order, played once over whatever the section is
+ * showing now. Shared by the timer fallback and by an arrival on a jump. */
+function play(section: Element, rtl: boolean, easing: string): void {
+  arrivals(section).forEach(([el, gesture], i) => {
+    el.animate(keyframes(gesture, rtl), {
+      duration: DUR,
+      delay: Math.min(i * STEP, MAX_DELAY),
+      easing,
+    });
+  });
+}
+
+/**
+ * Arriving by a link is an arrival too.
+ *
+ * A smooth jump consumes every entrance in its path at the scroll's own speed,
+ * and the range is measured in scroll rather than in time, so it is spent long
+ * before the jump ends. Measured on the bar's jump list: the section landed on
+ * showed 33ms of movement, two frames, against 167ms for the same section
+ * reached by wheel and 450ms for the hero's own arrival on load. That jump list
+ * only exists above 900px, which is why the page looked alive on a phone and
+ * still on a desktop.
+ *
+ * So a jump replays the arrival of the section it lands on, with the same two
+ * gestures the scroll drives, once the scrolling has stopped. `scrollend` is the
+ * signal; the timer is the ceiling for browsers that do not send it.
+ */
+export function useJumpArrival(): void {
+  useEffect(() => {
+    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+    const rtl = document.documentElement.dir === 'rtl';
+    const easing = enterEase();
+    let waiting: Element | null = null;
+    let ceiling: ReturnType<typeof setTimeout> | undefined;
+
+    const landed = () => {
+      // A scroller reports the end of one glide more than once, and the ceiling
+      // can already be queued when the event arrives, so the first call is the
+      // landing and the rest are nothing. The listener goes on cleanup; adding
+      // the same one again per click is what the DOM already deduplicates.
+      const section = waiting;
+      if (!section) return;
+      waiting = null;
+      clearTimeout(ceiling);
+      ceiling = undefined;
+      play(section, rtl, easing);
+    };
+
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as Element | null)?.closest?.('a[href^="#"]');
+      const id = link?.getAttribute('href')?.slice(1);
+      const section = id ? document.getElementById(id) : null;
+      if (!section?.hasAttribute('data-enter-section')) return;
+      waiting = section;
+      clearTimeout(ceiling);
+      document.addEventListener('scrollend', landed);
+      ceiling = setTimeout(landed, JUMP);
+    };
+
+    document.addEventListener('click', onClick);
+    return () => {
+      clearTimeout(ceiling);
+      waiting = null;
+      document.removeEventListener('click', onClick);
+      document.removeEventListener('scrollend', landed);
+    };
+  }, []);
+}
+
 /**
  * Each section arrives once, when it first comes up, and never again.
  *
@@ -89,13 +162,7 @@ export function useSectionEntrance(): void {
         for (const e of entries) {
           if (!e.isIntersecting) continue;
           io.unobserve(e.target);
-          arrivals(e.target).forEach(([el, gesture], i) => {
-            el.animate(keyframes(gesture, rtl), {
-              duration: DUR,
-              delay: Math.min(i * STEP, MAX_DELAY),
-              easing,
-            });
-          });
+          play(e.target, rtl, easing);
         }
       },
       { rootMargin: LEAD },

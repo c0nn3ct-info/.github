@@ -81,13 +81,13 @@ export function getMeta(page, locale, locales = LOCALES) {
       type: 'website',
       locale: OG_LOCALE[locale],
       localeAlternate: locales.filter((l) => l !== locale).map((l) => OG_LOCALE[l] ?? l),
-      image: `${ORIGIN}/og-preview.jpg?v=2`,
+      image: `${ORIGIN}/og-preview.jpg?v=3`,
       url,
       siteName: 'c0nn3ct.info',
     },
     twitter: {
       card: 'summary_large_image',
-      image: `${ORIGIN}/og-preview.jpg?v=2`,
+      image: `${ORIGIN}/og-preview.jpg?v=3`,
     },
   };
 }

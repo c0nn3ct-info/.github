@@ -16,6 +16,9 @@ describe('SiteFooter', () => {
       'href',
       'https://github.com/c0nn3ct-info',
     );
+    // The page measures its readers, so it says so where the rest of the
+    // housekeeping is.
+    expect(screen.getByText(/Amplitude/)).toBeInTheDocument();
   });
 
   it('links both products at their own sites', () => {

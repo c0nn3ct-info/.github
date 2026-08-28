@@ -127,6 +127,7 @@
   "home.shot.close_hint": "Select anywhere outside the image to close",
 
   "footer.byline": "Small, finished software with source available when it helps you verify our work.",
+  "footer.measure": "This page counts visits with Amplitude and records how it is used. None of the products carries analytics of its own.",
   "footer.products": "Products",
   "footer.reach": "Reach us",
   "footer.mail": "hello@c0nn3ct.info",

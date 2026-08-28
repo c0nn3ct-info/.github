@@ -127,6 +127,7 @@
   "home.shot.close_hint": "点击图片外部即可关闭",
 
   "footer.byline": "小而完整的软件。源码有助于验证我们的工作时，我们会将其公开。",
+  "footer.measure": "本页通过 Amplitude 统计访问量，并记录页面的使用情况。产品本身都不含分析代码。",
   "footer.products": "产品",
   "footer.reach": "联系我们",
   "footer.mail": "hello@c0nn3ct.info",

@@ -19,6 +19,7 @@ export function SiteFooter() {
             <span className="text-sm font-[560] tracking-[var(--track-name)]">c0nn3ct.info</span>
           </span>
           <span className="note max-w-[26ch]">{t('footer.byline')}</span>
+          <span className="note max-w-[26ch] text-white/45">{t('footer.measure')}</span>
         </div>
         <div className="flex flex-col gap-2.5">
           <span className="eyebrow text-white/50">{t('footer.products')}</span>

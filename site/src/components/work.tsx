@@ -19,6 +19,7 @@ import {
   NOCTIS_SITE,
   NOCTIS_SRC,
   NOCTIS_STORE,
+  PRODUCT_NAME,
   mailto,
 } from '@/constants';
 import { t } from '../i18n';
@@ -83,7 +84,7 @@ function links(p: Project): { lead: PaneLink; rest: PaneLink[] } {
 }
 
 function name(p: Project): string {
-  return p === 'next' ? t('home.work.next_name') : p;
+  return p === 'next' ? t('home.work.next_name') : PRODUCT_NAME[p];
 }
 
 /** One capture, in both themes, named after the screen it shows. The name is

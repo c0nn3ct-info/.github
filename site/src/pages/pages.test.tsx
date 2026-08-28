@@ -22,7 +22,7 @@ describe('HomePage', () => {
     const shown = () => within(document.getElementById('work')!).getByRole('tabpanel');
     expect(shown()).toHaveAttribute('id', 'noctis');
     const index = screen.getByRole('complementary', { name: 'The products, in order' });
-    await userEvent.click(within(index).getByRole('link', { name: /aria2t/ }));
+    await userEvent.click(within(index).getByRole('link', { name: /Aria2t/ }));
     expect(shown()).toHaveAttribute('id', 'aria2t');
   });
 

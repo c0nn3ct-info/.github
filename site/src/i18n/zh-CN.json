@@ -65,7 +65,7 @@
   "home.work.aria2t_lead": "一个界面可以查看十二个下载任务。关闭标签页后，aria2 仍会继续下载。",
   "home.work.aria2t_f1": "下载卡住时，查看分块图、节点列表和每个文件的进度",
   "home.work.aria2t_f2": "按计划限制速度，把大文件留到夜间下载",
-  "home.work.aria2t_f3": "aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块",
+  "home.work.aria2t_f3": "Aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块",
 
   "home.work.next_name": "下一款产品",
   "home.work.next_kind": "尚未命名",
@@ -89,7 +89,7 @@
   "home.how.hint": "选择一项原则",
   "home.how.list_aria": "五项工作原则",
   "home.how.p1_t": "我们开发自己需要的工具",
-  "home.how.p1_b": "Noctis 和 aria2t 都来自我们遇到的问题。我们只承担能够完成的工作量。",
+  "home.how.p1_b": "Noctis 和 Aria2t 都来自我们遇到的问题。我们只承担能够完成的工作量。",
   "home.how.p2_t": "我们使用自己发布的产品",
   "home.how.p2_b": "我们每天都在自己的设备上使用这些产品，因此常常能在收到反馈前发现问题。",
   "home.how.p3_t": "我们采用经过验证的技术",

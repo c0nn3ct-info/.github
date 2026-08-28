@@ -10,7 +10,7 @@ describe('Practices', () => {
     expect(tabs).toHaveLength(5);
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('tabpanel')).toHaveTextContent(
-      'Noctis and aria2t began with a task one of us could not complete',
+      'Noctis and Aria2t began with a task one of us could not complete',
     );
   });
 

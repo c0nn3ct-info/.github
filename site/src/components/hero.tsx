@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { Arrow } from '@/components/arrow';
 import { useParallax } from '@/lib/use-parallax';
-import { mailto } from '@/constants';
+import { PRODUCT_NAME, mailto } from '@/constants';
 import { t } from '../i18n';
 import type { Project } from '@/components/work';
 
@@ -135,14 +135,14 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
         <IndexRow
           ordinal="01"
           product="noctis"
-          name="noctis"
+          name={PRODUCT_NAME.noctis}
           status={t('home.index.noctis_status')}
           onPick={() => onPick('noctis')}
         />
         <IndexRow
           ordinal="02"
           product="aria2t"
-          name="aria2t"
+          name={PRODUCT_NAME.aria2t}
           status={t('home.index.aria2t_status')}
           onPick={() => onPick('aria2t')}
         />

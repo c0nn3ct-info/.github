@@ -65,7 +65,7 @@
   "home.work.aria2t_lead": "Consulta doce descargas en una pantalla. Puedes cerrar la pestaña: aria2 seguirá descargando los archivos.",
   "home.work.aria2t_f1": "Si una descarga se atasca, revisa el mapa de piezas, los pares y el progreso de cada archivo",
   "home.work.aria2t_f2": "Programa límites de velocidad y deja los archivos grandes para la noche",
-  "home.work.aria2t_f3": "aria2t verifica los archivos con SHA-256 y descarga de nuevo las partes dañadas",
+  "home.work.aria2t_f3": "Aria2t verifica los archivos con SHA-256 y descarga de nuevo las partes dañadas",
 
   "home.work.next_name": "próximo producto",
   "home.work.next_kind": "aún sin nombre",
@@ -89,7 +89,7 @@
   "home.how.hint": "Elige un principio",
   "home.how.list_aria": "Cinco principios",
   "home.how.p1_t": "Creamos lo que necesitamos",
-  "home.how.p1_b": "Noctis y aria2t nacieron de problemas que teníamos nosotros. Asumimos el trabajo que podíamos llevar hasta el final.",
+  "home.how.p1_b": "Noctis y Aria2t nacieron de problemas que teníamos nosotros. Asumimos el trabajo que podíamos llevar hasta el final.",
   "home.how.p2_t": "Usamos lo que publicamos",
   "home.how.p2_b": "Los usamos cada día en nuestros equipos. Así detectamos muchos problemas antes de recibir un mensaje de un usuario.",
   "home.how.p3_t": "Partimos de tecnología probada",

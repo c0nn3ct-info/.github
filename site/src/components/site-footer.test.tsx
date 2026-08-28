@@ -20,11 +20,11 @@ describe('SiteFooter', () => {
 
   it('links both products at their own sites', () => {
     render(<SiteFooter />);
-    expect(screen.getByRole('link', { name: 'noctis' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Noctis' })).toHaveAttribute(
       'href',
       'https://noctis.c0nn3ct.info',
     );
-    expect(screen.getByRole('link', { name: 'aria2t' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Aria2t' })).toHaveAttribute(
       'href',
       'https://aria2t.c0nn3ct.info',
     );

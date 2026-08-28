@@ -26,9 +26,9 @@ describe('Hero', () => {
   it('hands the work section the product a reader picked from the index', async () => {
     const onPick = vi.fn();
     render(<Hero onPick={onPick} />);
-    await userEvent.click(screen.getByRole('link', { name: /noctis/ }));
+    await userEvent.click(screen.getByRole('link', { name: /Noctis/ }));
     expect(onPick).toHaveBeenCalledWith('noctis');
-    await userEvent.click(screen.getByRole('link', { name: /aria2t/ }));
+    await userEvent.click(screen.getByRole('link', { name: /Aria2t/ }));
     expect(onPick).toHaveBeenCalledWith('aria2t');
   });
 

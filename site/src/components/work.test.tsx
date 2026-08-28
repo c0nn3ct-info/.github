@@ -15,8 +15,8 @@ describe('Work rail', () => {
     render(<Harness />);
     const tabs = screen.getAllByRole('tab');
     expect(tabs.map((b) => b.textContent)).toEqual([
-      '01noctisbrowser proxy',
-      '02aria2tdownload manager',
+      '01Noctisbrowser proxy',
+      '02Aria2tdownload manager',
       '03the workshopwhat comes next',
     ]);
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
@@ -24,7 +24,7 @@ describe('Work rail', () => {
 
   it('swaps the panel on a click', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'aria2t');
     expect(
       screen.getByText('Manage twelve downloads on one screen.', { exact: false }),
@@ -160,7 +160,7 @@ describe('Work carousel', () => {
   it('opens the capture that was clicked, not whichever one is current', async () => {
     render(<Harness />);
     await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[3]);
-    expect(screen.getByRole('dialog')).toHaveAccessibleName('noctis · Routing');
+    expect(screen.getByRole('dialog')).toHaveAccessibleName('Noctis · Routing');
   });
 
   it('tells the hairline how many there are', () => {
@@ -187,9 +187,9 @@ describe('Work swap', () => {
   // a different capture, name, sentence and set of facts simply appeared.
   it('acknowledges a swap, entering from the direction the rail moved', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     expect(entry()).toBe('translateY(10px)');
-    await userEvent.click(screen.getByRole('tab', { name: /noctis/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Noctis/ }));
     expect(entry()).toBe('translateY(-10px)');
   });
 
@@ -198,17 +198,17 @@ describe('Work swap', () => {
   // a fresh one back, which flashes.
   it('runs on a wrapper that survives the swap', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     const target = animations.at(-1)?.target as HTMLElement;
     expect(target).toContainElement(screen.getAllByRole('img')[0]);
     expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/aria2t-promo-light.webp');
-    await userEvent.click(screen.getByRole('tab', { name: /noctis/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Noctis/ }));
     expect(animations.at(-1)?.target).toBe(target);
   });
 
   it('lands on an already-visible resting state, so a failed script hides nothing', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     expect(animations.at(-1)?.keyframes.at(-1)).toEqual({
       opacity: 1,
       transform: 'none',
@@ -217,7 +217,7 @@ describe('Work swap', () => {
 
   it('is a routine state change, not a focal entrance', async () => {
     render(<Harness />);
-    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     const { duration, easing } = animations.at(-1)!.options;
     expect(duration).toBeLessThanOrEqual(300);
     // The same curve the page's entrances use, read from the same token.
@@ -232,7 +232,7 @@ describe('Work swap', () => {
   it('stays still when the reader asked for reduced motion', async () => {
     setReducedMotion(true);
     render(<Harness />);
-    await userEvent.click(screen.getByRole('tab', { name: /aria2t/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     expect(animations).toHaveLength(0);
     // The swap still happened; only its motion did not.
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'aria2t');
@@ -338,7 +338,7 @@ describe('Work lightbox', () => {
     );
     const dialog = screen.getByRole('dialog');
     expect(dialog.querySelector('img')).toHaveAttribute('src', '/media/aria2t-promo-light.webp');
-    expect(dialog).toHaveAccessibleName('aria2t · Overview');
+    expect(dialog).toHaveAccessibleName('Aria2t · Overview');
     // The description is the dialog's name, so the image itself stays out of
     // the tree rather than reading the same sentence a second time.
     expect(dialog.querySelector('img')).toHaveAttribute('alt', '');

@@ -1,6 +1,6 @@
 import { Arrow } from '@/components/arrow';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
-import { ARIA2T_SITE, NOCTIS_SITE, ORG_URL, mailto } from '@/constants';
+import { ARIA2T_SITE, NOCTIS_SITE, ORG_URL, PRODUCT_NAME, mailto } from '@/constants';
 import { t } from '../i18n';
 
 export function SiteFooter() {
@@ -23,10 +23,10 @@ export function SiteFooter() {
         <div className="flex flex-col gap-2.5">
           <span className="eyebrow text-white/50">{t('footer.products')}</span>
           <a className="text-sm text-white/85 hover:text-white" href={NOCTIS_SITE}>
-            noctis
+            {PRODUCT_NAME.noctis}
           </a>
           <a className="text-sm text-white/85 hover:text-white" href={ARIA2T_SITE}>
-            aria2t
+            {PRODUCT_NAME.aria2t}
           </a>
         </div>
         <div className="flex flex-col gap-2.5">

@@ -16,7 +16,7 @@
 
 Мы делаем небольшие продукты, которые можем довести до конца. Каждый начинается с инструмента, нужного нам самим, и после выпуска мы продолжаем пользоваться им на своих компьютерах.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · VLESS-прокси для Chrome
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · VLESS-прокси для Chrome
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
@@ -33,25 +33,25 @@
 <a href="https://noctis.c0nn3ct.info/ru/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Лицензия Noctis: EULA и MIT для помощника"></a>
 </td></tr></table>
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · менеджер загрузок aria2
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · менеджер загрузок aria2
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
-  <img alt="aria2t показывает активные загрузки, их прогресс и скорость" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
+  <img alt="Aria2t показывает активные загрузки, их прогресс и скорость" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
 <table><tr><td width="72%">
 На одном экране помещаются двенадцать загрузок. Можно закрыть вкладку: aria2 продолжит скачивать файлы.
-<ul><li>Если загрузка зависла, проверьте карту частей, список пиров и прогресс файлов.</li><li>Настройте ограничения скорости по расписанию и оставьте крупные файлы на ночь.</li><li>aria2t сверяет файлы по SHA-256 и заново скачивает повреждённые части.</li></ul>
+<ul><li>Если загрузка зависла, проверьте карту частей, список пиров и прогресс файлов.</li><li>Настройте ограничения скорости по расписанию и оставьте крупные файлы на ночь.</li><li>Aria2t сверяет файлы по SHA-256 и заново скачивает повреждённые части.</li></ul>
 </td><td width="28%" align="left">
-<a href="https://aria2t.c0nn3ct.info/ru/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Страница aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="Скачать aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Лицензия aria2t: Apache-2.0"></a>
+<a href="https://aria2t.c0nn3ct.info/ru/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Страница Aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="Скачать Aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Лицензия Aria2t: Apache-2.0"></a>
 </td></tr></table>
 
 ## ✨ Пять принципов нашей работы
 
-- **Мы делаем то, что нужно нам самим.** Noctis и aria2t выросли из наших собственных задач. Мы взяли ровно столько работы, сколько могли довести до конца.
+- **Мы делаем то, что нужно нам самим.** Noctis и Aria2t выросли из наших собственных задач. Мы взяли ровно столько работы, сколько могли довести до конца.
 - **Мы пользуемся тем, что выпускаем.** Каждый день мы пользуемся продуктами на своих компьютерах. Поэтому сами замечаем многие неудобства до сообщений пользователей.
 - **Мы опираемся на проверенные технологии.** Другие разработчики уже решили сложные технические задачи. Мы делаем удобный интерфейс, чтобы этими технологиями было легко пользоваться.
 - **Мы оставляем данные на вашем устройстве.** По умолчанию всё работает на вашем устройстве. Если продукту понадобится внешний сервис, мы объясним, зачем он нужен и какие данные хранит.

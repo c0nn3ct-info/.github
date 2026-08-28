@@ -16,7 +16,7 @@
 
 我们只做能够完成的小型产品。每款产品都从我们自己需要的工具开始，发布后也会继续在自己的设备上使用。
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · Chrome 上的 VLESS 代理
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · Chrome 上的 VLESS 代理
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
@@ -33,25 +33,25 @@
 <a href="https://noctis.c0nn3ct.info/zh-CN/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Noctis 许可协议：EULA 和 MIT 助手"></a>
 </td></tr></table>
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · aria2 下载管理器
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · aria2 下载管理器
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
-  <img alt="aria2t 显示下载任务的进度和速度" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
+  <img alt="Aria2t 显示下载任务的进度和速度" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
 <table><tr><td width="72%">
 一个界面可以查看十二个下载任务。关闭标签页后，aria2 仍会继续下载。
-<ul><li>下载卡住时，查看分块图、节点列表和每个文件的进度。</li><li>按计划限制速度，把大文件留到夜间下载。</li><li>aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块。</li></ul>
+<ul><li>下载卡住时，查看分块图、节点列表和每个文件的进度。</li><li>按计划限制速度，把大文件留到夜间下载。</li><li>Aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块。</li></ul>
 </td><td width="28%" align="left">
-<a href="https://aria2t.c0nn3ct.info/zh-CN/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="aria2t 产品页面"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="下载 aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="aria2t 许可证：Apache-2.0"></a>
+<a href="https://aria2t.c0nn3ct.info/zh-CN/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Aria2t 产品页面"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="下载 Aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Aria2t 许可证：Apache-2.0"></a>
 </td></tr></table>
 
 ## ✨ 我们的五项工作原则
 
-- **我们开发自己需要的工具。** Noctis 和 aria2t 都来自我们遇到的问题。我们只承担能够完成的工作量。
+- **我们开发自己需要的工具。** Noctis 和 Aria2t 都来自我们遇到的问题。我们只承担能够完成的工作量。
 - **我们使用自己发布的产品。** 我们每天都在自己的设备上使用这些产品，因此常常能在收到反馈前发现问题。
 - **我们采用经过验证的技术。** 其他开发者已经解决了复杂的技术问题。我们为这些技术设计易用的界面。
 - **我们把数据留在你的设备上。** 产品默认在你的设备上运行。如果需要外部服务，我们会说明用途和所存储的数据。

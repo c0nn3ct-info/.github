@@ -16,7 +16,7 @@
 
 نصنع منتجات صغيرة ومحددة نستطيع إكمالها. يبدأ كل منتج بأداة نحتاج إليها، ونواصل استخدامه على أجهزتنا بعد إصداره.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · بروكسي VLESS لمتصفّح Chrome
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · بروكسي VLESS لمتصفّح Chrome
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
@@ -33,25 +33,25 @@
 <a href="https://noctis.c0nn3ct.info/ar/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="ترخيص Noctis: ‏EULA ومساعد MIT"></a>
 </td></tr></table>
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · مدير التنزيلات aria2
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · مدير التنزيلات aria2
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
-  <img alt="aria2t يعرض التنزيلات النشطة مع التقدّم والسرعة" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
+  <img alt="Aria2t يعرض التنزيلات النشطة مع التقدّم والسرعة" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
 <table><tr><td width="72%">
 تابع اثنتي عشرة عملية تنزيل في شاشة واحدة. بعد إغلاق التبويب، يواصل aria2 تنزيل الملفات.
-<ul><li>إذا توقّف تنزيل، راجع خريطة القطع والأقران وتقدّم كل ملف.</li><li>اضبط حدود السرعة وفق جدول واترك الملفات الكبيرة لليل.</li><li>يفحص aria2t الملفات باستخدام SHA-256 ويعيد تنزيل الأجزاء التالفة.</li></ul>
+<ul><li>إذا توقّف تنزيل، راجع خريطة القطع والأقران وتقدّم كل ملف.</li><li>اضبط حدود السرعة وفق جدول واترك الملفات الكبيرة لليل.</li><li>يفحص Aria2t الملفات باستخدام SHA-256 ويعيد تنزيل الأجزاء التالفة.</li></ul>
 </td><td width="28%" align="left">
-<a href="https://aria2t.c0nn3ct.info"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="صفحة aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="تنزيل aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="ترخيص aria2t: Apache-2.0"></a>
+<a href="https://aria2t.c0nn3ct.info"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="صفحة Aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="تنزيل Aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="ترخيص Aria2t: Apache-2.0"></a>
 </td></tr></table>
 
 ## ✨ خمسة مبادئ نعمل بها
 
-- **نصنع ما نحتاج إليه.** بدأ noctis وaria2t من مشكلات واجهتنا. أخذنا من العمل ما نستطيع إكماله.
+- **نصنع ما نحتاج إليه.** بدأ Noctis وAria2t من مشكلات واجهتنا. أخذنا من العمل ما نستطيع إكماله.
 - **نستخدم ما نصدره.** نستخدم منتجاتنا كل يوم على أجهزتنا، فنكتشف كثيرًا من المشكلات قبل أن يكتب إلينا المستخدمون.
 - **نعتمد على تقنيات مجرّبة.** حلّ مطوّرون آخرون المشكلات التقنية المعقّدة. نصمّم واجهة تسهّل استخدام هذه التقنيات.
 - **نُبقي بياناتك على جهازك.** يعمل المنتج على جهازك افتراضيًا. إذا احتاج إلى خدمة خارجية، نشرح الغرض منها والبيانات التي تحفظها.

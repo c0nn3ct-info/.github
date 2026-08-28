@@ -16,7 +16,7 @@
 
 محصول‌های کوچک و متمرکزی می‌سازیم که می‌توانیم کاملشان کنیم. هر محصول از ابزاری شروع می‌شود که خودمان نیاز داریم و پس از انتشار هم روی دستگاه‌های خودمان از آن استفاده می‌کنیم.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [noctis](https://github.com/c0nn3ct-info/noctis) · پراکسی VLESS برای کروم
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · پراکسی VLESS برای کروم
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
@@ -33,25 +33,25 @@
 <a href="https://noctis.c0nn3ct.info/fa/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="مجوز Noctis: EULA و هِلپر MIT"></a>
 </td></tr></table>
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [aria2t](https://github.com/c0nn3ct-info/aria2t) · مدیر دانلود aria2
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · مدیر دانلود aria2
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
-  <img alt="aria2t دانلودهای فعال را همراه پیشرفت و سرعت نشان می‌دهد" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
+  <img alt="Aria2t دانلودهای فعال را همراه پیشرفت و سرعت نشان می‌دهد" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
 
 <table><tr><td width="72%">
 دوازده دانلود را در یک صفحه ببینید. پس از بستن زبانه، aria2 دانلود فایل‌ها را ادامه می‌دهد.
-<ul><li>اگر دانلودی متوقف شد، نقشهٔ قطعه‌ها، همتاها و پیشرفت هر فایل را ببینید.</li><li>محدودیت سرعت را زمان‌بندی کنید و فایل‌های بزرگ را شب دانلود کنید.</li><li>aria2t فایل‌ها را با SHA-256 بررسی و بخش‌های خراب را دوباره دانلود می‌کند.</li></ul>
+<ul><li>اگر دانلودی متوقف شد، نقشهٔ قطعه‌ها، همتاها و پیشرفت هر فایل را ببینید.</li><li>محدودیت سرعت را زمان‌بندی کنید و فایل‌های بزرگ را شب دانلود کنید.</li><li>Aria2t فایل‌ها را با SHA-256 بررسی و بخش‌های خراب را دوباره دانلود می‌کند.</li></ul>
 </td><td width="28%" align="left">
-<a href="https://aria2t.c0nn3ct.info"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="صفحهٔ aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="دانلود aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="مجوز aria2t: Apache-2.0"></a>
+<a href="https://aria2t.c0nn3ct.info"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="صفحهٔ Aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="دانلود Aria2t"></a><br>
+<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="مجوز Aria2t: Apache-2.0"></a>
 </td></tr></table>
 
 ## ✨ پنج اصل در شیوهٔ کار ما
 
-- **چیزی را می‌سازیم که نیاز داریم.** Noctis و aria2t از مسئله‌های خودمان شروع شدند. فقط کاری را پذیرفتیم که می‌توانستیم به پایان برسانیم.
+- **چیزی را می‌سازیم که نیاز داریم.** Noctis و Aria2t از مسئله‌های خودمان شروع شدند. فقط کاری را پذیرفتیم که می‌توانستیم به پایان برسانیم.
 - **از محصول‌های خودمان استفاده می‌کنیم.** هر روز روی دستگاه‌های خودمان از آن‌ها استفاده می‌کنیم و بسیاری از مشکل‌ها را پیش از دریافت پیام کاربران می‌بینیم.
 - **از فناوری‌های آزموده استفاده می‌کنیم.** توسعه‌دهندگان دیگر مسئله‌های فنی دشوار را حل کرده‌اند. ما برای این فناوری‌ها رابطی می‌سازیم که استفاده از آن آسان باشد.
 - **داده‌ها را روی دستگاه شما نگه می‌داریم.** محصول به‌طور پیش‌فرض روی دستگاه شما کار می‌کند. اگر به خدمتی بیرونی نیاز داشته باشد، کاربرد و داده‌های ذخیره‌شده را توضیح می‌دهیم.

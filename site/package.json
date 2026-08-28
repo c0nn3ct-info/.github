@@ -14,6 +14,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@amplitude/unified": "^1.1.31",
     "clsx": "^2.1.1",
     "lucide-react": "^0.460.0",
     "react": "^18.3.1",

@@ -4,6 +4,9 @@ const createRoot = vi.fn(() => ({ render: vi.fn() }));
 const hydrateRoot = vi.fn();
 vi.mock('react-dom/client', () => ({ createRoot, hydrateRoot }));
 
+const startAnalytics = vi.fn();
+vi.mock('@/lib/analytics', () => ({ startAnalytics }));
+
 const { mountPage } = await import('./main');
 
 beforeEach(() => {
@@ -19,6 +22,7 @@ describe('mountPage', () => {
     mountPage(<p>page</p>);
 
     expect(document.documentElement.classList.contains('light')).toBe(true);
+    expect(startAnalytics).toHaveBeenCalled();
     expect(createRoot).toHaveBeenCalledWith(document.getElementById('root'));
     expect(hydrateRoot).not.toHaveBeenCalled();
   });

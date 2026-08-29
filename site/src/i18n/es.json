@@ -6,22 +6,18 @@
   "nav.how": "Cómo trabajamos",
   "nav.settled": "Promesas",
   "nav.cta": "Escríbenos",
-
   "home.title": "c0nn3ct.info: software pequeño, bien acabado y de tu lado",
   "home.description": "c0nn3ct.info crea software pequeño, bien acabado y de tu lado.",
-
   "not-found.title": "c0nn3ct.info: página no encontrada",
   "not-found.description": "Esta página no existe en c0nn3ct.info.",
   "not-found.h1": "Esta página no existe.",
   "not-found.p": "Comprueba la dirección o vuelve al inicio. Desde allí puedes acceder a todas las secciones del sitio.",
   "not-found.cta": "Volver a la página de inicio",
-
   "home.hero.eyebrow": "de tu lado",
   "home.hero.h1_a": "Software pequeño, bien acabado",
   "home.hero.h1_em": "y de tu lado",
   "home.hero.lede": "Puedes empezar a usarlo sin pasar por una configuración larga ni leer un manual.",
   "home.hero.cta": "Ver los productos",
-
   "home.index.aria": "Lista de productos",
   "home.index.head": "Productos",
   "home.index.status": "Estado",
@@ -30,14 +26,12 @@
   "home.index.next_name": "próximo producto",
   "home.index.next_status": "lo presentaremos antes del lanzamiento",
   "home.index.note": "Cada producto resuelve un problema concreto.",
-
   "home.strip.aria": "Nuestros principios",
   "home.strip.1": "Nuestros productos no incluyen publicidad",
   "home.strip.2": "No necesitas una cuenta para usarlos",
   "home.strip.3": "No recopilamos datos sobre cómo los usas",
   "home.strip.4": "Puedes llevarte tus datos",
   "home.strip.5": "Puedes comprobar nuestras promesas",
-
   "home.work.h2": "Productos",
   "home.work.anno": "02",
   "home.work.rail_aria": "Elige un producto",
@@ -52,21 +46,18 @@
   "home.work.shot_routing": "Rutas",
   "home.work.shot_detail": "Detalles",
   "home.work.shot_settings": "Ajustes",
-
   "home.work.noctis_kind": "proxy de navegador",
   "home.work.noctis_own": "proxy VLESS para Chrome",
   "home.work.noctis_lead": "Envía el tráfico del navegador por tus proxies. La banca y las videollamadas mantienen su conexión habitual.",
   "home.work.noctis_f1": "Añade un enlace de conexión o una suscripción y configura las reglas de enrutamiento",
   "home.work.noctis_f2": "Si un servidor deja de responder, el navegador cambia a otro",
   "home.work.noctis_f3": "Puedes instalarlo y eliminarlo sin permisos de administrador",
-
   "home.work.aria2t_kind": "gestor de descargas",
   "home.work.aria2t_own": "gestor de descargas aria2",
-  "home.work.aria2t_lead": "Consulta doce descargas en una pantalla. Puedes cerrar la pestaña: aria2 seguirá descargando los archivos.",
+  "home.work.aria2t_lead": "Aria2t le da una interfaz de verdad al motor de descargas aria2, en la terminal y en el navegador, y la cola sigue funcionando después de que cierres cualquiera de los dos.",
   "home.work.aria2t_f1": "Si una descarga se atasca, revisa el mapa de piezas, los pares y el progreso de cada archivo",
   "home.work.aria2t_f2": "Programa límites de velocidad y deja los archivos grandes para la noche",
   "home.work.aria2t_f3": "Aria2t verifica los archivos con SHA-256 y descarga de nuevo las partes dañadas",
-
   "home.work.next_name": "próximo producto",
   "home.work.next_kind": "aún sin nombre",
   "home.work.next_own": "lo hacemos para nosotros",
@@ -76,13 +67,11 @@
   "home.work.next_f1": "Debe resolver un problema que las herramientas disponibles dejan pendiente",
   "home.work.next_f2": "Antes del lanzamiento probaremos la instalación en un equipo nuevo para nosotros",
   "home.work.next_f3": "Desde la primera versión contará con las mismas cuatro promesas",
-
   "home.work.link_site": "Página del proyecto",
   "home.work.link_store": "Chrome Web Store",
   "home.work.link_src": "GitHub",
   "home.work.link_suggest": "Proponer una idea",
   "home.work.link_promises": "Nuestras promesas",
-
   "home.how.h2_a": "Cinco principios",
   "home.how.h2_b": "para nuestro trabajo",
   "home.how.intro": "Empezamos con una herramienta que necesitamos y seguimos usándola después de publicarla.",
@@ -98,7 +87,6 @@
   "home.how.p4_b": "El producto funciona en tu dispositivo por defecto. Si necesita un servicio externo, explicaremos para qué sirve y qué datos guarda.",
   "home.how.p5_t": "Probamos situaciones reales",
   "home.how.p5_b": "Ejecutamos el programa completo y realizamos tareas cotidianas. Así encontramos errores que las comprobaciones aisladas no muestran.",
-
   "home.floor.eyebrow": "Cuatro compromisos",
   "home.floor.h2_a": "Promesas que",
   "home.floor.h2_b": "vamos a mantener",
@@ -112,7 +100,6 @@
   "home.floor.f3_b": "La documentación describe con palabras claras todo lo que puede afectar a tu confianza.",
   "home.floor.f4_t": "El producto seguirá funcionando sin nosotros",
   "home.floor.f4_b": "Si dejamos de mantener un producto, las copias instaladas seguirán funcionando. Avisaremos antes de terminar el soporte.",
-
   "home.talk.eyebrow": "respondemos nosotros",
   "home.talk.h2_a": "Escríbenos.",
   "home.talk.h2_b": "Leemos cada mensaje",
@@ -122,22 +109,18 @@
   "home.talk.line2": "Quiero informar de un problema",
   "home.talk.line3": "Quiero ayudar con uno de los productos",
   "home.talk.foot": "Sin formulario ni número de incidencia: el mensaje nos llega directamente",
-
   "home.shot.close": "Cerrar la vista previa",
   "home.shot.close_hint": "Haz clic fuera de la imagen para cerrar",
-
   "footer.byline": "Software pequeño y bien acabado. Publicamos el código cuando ayuda a comprobar nuestro trabajo.",
   "footer.measure": "Esta página cuenta las visitas con Amplitude y registra cómo se usa. Ninguno de los productos lleva analítica propia.",
   "footer.products": "Productos",
   "footer.reach": "Contacto",
   "footer.mail": "hello@c0nn3ct.info",
   "footer.github": "github.com/c0nn3ct-info",
-
   "mail.hello": "Un saludo",
   "mail.suggest": "Una idea para el próximo producto",
   "mail.line1": "Una idea que quiero sugerir",
   "mail.line2": "Un problema en un producto",
   "mail.line3": "Quiero ayudar con uno de los productos",
-
   "console.note": "Has abierto la consola. Envía tus preguntas sobre el sitio a hello@c0nn3ct.info."
 }

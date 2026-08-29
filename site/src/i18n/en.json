@@ -6,22 +6,18 @@
   "nav.how": "How we work",
   "nav.settled": "Settled",
   "nav.cta": "Write to us",
-
   "home.title": "c0nn3ct.info: small, finished software that answers to you",
   "home.description": "Meet c0nn3ct.info: small, finished software that answers to you.",
-
   "not-found.title": "c0nn3ct.info: nothing at this address",
   "not-found.description": "There is nothing at this address on c0nn3ct.info.",
   "not-found.h1": "There is nothing at this address.",
   "not-found.p": "Check the address, or return home to find every page on this site.",
   "not-found.cta": "Back to the home page",
-
   "home.hero.eyebrow": "on your side of the wire",
   "home.hero.h1_a": "Small, finished software that",
   "home.hero.h1_em": "answers to you",
   "home.hero.lede": "Capable software for people who should not have to study it first.",
   "home.hero.cta": "See the work",
-
   "home.index.aria": "The products, in order",
   "home.index.head": "The index",
   "home.index.status": "Status",
@@ -30,14 +26,12 @@
   "home.index.next_name": "in the workshop",
   "home.index.next_status": "listed when it is ready to ship",
   "home.index.note": "We keep each product focused and finish it before release.",
-
   "home.strip.aria": "How we work, in one line",
   "home.strip.1": "We put no advertising in our products",
   "home.strip.2": "Our products work without an account",
   "home.strip.3": "We do not track how you use them",
   "home.strip.4": "You can leave without losing your data",
   "home.strip.5": "You can verify each promise",
-
   "home.work.h2": "The work",
   "home.work.anno": "02",
   "home.work.rail_aria": "Choose a product",
@@ -52,21 +46,18 @@
   "home.work.shot_routing": "Routing",
   "home.work.shot_detail": "Details",
   "home.work.shot_settings": "Settings",
-
   "home.work.noctis_kind": "browser proxy",
   "home.work.noctis_own": "VLESS extension for Chrome",
   "home.work.noctis_lead": "Route browser traffic through your proxies while banking and video calls keep their current connection.",
   "home.work.noctis_f1": "Add a share link or subscription URL, then route each site with rules",
   "home.work.noctis_f2": "Latency checks switch your browser away from a failing server",
   "home.work.noctis_f3": "Install and remove it without administrator access",
-
   "home.work.aria2t_kind": "download manager",
   "home.work.aria2t_own": "aria2 download manager",
-  "home.work.aria2t_lead": "Manage twelve downloads on one screen. Close the tab and aria2 keeps the queue running.",
+  "home.work.aria2t_lead": "Aria2t puts a real interface on the aria2 download engine, in the terminal and in the browser, and the queue keeps running after you close either one.",
   "home.work.aria2t_f1": "Inspect piece maps, peers and per-file progress when a download stalls",
   "home.work.aria2t_f2": "Schedule speed limits and reserve the night for large files",
   "home.work.aria2t_f3": "Check finished files with SHA-256 and fetch mismatched data again",
-
   "home.work.next_name": "the workshop",
   "home.work.next_kind": "what comes next",
   "home.work.next_own": "a problem we want to solve",
@@ -76,13 +67,11 @@
   "home.work.next_f1": "It must solve a problem our current tools leave open",
   "home.work.next_f2": "We ship after testing the installer on an unfamiliar machine",
   "home.work.next_f3": "The promises below apply to it from the first release",
-
   "home.work.link_site": "Project page",
   "home.work.link_store": "Chrome Web Store",
   "home.work.link_src": "GitHub",
   "home.work.link_suggest": "Suggest something",
   "home.work.link_promises": "See the promises",
-
   "home.how.h2_a": "Five principles",
   "home.how.h2_b": "we put into practice",
   "home.how.intro": "Each product begins with a tool one of us needs. We keep using it after release, on our own machines.",
@@ -98,7 +87,6 @@
   "home.how.p4_b": "Your machine is our default. We add a remote service only when the product needs one, and we state what that service stores.",
   "home.how.p5_t": "We test against the real thing",
   "home.how.p5_b": "Our tests run the product under the same conditions you use it in. They cover real workflows and catch failures that isolated checks miss.",
-
   "home.floor.eyebrow": "The floor · four of them",
   "home.floor.h2_a": "Promises we",
   "home.floor.h2_b": "can't take back",
@@ -112,7 +100,6 @@
   "home.floor.f3_b": "We document each behavior that can affect your trust, next to the product that performs it.",
   "home.floor.f4_t": "It keeps working if we stop",
   "home.floor.f4_b": "If we retire a product, installed copies keep working on their current machines. We will announce the decision before support ends.",
-
   "home.talk.eyebrow": "a person answers",
   "home.talk.h2_a": "Write to us.",
   "home.talk.h2_b": "A person will read it",
@@ -122,22 +109,18 @@
   "home.talk.line2": "I found something that needs work",
   "home.talk.line3": "I want to help with one of these",
   "home.talk.foot": "Your message goes to our inbox, without a form or ticket number",
-
   "home.shot.close": "Close the preview",
   "home.shot.close_hint": "Select anywhere outside the image to close",
-
   "footer.byline": "Small, finished software with source available when it helps you verify our work.",
   "footer.measure": "This page counts visits with Amplitude and records how it is used. None of the products carries analytics of its own.",
   "footer.products": "Products",
   "footer.reach": "Reach us",
   "footer.mail": "hello@c0nn3ct.info",
   "footer.github": "github.com/c0nn3ct-info",
-
   "mail.hello": "Saying hello",
   "mail.suggest": "An idea for the workshop",
   "mail.line1": "An idea I want to suggest",
   "mail.line2": "Something that needs work",
   "mail.line3": "I want to help with one of these",
-
   "console.note": "You checked the console. Send questions about the site to hello@c0nn3ct.info."
 }

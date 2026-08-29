@@ -27,7 +27,7 @@ describe('Work rail', () => {
     await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'aria2t');
     expect(
-      screen.getByText('Manage twelve downloads on one screen.', { exact: false }),
+      screen.getByText('puts a real interface on the aria2 download engine', { exact: false }),
     ).toBeInTheDocument();
   });
 

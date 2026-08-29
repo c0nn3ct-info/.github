@@ -6,22 +6,18 @@
   "nav.how": "我们怎么做",
   "nav.settled": "承诺",
   "nav.cta": "写信给我们",
-
   "home.title": "c0nn3ct.info：小而完整的软件，始终站在你这边",
   "home.description": "c0nn3ct.info 打造小而完整、始终站在你这边的软件。",
-
   "not-found.title": "c0nn3ct.info：页面未找到",
   "not-found.description": "c0nn3ct.info 上没有这个页面。",
   "not-found.h1": "找不到这个页面。",
   "not-found.p": "请检查地址，或返回首页。首页提供了网站各部分的入口。",
   "not-found.cta": "回到首页",
-
   "home.hero.eyebrow": "站在你这边",
   "home.hero.h1_a": "小而完整的软件，",
   "home.hero.h1_em": "始终站在你这边",
   "home.hero.lede": "无需繁琐设置，也不用先读完说明，就能开始使用。",
   "home.hero.cta": "查看产品",
-
   "home.index.aria": "产品一览",
   "home.index.head": "产品",
   "home.index.status": "状态",
@@ -30,14 +26,12 @@
   "home.index.next_name": "下一款产品",
   "home.index.next_status": "发布前会在这里介绍",
   "home.index.note": "每款产品只解决一个明确的问题。",
-
   "home.strip.aria": "我们的原则",
   "home.strip.1": "产品内没有广告",
   "home.strip.2": "无需注册账户",
   "home.strip.3": "我们不收集使用情况",
   "home.strip.4": "你的数据可以随时导出",
   "home.strip.5": "我们的承诺都能核实",
-
   "home.work.h2": "产品",
   "home.work.anno": "02",
   "home.work.rail_aria": "选择一个产品",
@@ -52,21 +46,18 @@
   "home.work.shot_routing": "路由",
   "home.work.shot_detail": "详情",
   "home.work.shot_settings": "设置",
-
   "home.work.noctis_kind": "浏览器代理",
   "home.work.noctis_own": "Chrome 上的 VLESS 代理",
   "home.work.noctis_lead": "让浏览器流量通过你自己的代理。网银和视频通话仍使用原来的网络连接。",
   "home.work.noctis_f1": "添加连接链接或订阅地址，再用规则设置不同网站的路由",
   "home.work.noctis_f2": "服务器失去响应时，浏览器会切换到其他服务器",
   "home.work.noctis_f3": "安装和卸载都不需要管理员权限",
-
   "home.work.aria2t_kind": "下载管理器",
   "home.work.aria2t_own": "aria2 下载管理器",
-  "home.work.aria2t_lead": "一个界面可以查看十二个下载任务。关闭标签页后，aria2 仍会继续下载。",
+  "home.work.aria2t_lead": "Aria2t 为 aria2 下载引擎提供了一个真正的界面，既在终端里，也在浏览器里，而且在你关掉其中任何一个之后，队列仍会继续运行。",
   "home.work.aria2t_f1": "下载卡住时，查看分块图、节点列表和每个文件的进度",
   "home.work.aria2t_f2": "按计划限制速度，把大文件留到夜间下载",
   "home.work.aria2t_f3": "Aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块",
-
   "home.work.next_name": "下一款产品",
   "home.work.next_kind": "尚未命名",
   "home.work.next_own": "先为自己解决问题",
@@ -76,13 +67,11 @@
   "home.work.next_f1": "它必须解决现有工具尚未解决的问题",
   "home.work.next_f2": "发布前，我们会在一台新设备上测试安装流程",
   "home.work.next_f3": "第一个版本就会遵守同样的四项承诺",
-
   "home.work.link_site": "项目页面",
   "home.work.link_store": "Chrome 应用商店",
   "home.work.link_src": "GitHub",
   "home.work.link_suggest": "提出想法",
   "home.work.link_promises": "我们的承诺",
-
   "home.how.h2_a": "我们的五项",
   "home.how.h2_b": "工作原则",
   "home.how.intro": "我们从自己需要的工具开始，并在发布后继续使用它。",
@@ -98,7 +87,6 @@
   "home.how.p4_b": "产品默认在你的设备上运行。如果需要外部服务，我们会说明用途和所存储的数据。",
   "home.how.p5_t": "我们测试真实的使用场景",
   "home.how.p5_b": "测试会运行完整的程序并执行日常任务，找出独立检查无法发现的问题。",
-
   "home.floor.eyebrow": "四项承诺",
   "home.floor.h2_a": "我们会坚持的",
   "home.floor.h2_b": "四项承诺",
@@ -112,7 +100,6 @@
   "home.floor.f3_b": "文档会用清楚的语言说明所有可能影响你信任的功能。",
   "home.floor.f4_t": "没有我们，产品也能继续运行",
   "home.floor.f4_b": "如果我们停止维护，已安装的产品仍会继续运行。我们会提前通知支持结束的时间。",
-
   "home.talk.eyebrow": "我们亲自回复",
   "home.talk.h2_a": "给我们写信。",
   "home.talk.h2_b": "每封信我们都会读",
@@ -122,22 +109,18 @@
   "home.talk.line2": "我想反馈一个问题",
   "home.talk.line3": "我想参与一个产品",
   "home.talk.foot": "无需填写表单，也没有工单号：邮件会直接发给我们",
-
   "home.shot.close": "关闭预览",
   "home.shot.close_hint": "点击图片外部即可关闭",
-
   "footer.byline": "小而完整的软件。源码有助于验证我们的工作时，我们会将其公开。",
   "footer.measure": "本页通过 Amplitude 统计访问量，并记录页面的使用情况。产品本身都不含分析代码。",
   "footer.products": "产品",
   "footer.reach": "联系我们",
   "footer.mail": "hello@c0nn3ct.info",
   "footer.github": "github.com/c0nn3ct-info",
-
   "mail.hello": "打个招呼",
   "mail.suggest": "关于下一款产品的想法",
   "mail.line1": "我想提的一个想法",
   "mail.line2": "产品中的问题",
   "mail.line3": "我想参与一个产品",
-
   "console.note": "你打开了控制台。如有网站相关问题，请发送邮件至 hello@c0nn3ct.info。"
 }

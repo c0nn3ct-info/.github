@@ -32,9 +32,8 @@ Envía el tráfico del navegador por tus proxies. La banca y las videollamadas m
 </td><td width="28%" align="left">
 
 [![Página de Noctis](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/es/)
-[![Noctis en Chrome Web Store](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
-[![Versiones del helper de Noctis](https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&style=flat-square&labelColor=16161e&color=bb9af7&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis/releases)
-[![Licencia de Noctis: EULA y helper MIT](https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/es/license/)
+[![Repositorio de Noctis](https://img.shields.io/badge/github-noctis-bb9af7?style=flat-square&labelColor=16161e&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis)
+[![Noctis en Chrome Web Store](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=chrome%20web%20store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
 </td></tr></table>
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · gestor de descargas aria2
@@ -53,8 +52,8 @@ Consulta doce descargas en una pantalla. Puedes cerrar la pestaña: aria2 seguir
 </td><td width="28%" align="left">
 
 [![Página de Aria2t](https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&labelColor=16161e)](https://aria2t.c0nn3ct.info/es/)
-[![Descargar Aria2t](https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&style=flat-square&labelColor=16161e&color=7aa2f7&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t/releases)
-[![Licencia de Aria2t: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&labelColor=16161e)](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
+[![Repositorio de Aria2t](https://img.shields.io/badge/github-aria2t-7aa2f7?style=flat-square&labelColor=16161e&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t)
+![Aria2t en Chrome Web Store: pronto](https://img.shields.io/badge/chrome%20web%20store-pronto-7aa2f7?style=flat-square&labelColor=16161e&logo=googlechrome&logoColor=7aa2f7)
 </td></tr></table>
 
 ## ✨ Cinco principios para nuestro trabajo

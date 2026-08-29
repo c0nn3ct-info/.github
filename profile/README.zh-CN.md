@@ -32,9 +32,8 @@
 </td><td width="28%" align="left">
 
 [![Noctis 产品页面](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/zh-CN/)
-[![Chrome 应用商店中的 Noctis](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
-[![Noctis 助手版本](https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&style=flat-square&labelColor=16161e&color=bb9af7&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis/releases)
-[![Noctis 许可协议：EULA 和 MIT 助手](https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/zh-CN/license/)
+[![Noctis 代码仓库](https://img.shields.io/badge/github-noctis-bb9af7?style=flat-square&labelColor=16161e&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis)
+[![Chrome 应用商店中的 Noctis](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=chrome%20web%20store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
 </td></tr></table>
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · aria2 下载管理器
@@ -53,8 +52,8 @@
 </td><td width="28%" align="left">
 
 [![Aria2t 产品页面](https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&labelColor=16161e)](https://aria2t.c0nn3ct.info/zh-CN/)
-[![下载 Aria2t](https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&style=flat-square&labelColor=16161e&color=7aa2f7&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t/releases)
-[![Aria2t 许可证：Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&labelColor=16161e)](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
+[![Aria2t 代码仓库](https://img.shields.io/badge/github-aria2t-7aa2f7?style=flat-square&labelColor=16161e&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t)
+![Chrome 应用商店中的 Aria2t：即将推出](https://img.shields.io/badge/chrome%20web%20store-%E5%8D%B3%E5%B0%86%E6%8E%A8%E5%87%BA-7aa2f7?style=flat-square&labelColor=16161e&logo=googlechrome&logoColor=7aa2f7)
 </td></tr></table>
 
 ## ✨ 我们的五项工作原则

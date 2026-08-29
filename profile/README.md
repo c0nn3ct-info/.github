@@ -20,8 +20,8 @@ release on our own machines.
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · VLESS proxy for Chrome
 
 [![Noctis project page](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info)
-[![Noctis on the Chrome Web Store](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
-[![Noctis helper releases](https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&style=flat-square&labelColor=16161e&color=bb9af7&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis/releases)
+[![Noctis repository](https://img.shields.io/badge/github-noctis-bb9af7?style=flat-square&labelColor=16161e&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis)
+[![Noctis on the Chrome Web Store](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=chrome%20web%20store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
 
 Route browser traffic through your proxies while banking and video calls keep their current connection.
 
@@ -37,7 +37,8 @@ Route browser traffic through your proxies while banking and video calls keep th
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · aria2 download manager
 
 [![Aria2t project page](https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&labelColor=16161e)](https://aria2t.c0nn3ct.info)
-[![Download Aria2t](https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&style=flat-square&labelColor=16161e&color=7aa2f7&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t/releases)
+[![Aria2t repository](https://img.shields.io/badge/github-aria2t-7aa2f7?style=flat-square&labelColor=16161e&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t)
+![Aria2t on the Chrome Web Store: soon](https://img.shields.io/badge/chrome%20web%20store-soon-7aa2f7?style=flat-square&labelColor=16161e&logo=googlechrome&logoColor=7aa2f7)
 
 Manage twelve downloads on one screen. Close the tab and aria2 keeps the queue running.
 

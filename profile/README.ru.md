@@ -32,9 +32,8 @@
 </td><td width="28%" align="left">
 
 [![Страница Noctis](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/ru/)
-[![Noctis в Chrome Web Store](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
-[![Выпуски помощника Noctis](https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&style=flat-square&labelColor=16161e&color=bb9af7&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis/releases)
-[![Лицензия Noctis: EULA и MIT для помощника](https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/ru/license/)
+[![Репозиторий Noctis](https://img.shields.io/badge/github-noctis-bb9af7?style=flat-square&labelColor=16161e&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis)
+[![Noctis в Chrome Web Store](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=chrome%20web%20store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
 </td></tr></table>
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · менеджер загрузок aria2
@@ -53,8 +52,8 @@
 </td><td width="28%" align="left">
 
 [![Страница Aria2t](https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&labelColor=16161e)](https://aria2t.c0nn3ct.info/ru/)
-[![Скачать Aria2t](https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&style=flat-square&labelColor=16161e&color=7aa2f7&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t/releases)
-[![Лицензия Aria2t: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&labelColor=16161e)](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
+[![Репозиторий Aria2t](https://img.shields.io/badge/github-aria2t-7aa2f7?style=flat-square&labelColor=16161e&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t)
+![Aria2t в Chrome Web Store: скоро](https://img.shields.io/badge/chrome%20web%20store-%D1%81%D0%BA%D0%BE%D1%80%D0%BE-7aa2f7?style=flat-square&labelColor=16161e&logo=googlechrome&logoColor=7aa2f7)
 </td></tr></table>
 
 ## ✨ Пять принципов нашей работы

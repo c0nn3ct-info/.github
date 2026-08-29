@@ -25,12 +25,16 @@ Creamos productos pequeños que podemos llevar hasta el final. Cada uno nace de 
 
 <table><tr><td width="72%">
 Envía el tráfico del navegador por tus proxies. La banca y las videollamadas mantienen su conexión habitual.
-<ul><li>Añade un enlace de conexión o una suscripción y configura las reglas de enrutamiento.</li><li>Si un servidor deja de responder, el navegador cambia a otro.</li><li>Puedes instalarlo y eliminarlo sin permisos de administrador.</li></ul>
+
+- Añade un enlace de conexión o una suscripción y configura las reglas de enrutamiento.
+- Si un servidor deja de responder, el navegador cambia a otro.
+- Puedes instalarlo y eliminarlo sin permisos de administrador.
 </td><td width="28%" align="left">
-<a href="https://noctis.c0nn3ct.info/es/"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Página de Noctis"></a><br>
-<a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=googlechrome&amp;logoColor=bb9af7" alt="Noctis en Chrome Web Store"></a><br>
-<a href="https://github.com/c0nn3ct-info/noctis/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=github&amp;logoColor=bb9af7" alt="Versiones del helper de Noctis"></a><br>
-<a href="https://noctis.c0nn3ct.info/es/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Licencia de Noctis: EULA y helper MIT"></a>
+
+[![Página de Noctis](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/es/)
+[![Noctis en Chrome Web Store](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
+[![Versiones del helper de Noctis](https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&style=flat-square&labelColor=16161e&color=bb9af7&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis/releases)
+[![Licencia de Noctis: EULA y helper MIT](https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/es/license/)
 </td></tr></table>
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · gestor de descargas aria2
@@ -42,11 +46,15 @@ Envía el tráfico del navegador por tus proxies. La banca y las videollamadas m
 
 <table><tr><td width="72%">
 Consulta doce descargas en una pantalla. Puedes cerrar la pestaña: aria2 seguirá descargando los archivos.
-<ul><li>Si una descarga se atasca, revisa el mapa de piezas, los pares y el progreso de cada archivo.</li><li>Programa límites de velocidad y deja los archivos grandes para la noche.</li><li>Aria2t verifica los archivos con SHA-256 y descarga de nuevo las partes dañadas.</li></ul>
+
+- Si una descarga se atasca, revisa el mapa de piezas, los pares y el progreso de cada archivo.
+- Programa límites de velocidad y deja los archivos grandes para la noche.
+- Aria2t verifica los archivos con SHA-256 y descarga de nuevo las partes dañadas.
 </td><td width="28%" align="left">
-<a href="https://aria2t.c0nn3ct.info/es/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Página de Aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="Descargar Aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Licencia de Aria2t: Apache-2.0"></a>
+
+[![Página de Aria2t](https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&labelColor=16161e)](https://aria2t.c0nn3ct.info/es/)
+[![Descargar Aria2t](https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&style=flat-square&labelColor=16161e&color=7aa2f7&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t/releases)
+[![Licencia de Aria2t: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&labelColor=16161e)](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
 </td></tr></table>
 
 ## ✨ Cinco principios para nuestro trabajo

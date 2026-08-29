@@ -25,12 +25,16 @@
 
 <table><tr><td width="72%">
 ترافیک مرورگر را از پراکسی‌های خودتان عبور دهید. بانک و تماس‌های تصویری از اتصال معمول استفاده می‌کنند.
-<ul><li>پیوند اتصال یا نشانی اشتراک را اضافه کنید و قواعد مسیریابی را بسازید.</li><li>اگر سروری پاسخ ندهد، مرورگر به سرور دیگری می‌رود.</li><li>نصب و حذف آن به دسترسی مدیر نیاز ندارد.</li></ul>
+
+- پیوند اتصال یا نشانی اشتراک را اضافه کنید و قواعد مسیریابی را بسازید.
+- اگر سروری پاسخ ندهد، مرورگر به سرور دیگری می‌رود.
+- نصب و حذف آن به دسترسی مدیر نیاز ندارد.
 </td><td width="28%" align="left">
-<a href="https://noctis.c0nn3ct.info/fa/"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&amp;labelColor=16161e" alt="صفحهٔ Noctis"></a><br>
-<a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=googlechrome&amp;logoColor=bb9af7" alt="Noctis در فروشگاه وب Chrome"></a><br>
-<a href="https://github.com/c0nn3ct-info/noctis/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=github&amp;logoColor=bb9af7" alt="نسخه‌های هِلپر Noctis"></a><br>
-<a href="https://noctis.c0nn3ct.info/fa/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="مجوز Noctis: EULA و هِلپر MIT"></a>
+
+[![صفحهٔ Noctis](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/fa/)
+[![Noctis در فروشگاه وب Chrome](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
+[![نسخه‌های هِلپر Noctis](https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&style=flat-square&labelColor=16161e&color=bb9af7&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis/releases)
+[![مجوز Noctis: EULA و هِلپر MIT](https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/fa/license/)
 </td></tr></table>
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · مدیر دانلود aria2
@@ -42,11 +46,15 @@
 
 <table><tr><td width="72%">
 دوازده دانلود را در یک صفحه ببینید. پس از بستن زبانه، aria2 دانلود فایل‌ها را ادامه می‌دهد.
-<ul><li>اگر دانلودی متوقف شد، نقشهٔ قطعه‌ها، همتاها و پیشرفت هر فایل را ببینید.</li><li>محدودیت سرعت را زمان‌بندی کنید و فایل‌های بزرگ را شب دانلود کنید.</li><li>Aria2t فایل‌ها را با SHA-256 بررسی و بخش‌های خراب را دوباره دانلود می‌کند.</li></ul>
+
+- اگر دانلودی متوقف شد، نقشهٔ قطعه‌ها، همتاها و پیشرفت هر فایل را ببینید.
+- محدودیت سرعت را زمان‌بندی کنید و فایل‌های بزرگ را شب دانلود کنید.
+- Aria2t فایل‌ها را با SHA-256 بررسی و بخش‌های خراب را دوباره دانلود می‌کند.
 </td><td width="28%" align="left">
-<a href="https://aria2t.c0nn3ct.info"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="صفحهٔ Aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="دانلود Aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="مجوز Aria2t: Apache-2.0"></a>
+
+[![صفحهٔ Aria2t](https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&labelColor=16161e)](https://aria2t.c0nn3ct.info)
+[![دانلود Aria2t](https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&style=flat-square&labelColor=16161e&color=7aa2f7&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t/releases)
+[![مجوز Aria2t: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&labelColor=16161e)](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
 </td></tr></table>
 
 ## ✨ پنج اصل در شیوهٔ کار ما

@@ -25,12 +25,16 @@
 
 <table><tr><td width="72%">
 让浏览器流量通过你自己的代理。网银和视频通话仍使用原来的网络连接。
-<ul><li>添加连接链接或订阅地址，再用规则设置不同网站的路由。</li><li>服务器失去响应时，浏览器会切换到其他服务器。</li><li>安装和卸载都不需要管理员权限。</li></ul>
+
+- 添加连接链接或订阅地址，再用规则设置不同网站的路由。
+- 服务器失去响应时，浏览器会切换到其他服务器。
+- 安装和卸载都不需要管理员权限。
 </td><td width="28%" align="left">
-<a href="https://noctis.c0nn3ct.info/zh-CN/"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Noctis 产品页面"></a><br>
-<a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=googlechrome&amp;logoColor=bb9af7" alt="Chrome 应用商店中的 Noctis"></a><br>
-<a href="https://github.com/c0nn3ct-info/noctis/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&amp;style=flat-square&amp;labelColor=16161e&amp;color=bb9af7&amp;logo=github&amp;logoColor=bb9af7" alt="Noctis 助手版本"></a><br>
-<a href="https://noctis.c0nn3ct.info/zh-CN/license/"><img src="https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&amp;labelColor=16161e" alt="Noctis 许可协议：EULA 和 MIT 助手"></a>
+
+[![Noctis 产品页面](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/zh-CN/)
+[![Chrome 应用商店中的 Noctis](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
+[![Noctis 助手版本](https://img.shields.io/github/v/release/c0nn3ct-info/noctis?label=helper&style=flat-square&labelColor=16161e&color=bb9af7&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis/releases)
+[![Noctis 许可协议：EULA 和 MIT 助手](https://img.shields.io/badge/licence-EULA%20%2B%20MIT-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/zh-CN/license/)
 </td></tr></table>
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · aria2 下载管理器
@@ -42,11 +46,15 @@
 
 <table><tr><td width="72%">
 一个界面可以查看十二个下载任务。关闭标签页后，aria2 仍会继续下载。
-<ul><li>下载卡住时，查看分块图、节点列表和每个文件的进度。</li><li>按计划限制速度，把大文件留到夜间下载。</li><li>Aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块。</li></ul>
+
+- 下载卡住时，查看分块图、节点列表和每个文件的进度。
+- 按计划限制速度，把大文件留到夜间下载。
+- Aria2t 使用 SHA-256 校验文件，并重新下载损坏的数据块。
 </td><td width="28%" align="left">
-<a href="https://aria2t.c0nn3ct.info/zh-CN/"><img src="https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Aria2t 产品页面"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/releases"><img src="https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&amp;style=flat-square&amp;labelColor=16161e&amp;color=7aa2f7&amp;logo=github&amp;logoColor=7aa2f7" alt="下载 Aria2t"></a><br>
-<a href="https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&amp;labelColor=16161e" alt="Aria2t 许可证：Apache-2.0"></a>
+
+[![Aria2t 产品页面](https://img.shields.io/badge/site-aria2t.c0nn3ct.info-7aa2f7?style=flat-square&labelColor=16161e)](https://aria2t.c0nn3ct.info/zh-CN/)
+[![下载 Aria2t](https://img.shields.io/github/v/release/c0nn3ct-info/aria2t?label=download&style=flat-square&labelColor=16161e&color=7aa2f7&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t/releases)
+[![Aria2t 许可证：Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-7aa2f7?style=flat-square&labelColor=16161e)](https://github.com/c0nn3ct-info/aria2t/blob/main/LICENSE)
 </td></tr></table>
 
 ## ✨ 我们的五项工作原则

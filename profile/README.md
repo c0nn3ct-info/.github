@@ -40,7 +40,7 @@ Route browser traffic through your proxies while banking and video calls keep th
 [![Aria2t repository](https://img.shields.io/badge/github-aria2t-7aa2f7?style=flat-square&labelColor=16161e&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t)
 ![Aria2t on the Chrome Web Store: soon](https://img.shields.io/badge/chrome%20web%20store-soon-7aa2f7?style=flat-square&labelColor=16161e&logo=googlechrome&logoColor=7aa2f7)
 
-Manage twelve downloads on one screen. Close the tab and aria2 keeps the queue running.
+Aria2t puts a real interface on the aria2 download engine, in the terminal and in the browser, and the queue keeps running after you close either one.
 
 - Inspect piece maps, peers and per-file progress when a download stalls.
 - Schedule speed limits and reserve the night for large files.

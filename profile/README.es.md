@@ -44,7 +44,7 @@ Envía el tráfico del navegador por tus proxies. La banca y las videollamadas m
 </picture>
 
 <table><tr><td width="72%">
-Consulta doce descargas en una pantalla. Puedes cerrar la pestaña: aria2 seguirá descargando los archivos.
+Aria2t le da una interfaz de verdad al motor de descargas aria2, en la terminal y en el navegador, y la cola sigue funcionando después de que cierres cualquiera de los dos.
 
 - Si una descarga se atasca, revisa el mapa de piezas, los pares y el progreso de cada archivo.
 - Programa límites de velocidad y deja los archivos grandes para la noche.

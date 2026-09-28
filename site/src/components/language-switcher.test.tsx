@@ -89,4 +89,37 @@ describe('LanguageSwitcher', () => {
     await userEvent.keyboard('{Escape}');
     expect(screen.queryByRole('list')).toBeNull();
   });
+
+  it('gives focus back to its button on Escape', async () => {
+    render(<LanguageSwitcher />);
+    const trigger = screen.getByRole('button', { name: 'Language' });
+    await userEvent.click(trigger);
+    await userEvent.tab();
+    expect(screen.getAllByRole('link')[0]).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+    expect(trigger).toHaveFocus();
+  });
+
+  it('closes when the keyboard tabs out past it, and not while it moves inside', async () => {
+    render(
+      <div>
+        <LanguageSwitcher />
+        <button type="button">after</button>
+      </div>,
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Language' }));
+    await userEvent.tab();
+    expect(screen.getByRole('list')).toBeInTheDocument();
+    screen.getAllByRole('link')[5].focus();
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+    expect(screen.queryByRole('list')).toBeNull();
+  });
+
+  it('stays open when focus leaves for nowhere, as a click on blank page does', async () => {
+    render(<LanguageSwitcher />);
+    await userEvent.click(screen.getByRole('button', { name: 'Language' }));
+    screen.getByRole('button', { name: 'Language' }).blur();
+    expect(screen.getByRole('list')).toBeInTheDocument();
+  });
 });

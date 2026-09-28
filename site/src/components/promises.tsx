@@ -15,25 +15,24 @@ export function Promises() {
     >
       <div className="page-col grid gap-[var(--gap-part)] min-[900px]:grid-cols-12">
         <div data-enter className="block-card flex flex-col p-7 min-[900px]:col-span-5">
-          <span className="eyebrow text-on-block-faint">{t('home.floor.eyebrow')}</span>
           <h2
             id="settled-h"
-            className="m-0 mt-[var(--gap-group)] text-balance text-[clamp(30px,3.6vw,54px)] font-[620] leading-[0.96] tracking-[var(--track-display)]"
+            className="m-0 text-balance text-[clamp(30px,3.6vw,54px)] font-[620] leading-[0.96] tracking-[var(--track-display)]"
           >
             {t('home.floor.h2_a')}
             <br />
             {t('home.floor.h2_b')}
           </h2>
-          <p className="m-0 mt-5 text-pretty text-[15px] leading-normal text-on-block-dim">
-            {t('home.floor.intro')}
-          </p>
-          <a
-            className="tag mt-auto inline-flex items-center gap-2.5 self-start pt-8 text-on-block-dim hover:text-on-block"
-            href="#contact"
-          >
-            {t('home.floor.cta')}
-            <Arrow />
-          </a>
+          {/* The space sits outside the link so its focus ring hugs the words. */}
+          <div className="mt-auto pt-8">
+            <a
+              className="tag inline-flex min-h-11 items-center gap-2.5 text-on-block-dim hover:text-on-block"
+              href="#contact"
+            >
+              {t('home.floor.cta')}
+              <Arrow />
+            </a>
+          </div>
         </div>
 
         <ul

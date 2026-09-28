@@ -19,13 +19,13 @@ function FooterColumn({ label, children }: { label: string; children: ReactNode 
   );
 }
 
-/** 44px under a finger, 24px from `sm`, where a pointer can still pick the
- * rows apart. */
+/** 44px under a finger, 24px from `sm` with a fine pointer, which can still
+ * pick the rows apart. A touch tablet keeps the 44. */
 function FooterLink({ href, icon: Glyph, children }: { href: string; icon: Icon; children: ReactNode }) {
   return (
     <li>
       <a
-        className="inline-flex min-h-11 items-center gap-2 text-sm text-on-surface underline-offset-4 hover:underline min-[600px]:min-h-6"
+        className="inline-flex min-h-11 items-center gap-2 text-sm text-on-surface underline-offset-4 hover:underline min-[600px]:[@media(pointer:fine)]:min-h-6"
         href={href}
       >
         <Glyph className="h-3.5 w-3.5 flex-none" aria-hidden />
@@ -48,8 +48,11 @@ export function SiteFooter() {
           data-enter-stagger
           className="grid grid-cols-2 items-start gap-x-6 gap-y-6 border-t border-outline-variant pt-6 min-[600px]:flex min-[600px]:flex-wrap min-[600px]:gap-x-12"
         >
-          <div className="col-span-2 flex max-w-[280px] flex-col gap-3">
-            <a className="inline-flex items-center gap-2.5 text-on-surface" href={localePath('/')}>
+          <div className="col-span-2 flex max-w-[280px] flex-col gap-1">
+            <a
+              className="inline-flex min-h-11 items-center gap-2.5 self-start text-on-surface"
+              href={localePath('/')}
+            >
               <C0nn3ctMark className="h-5 w-5 flex-none" />
               <span className="text-base font-[560] tracking-[var(--track-name)]">c0nn3ct.info</span>
             </a>
@@ -85,7 +88,7 @@ export function SiteFooter() {
                 </span>
               )}
               <a
-                className="inline-flex min-h-11 items-center underline-offset-4 hover:underline min-[600px]:min-h-6"
+                className="inline-flex min-h-11 min-w-11 items-center justify-center underline-offset-4 hover:underline min-[600px]:[@media(pointer:fine)]:min-h-6"
                 href={pairPath(here, code)}
                 hrefLang={code}
                 lang={code}

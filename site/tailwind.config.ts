@@ -59,7 +59,6 @@ export default {
         'on-stage': 'hsl(var(--on-stage) / <alpha-value>)',
         'on-block': 'var(--on-block)',
         'on-block-dim': 'var(--on-block-dim)',
-        'on-block-faint': 'var(--on-block-faint)',
         stage: 'var(--stage)',
         faint: 'var(--faint-ink)',
         led: 'var(--led)',

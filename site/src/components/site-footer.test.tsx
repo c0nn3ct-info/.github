@@ -14,7 +14,7 @@ describe('SiteFooter', () => {
     const footer = screen.getByRole('contentinfo');
     expect(within(footer).getByRole('link', { name: 'c0nn3ct.info' })).toHaveAttribute('href', '/');
     expect(
-      within(footer).getByText('Software that is capable under the hood and calm on the surface.'),
+      within(footer).getByText('Software you can rely on every day.'),
     ).toBeInTheDocument();
     expect(within(footer).queryByText(/Amplitude/)).toBeNull();
     expect(within(footer).queryByText(/publish source/)).toBeNull();

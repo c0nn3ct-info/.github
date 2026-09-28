@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Arrow } from '@/components/arrow';
 import { nextIndex } from '@/lib/roving';
 import { t } from '../i18n';
@@ -13,6 +13,17 @@ export function Practices() {
   const list = useRef<HTMLDivElement>(null);
   const [panel, setPanel] = useState<HTMLDivElement | null>(null);
   const shown = useRef(i);
+  // Where the tapped row sat before the accordion reflowed around it.
+  const anchor = useRef<{ row: HTMLElement; top: number } | null>(null);
+
+  // Opening a row below the open one moves the open panel from above the
+  // finger to below it, and the tapped row jumped 234px up the screen. The
+  // page scrolls by the same amount, so the row stays under the finger.
+  useLayoutEffect(() => {
+    const a = anchor.current;
+    anchor.current = null;
+    if (a) window.scrollBy(0, a.row.getBoundingClientRect().top - a.top);
+  }, [i]);
 
   // The panel follows the pointer, so this is a preview rather than a
   // committed choice, and it used to change with a hard cut: sweeping the five
@@ -35,6 +46,17 @@ export function Practices() {
     }
   }, [panel, i]);
 
+  // A tap reaches the row as pointerenter, focus and click in turn, so all
+  // three go through here and only the first one that changes the habit
+  // records where the row sat.
+  const choose = (n: number, row: HTMLElement) => {
+    if (n === i) return;
+    if (window.matchMedia('(max-width: 899px)').matches) {
+      anchor.current = { row, top: row.getBoundingClientRect().top };
+    }
+    setI(n);
+  };
+
   const onKeyDown = (e: KeyboardEvent) => {
     const n = nextIndex(e.key, i, HABITS.length);
     if (n === null) return;
@@ -50,25 +72,15 @@ export function Practices() {
       data-enter-section
       className="page-pad flex min-h-[100svh] flex-col justify-center gap-[var(--gap-band)] border-y border-outline-variant bg-surface py-16"
     >
-      <div
+      <h2
+        id="how-h"
         data-enter
-        className="page-col flex flex-wrap items-end justify-between gap-x-10 gap-y-5"
+        className="page-col m-0 text-balance text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[var(--track-display)]"
       >
-        <h2
-          id="how-h"
-          className="m-0 text-balance text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[var(--track-display)]"
-        >
-          {t('home.how.h2_a')}
-          <br />
-          {t('home.how.h2_b')}
-        </h2>
-        <div className="flex max-w-[38ch] flex-col gap-2">
-          <p className="m-0 text-pretty text-base leading-normal text-on-surface-variant">
-            {t('home.how.intro')}
-          </p>
-          <span className="tag text-faint">{t('home.how.hint')}</span>
-        </div>
-      </div>
+        {t('home.how.h2_a')}
+        <br />
+        {t('home.how.h2_b')}
+      </h2>
 
       <div className="page-col grid items-stretch gap-[var(--gap-part)] [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(0,1fr)_minmax(240px,0.44fr)]">
         {/* Below 900px the list steps aside (display: contents), so its rows and
@@ -97,9 +109,9 @@ export function Practices() {
               aria-controls="practice-panel"
               tabIndex={n === i ? 0 : -1}
               style={{ order: n * 2 }}
-              onClick={() => setI(n)}
-              onPointerEnter={() => setI(n)}
-              onFocus={() => setI(n)}
+              onClick={(e) => choose(n, e.currentTarget)}
+              onPointerEnter={(e) => choose(n, e.currentTarget)}
+              onFocus={(e) => choose(n, e.currentTarget)}
             >
               <span className="ordinal text-on-surface-variant">{`0${n + 1}`}</span>
               <span className="practice-title">{t(`home.how.${k}_t`)}</span>

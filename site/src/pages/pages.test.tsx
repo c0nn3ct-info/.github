@@ -38,7 +38,7 @@ describe('HomePage', () => {
 
   it('closes on a person answering, at a real address', () => {
     render(<HomePage />);
-    expect(screen.getByText('a person answers')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /A person will read it/ })).toBeInTheDocument();
     // Header CTA, hero index, contact, footer: every one of them is a mailto.
     expect(
       screen.getAllByRole('link', { name: /hello@c0nn3ct\.info/ }).length,

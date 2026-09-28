@@ -104,3 +104,25 @@ describe('the lamp', () => {
     expect(CSS).not.toContain('.rail-btn .ordinal {\n    opacity');
   });
 });
+
+describe('tokens', () => {
+  // An undefined custom property invalidates the whole declaration it sits in:
+  // one missing easing token dropped the header's four timing curves to `ease`.
+  // These few are written at runtime, by script or inline style.
+  it('defines every custom property the stylesheet reads', () => {
+    const runtime = new Set(['--bar-h', '--mark-h', '--mark-y', '--px', '--py', '--shot-steps', '--shots']);
+    const defined = new Set([...CSS.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
+    const missing = [...CSS.matchAll(/var\((--[\w-]+)\s*[,)]/g)]
+      .map((m) => m[1])
+      .filter((name) => !defined.has(name) && !runtime.has(name));
+    expect([...new Set(missing)]).toEqual([]);
+  });
+
+  // The block card is dark in light mode and light in dark mode, so its focus
+  // ring swaps with it: the bright tone measured 1.6:1 on the light card.
+  it('gives the block card a ring that swaps with its fill', () => {
+    const values = [...CSS.matchAll(/--wire-go-on-block:\s*([^;]+);/g)].map((m) => m[1]);
+    expect(values).toEqual(['#9ece6a', '#4b9022', '#4b9022']);
+    expect(CSS).toMatch(/\.block-card \{\s*--focus-ring: var\(--wire-go-on-block\);/);
+  });
+});

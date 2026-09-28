@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen, userEvent } from '../test/render';
-import { animations, setReducedMotion } from '../test/setup';
+import { animations, setMedia, setReducedMotion } from '../test/setup';
 import { Practices } from './practices';
 
 describe('Practices', () => {
@@ -29,9 +29,36 @@ describe('Practices', () => {
     expect(panel.style.order).toBe('7');
   });
 
-  it('asks a reader to choose, which a finger can do', () => {
+  it('keeps the tapped row under the finger when the panel moves past it', async () => {
+    setMedia('(max-width: 899px)', true);
+    const scrollBy = vi.spyOn(window, 'scrollBy').mockImplementation(() => {});
     render(<Practices />);
-    expect(screen.getByText('Choose a line')).toBeInTheDocument();
+    const row = screen.getAllByRole('tab')[3];
+    const tops = [724, 490];
+    vi.spyOn(row, 'getBoundingClientRect').mockImplementation(
+      () => ({ top: tops.shift() ?? 490 }) as DOMRect,
+    );
+    await userEvent.click(row);
+    expect(scrollBy).toHaveBeenCalledTimes(1);
+    expect(scrollBy).toHaveBeenCalledWith(0, -234);
+    setMedia('(max-width: 899px)', false);
+    scrollBy.mockRestore();
+  });
+
+  it('leaves the scroll alone beside the list, where nothing reflows', async () => {
+    const scrollBy = vi.spyOn(window, 'scrollBy').mockImplementation(() => {});
+    render(<Practices />);
+    await userEvent.click(screen.getAllByRole('tab')[3]);
+    expect(scrollBy).not.toHaveBeenCalled();
+    scrollBy.mockRestore();
+  });
+
+  // Minimal (owner-directed): the heading and the list, with no intro and no
+  // instruction under them; the rows say they can be chosen by being rows.
+  it('carries no intro and no hint under its heading', () => {
+    render(<Practices />);
+    expect(screen.queryByText('Choose a line')).toBeNull();
+    expect(screen.queryByText(/how we decide what to build/)).toBeNull();
   });
 
   // The panel used to be a bare aria-live region, which announced itself on top
@@ -89,7 +116,7 @@ describe('Practices', () => {
     render(<Practices />);
     await userEvent.hover(screen.getByRole('tab', { name: /We build on proven work/ }));
     expect(screen.getByRole('tabpanel')).toHaveTextContent(
-      'spend our effort on the parts you touch',
+      'put our effort into the parts you touch',
     );
     expect(screen.getByRole('tabpanel')).toHaveTextContent('05');
   });

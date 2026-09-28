@@ -9,7 +9,6 @@ describe('Talk', () => {
       'href',
       'mailto:hello@c0nn3ct.info?subject=Saying%20hello',
     );
-    expect(screen.getByText('a person answers')).toBeInTheDocument();
   });
 
   it('offers three openers, each arriving with its own subject', () => {
@@ -28,10 +27,11 @@ describe('Talk', () => {
     );
   });
 
-  it('says plainly that there is no form behind it', () => {
+  // Minimal (owner-directed): no eyebrow over the heading, no footnote under
+  // the openers; the heading already says a person reads it.
+  it('carries no eyebrow and no footnote', () => {
     render(<Talk />);
-    expect(
-      screen.getByText('Your message goes to our inbox, without a form or ticket number'),
-    ).toBeInTheDocument();
+    expect(screen.queryByText('a person answers')).toBeNull();
+    expect(screen.queryByText(/without a form or ticket number/)).toBeNull();
   });
 });

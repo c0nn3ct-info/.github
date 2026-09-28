@@ -21,7 +21,6 @@ export function Talk() {
           data-enter
           className="flex min-w-0 flex-col gap-[var(--gap-group)] min-[900px]:col-span-7"
         >
-          <span className="eyebrow text-on-stage/60">{t('home.talk.eyebrow')}</span>
           <h2
             id="contact-h"
             className="m-0 text-balance text-[clamp(30px,3.6vw,54px)] font-[580] leading-[1.04] tracking-[var(--track-display)]"
@@ -48,9 +47,6 @@ export function Talk() {
               <Arrow away className="text-[15px] text-on-stage/50" />
             </a>
           ))}
-          <span className="tag pt-1.5 text-on-stage/50">
-            {t('home.talk.foot')}
-          </span>
         </div>
       </div>
     </section>

@@ -43,4 +43,15 @@ describe('a finger is not a pointer', () => {
   it('asks Tailwind for the same of its hover: utilities', () => {
     expect(config.future).toMatchObject({ hoverOnlyWhenSupported: true });
   });
+
+  // A touch tablet is wider than a phone, so the phone rules miss it: the
+  // header's buttons measured 36 and 38px there, its jump links 18.
+  it('makes every header control a 44px target under a coarse pointer', () => {
+    const at = CSS.indexOf('@media (pointer: coarse)');
+    expect(at).toBeGreaterThanOrEqual(0);
+    const block = CSS.slice(at, CSS.indexOf('\n  }\n', at));
+    for (const selector of ['.icon-btn', '.header-cta', '.site-header nav a']) {
+      expect(block, selector).toContain(selector);
+    }
+  });
 });

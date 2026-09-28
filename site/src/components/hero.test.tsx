@@ -3,16 +3,15 @@ import { render, screen, userEvent } from '../test/render';
 import { Hero } from './hero';
 
 describe('Hero', () => {
-  it('states the positioning, the lede and one action', () => {
+  it('states the positioning and one action, with nothing between them', () => {
     render(<Hero onPick={vi.fn()} />);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       'Powerful tools, made easy to live with',
     );
     // No eyebrow over the claim (owner-directed): the headline speaks first.
     expect(screen.queryByText('independent software studio')).toBeNull();
-    expect(
-      screen.getByText('We build software that is capable under the hood and calm on the surface, so you can rely on it every day without reading the manual first.'),
-    ).toBeInTheDocument();
+    // No lede either (owner-directed): the claim and the button carry it.
+    expect(screen.queryByText(/capable under the hood/)).toBeNull();
     expect(screen.getByRole('link', { name: /See the products/ })).toHaveAttribute('href', '#work');
   });
 

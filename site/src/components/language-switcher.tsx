@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, type FocusEvent } from 'react';
 import { Languages } from 'lucide-react';
 import {
   LOCALES,
@@ -19,6 +19,7 @@ export function pairPath(currentPath: string, target: Locale): string {
 export function LanguageSwitcher() {
   const locale = getLocale();
   const [open, setOpen] = useState(false);
+  const trigger = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -28,7 +29,11 @@ export function LanguageSwitcher() {
       if (!(e.target as Element).closest('[data-lang]')) setOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key !== 'Escape') return;
+      setOpen(false);
+      // The focused link unmounts with the list, so focus goes back to the
+      // button that opened it rather than falling to the document.
+      trigger.current?.focus();
     };
     document.addEventListener('click', onDocClick);
     document.addEventListener('keydown', onKey);
@@ -39,8 +44,17 @@ export function LanguageSwitcher() {
   }, [open]);
 
   return (
-    <div className="relative flex-none" data-lang>
+    // Tabbing out past the last language closes the list behind the keyboard.
+    <div
+      className="relative flex-none"
+      data-lang
+      onBlur={(e: FocusEvent<HTMLDivElement>) => {
+        const next = e.relatedTarget as Node | null;
+        if (next && !e.currentTarget.contains(next)) setOpen(false);
+      }}
+    >
       <button
+        ref={trigger}
         type="button"
         className="icon-btn"
         onClick={() => setOpen((v) => !v)}

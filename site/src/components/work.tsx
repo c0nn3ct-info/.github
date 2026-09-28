@@ -332,8 +332,8 @@ export function Work({ project, onPick }: WorkProps) {
       aria-labelledby="work-h"
       data-enter-section
       /* Geometric centre reads low here, because the block's own weight sits
-         under its top edge: the rail's three rows and the screenshot are dark
-         mass, and the fact cards below them are mostly ground. The extra
+         under its top edge: the rail's rows and the screenshot are dark mass,
+         and the captions and links below them are mostly ground. The extra
          bottom padding lifts it 24px above the middle, which is the optical
          centre rather than the arithmetic one. It is scoped to the two-column
          width, because below 900px the block is taller than the screen it
@@ -343,14 +343,13 @@ export function Work({ project, onPick }: WorkProps) {
     >
       <div className="page-col grid items-start gap-6 [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(190px,236px)_minmax(0,1fr)]">
         <div className="flex flex-col min-[900px]:sticky min-[900px]:top-24">
-          <div data-enter className="flex items-baseline justify-between gap-2.5 pb-3">
-            <h2
-              id="work-h"
-              className="m-0 text-balance text-[clamp(24px,2.6vw,34px)] font-semibold leading-none tracking-[var(--track-display)]"
-            >
-              {t('home.work.h2')}
-            </h2>
-          </div>
+          <h2
+            id="work-h"
+            data-enter
+            className="m-0 text-balance pb-3 text-[clamp(24px,2.6vw,34px)] font-semibold leading-none tracking-[var(--track-display)]"
+          >
+            {t('home.work.h2')}
+          </h2>
 
           <div
             data-enter-stagger="wipe"
@@ -384,10 +383,6 @@ export function Work({ project, onPick }: WorkProps) {
               </button>
             ))}
           </div>
-
-          <p data-enter className="note mt-4 text-on-surface-variant">
-            {t('home.work.note')}
-          </p>
         </div>
 
         {/* Two different centrings, and only one of them is wanted. The pane

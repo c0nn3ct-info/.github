@@ -3,12 +3,13 @@ import { render, screen } from '../test/render';
 import { Promises } from './promises';
 
 describe('Promises', () => {
-  it('heads the floor and says how many there are', () => {
+  it('heads the floor with no eyebrow and no intro', () => {
     render(<Promises />);
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       "Promises wecan't take back",
     );
-    expect(screen.getByText('The floor · four of them')).toBeInTheDocument();
+    expect(screen.queryByText('The floor · four of them')).toBeNull();
+    expect(screen.queryByText(/hold us to these/)).toBeNull();
   });
 
   it('sets out all four commitments, numbered', () => {

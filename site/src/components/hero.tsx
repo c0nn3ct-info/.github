@@ -107,9 +107,6 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
               {t('home.hero.h1_a')}{' '}
               <em className="font-semibold not-italic">{t('home.hero.h1_em')}</em>
             </h1>
-            <p className="rise-3 m-0 max-w-[28ch] text-pretty min-[900px]:max-w-[36ch] text-[clamp(13px,min(2.7svh,3.6vw),15px)] leading-normal text-on-stage/75">
-              {t('home.hero.lede')}
-            </p>
             <a
               className="rise-4 cta-invert inline-flex h-[clamp(44px,8.3svh,46px)] shrink-0 items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5svh,14px)] font-semibold tracking-[var(--track-body)] text-[#111]"
               href="#work"
@@ -150,18 +147,13 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
           status={t('home.index.next_status')}
         />
 
-        <div className="mt-auto flex flex-col gap-3.5 px-[clamp(18px,2vw,26px)] pt-6">
-          <p className="m-0 max-w-[32ch] text-pretty text-base leading-snug tracking-[var(--track-body)]">
-            {t('home.index.note')}
-          </p>
-          <a
-            className="tag inline-flex min-h-11 items-center gap-2.5 self-start text-on-surface-variant hover:text-on-surface"
-            href={mailto(t('mail.hello'))}
-          >
-            hello@c0nn3ct.info
-            <Arrow away />
-          </a>
-        </div>
+        <a
+          className="tag mx-[clamp(18px,2vw,26px)] mt-auto inline-flex min-h-11 items-center gap-2.5 self-start text-on-surface-variant hover:text-on-surface"
+          href={mailto(t('mail.hello'))}
+        >
+          hello@c0nn3ct.info
+          <Arrow away />
+        </a>
       </aside>
     </section>
   );

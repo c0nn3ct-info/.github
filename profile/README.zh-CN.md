@@ -16,9 +16,9 @@
 
 我们专注打造少而精的产品，并持续打磨，直到它用起来顺手、可靠到你无需再操心。
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · 适用于 sing‑box、xray 和 mihomo 的代理客户端
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · 多引擎代理客户端
 
-Noctis 保存你的服务器，并为每台服务器启动它所需的引擎。只有安装了它的浏览器会走隧道，电脑上的其他程序保持原来的连接。
+Noctis 用每台服务器所需的引擎来运行它，并且只让你的浏览器走隧道。
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis 显示已就绪的连接和最近使用的代理服务器" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
@@ -38,7 +38,7 @@ Noctis 保存你的服务器，并为每台服务器启动它所需的引擎。�
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · aria2 下载管理器
 
-Aria2t 把浏览器里的下载交给 aria2，你可以在扩展或终端里管理队列、挑选需要的文件。
+Aria2t 为 aria2 引擎提供完整的界面，在浏览器和终端中都能使用。
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="Aria2t 显示下载任务的进度和速度" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>

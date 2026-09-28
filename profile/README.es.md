@@ -16,9 +16,9 @@
 
 Hacemos productos enfocados y pulimos cada uno hasta que resulta agradable de usar y lo bastante fiable como para olvidarse de él.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · cliente proxy para sing‑box, xray y mihomo
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · cliente proxy multimotor
 
-Noctis guarda tus servidores y arranca el motor que necesita cada uno. Solo el navegador donde lo instalas pasa por el túnel, y el resto del equipo mantiene su propia conexión.
+Noctis ejecuta cada uno de tus servidores con el motor que necesita y solo envía tu navegador por el túnel.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis con un túnel listo y los servidores proxy usados recientemente" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
@@ -38,7 +38,7 @@ Envía el tráfico del navegador por tus proxies. La banca y las videollamadas m
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · gestor de descargas aria2
 
-Aria2t envía las descargas del navegador a aria2, y tú gestionas la cola y eliges los archivos en la extensión o en la terminal.
+Aria2t le da al motor aria2 una interfaz completa, en el navegador y en la terminal.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="Aria2t muestra las descargas activas, su progreso y velocidad" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>

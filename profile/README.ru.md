@@ -16,9 +16,9 @@
 
 Мы делаем сфокусированные продукты и доводим каждый до состояния, когда им приятно пользоваться, а о его надёжности можно не думать.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · прокси-клиент для sing‑box, xray и mihomo
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · прокси-клиент с тремя движками
 
-Noctis хранит ваши серверы и запускает движок, который нужен каждому из них. Через туннель идёт только браузер, в котором он установлен, а остальная система сохраняет своё подключение.
+Noctis запускает каждый ваш сервер на нужном ему движке и пускает через туннель только браузер.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis с готовым подключением и списком недавно использованных прокси" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
@@ -38,7 +38,7 @@ Noctis хранит ваши серверы и запускает движок, 
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · менеджер загрузок aria2
 
-Aria2t передаёт загрузки из браузера в aria2, а очередью и выбором файлов вы управляете в расширении или в терминале.
+Aria2t даёт движку aria2 полноценный интерфейс, в браузере и в терминале.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="Aria2t показывает активные загрузки, их прогресс и скорость" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>

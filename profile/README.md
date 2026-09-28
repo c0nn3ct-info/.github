@@ -16,13 +16,13 @@
 
 We make focused products and keep refining each one until it is pleasant to use and dependable enough to forget about.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · proxy client for sing‑box, xray and mihomo
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · multi-engine proxy client
 
 [![Noctis project page](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info)
 [![Noctis repository](https://img.shields.io/badge/github-noctis-bb9af7?style=flat-square&labelColor=16161e&logo=github&logoColor=bb9af7)](https://github.com/c0nn3ct-info/noctis)
 [![Noctis on the Chrome Web Store](https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=chrome%20web%20store&style=flat-square&labelColor=16161e&color=bb9af7&logo=googlechrome&logoColor=bb9af7)](https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn)
 
-Noctis holds your servers and starts the engine each one needs. Only the browser you install it in goes through the tunnel, and the rest of your machine keeps its own connection.
+Noctis runs each of your servers on the engine it needs and sends only your browser through the tunnel.
 
 - Paste a share link or a subscription URL, and the server list refreshes on a schedule.
 - Send each site through the tunnel or straight out, by the rules in a profile.
@@ -39,7 +39,7 @@ Noctis holds your servers and starts the engine each one needs. Only the browser
 [![Aria2t repository](https://img.shields.io/badge/github-aria2t-7aa2f7?style=flat-square&labelColor=16161e&logo=github&logoColor=7aa2f7)](https://github.com/c0nn3ct-info/aria2t)
 ![Aria2t on the Chrome Web Store: soon](https://img.shields.io/badge/chrome%20web%20store-soon-7aa2f7?style=flat-square&labelColor=16161e&logo=googlechrome&logoColor=7aa2f7)
 
-Aria2t hands your browser downloads to aria2, and you manage the queue and pick the files you want in the extension or in the terminal.
+Aria2t gives the aria2 engine a proper interface, in the browser and in the terminal.
 
 - Inspect piece maps, peers and per-file progress when a download stalls.
 - Schedule speed limits and reserve the night for large files.

@@ -16,9 +16,9 @@
 
 نصنع منتجات مركّزة ونواصل تحسين كل منها حتى يصبح استخدامه ممتعًا وموثوقًا بما يكفي لتنساه.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · عميل بروكسي لـ sing‑box وxray وmihomo
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · عميل بروكسي متعدد المحركات
 
-يحتفظ Noctis بخوادمك ويشغّل المحرك الذي يحتاجه كل منها. لا يمرّ عبر النفق إلا المتصفح الذي ثبّته فيه، ويبقى باقي جهازك على اتصاله الخاص.
+يشغّل Noctis كل خادم من خوادمك بالمحرك الذي يحتاجه، ولا يمرّر عبر النفق إلا متصفحك.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis يعرض اتصالًا جاهزًا وخوادم البروكسي المستخدمة مؤخرًا" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
@@ -38,7 +38,7 @@
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · مدير التنزيلات aria2
 
-يسلّم Aria2t تنزيلات المتصفح إلى aria2، وتدير أنت قائمة الانتظار وتختار الملفات في الإضافة أو في الطرفية.
+يمنح Aria2t محرك aria2 واجهة كاملة، في المتصفح وفي الطرفية.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="Aria2t يعرض التنزيلات النشطة مع التقدّم والسرعة" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>

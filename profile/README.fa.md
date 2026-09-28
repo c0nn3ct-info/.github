@@ -16,9 +16,9 @@
 
 محصول‌های متمرکز می‌سازیم و هر کدام را آن‌قدر بهتر می‌کنیم تا کار با آن لذت‌بخش باشد و آن‌قدر قابل‌اعتماد که دیگر به آن فکر نکنید.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · کلاینت پراکسی برای sing‑box، xray و mihomo
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · کلاینت پراکسی چندموتوره
 
-Noctis سرورهای شما را نگه می‌دارد و موتوری را که هر کدام نیاز دارد راه می‌اندازد. فقط مرورگری که آن را نصب کرده‌اید از تونل عبور می‌کند و بقیه‌ی دستگاه اتصال خودش را حفظ می‌کند.
+‏Noctis هر سرور شما را با موتوری که لازم دارد اجرا می‌کند و فقط مرورگرتان را از تونل عبور می‌دهد.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis با اتصال آماده و پراکسی‌های تازه‌استفاده‌شده" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
@@ -38,7 +38,7 @@ Noctis سرورهای شما را نگه می‌دارد و موتوری را ک
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · مدیر دانلود aria2
 
-‏Aria2t دانلودهای مرورگر را به aria2 می‌سپارد و شما صف و انتخاب فایل‌ها را در افزونه یا در ترمینال مدیریت می‌کنید.
+‏Aria2t به موتور aria2 یک رابط کامل می‌دهد، در مرورگر و در ترمینال.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="Aria2t دانلودهای فعال را همراه پیشرفت و سرعت نشان می‌دهد" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>

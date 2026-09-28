@@ -9,12 +9,12 @@
 
 <h1 align="center">c0nn3ct.info</h1>
 
-<p align="center"><strong>小而完整的软件，始终站在你这边</strong></p>
-<p align="center">无需繁琐设置，也不用先读完说明，就能开始使用。</p>
+<p align="center"><strong>强大的工具，用起来毫不费力</strong></p>
+<p align="center">我们打造内核强大、界面从容的软件，让你无需先读说明书，每天都能放心使用。</p>
 
 <p align="center"><a href="https://c0nn3ct.info/zh-CN/">网站</a> · <a href="https://github.com/c0nn3ct-info">GitHub</a> · <a href="mailto:hello@c0nn3ct.info">邮件</a></p>
 
-我们只做能够完成的小型产品。每款产品都从我们自己需要的工具开始，发布后也会继续在自己的设备上使用。
+我们是一家独立软件工作室。我们专注打造少而精的产品，并持续打磨，直到它用起来顺手、可靠到你无需再操心。
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · Chrome 上的 VLESS 代理
 
@@ -58,11 +58,11 @@ Aria2t 为 aria2 下载引擎提供了一个真正的界面，既在终端里，
 
 ## ✨ 我们的五项工作原则
 
-- **我们开发自己需要的工具。** Noctis 和 Aria2t 都来自我们遇到的问题。我们只承担能够完成的工作量。
-- **我们使用自己发布的产品。** 我们每天都在自己的设备上使用这些产品，因此常常能在收到反馈前发现问题。
-- **我们采用经过验证的技术。** 其他开发者已经解决了复杂的技术问题。我们为这些技术设计易用的界面。
-- **我们把数据留在你的设备上。** 产品默认在你的设备上运行。如果需要外部服务，我们会说明用途和所存储的数据。
-- **我们测试真实的使用场景。** 测试会运行完整的程序并执行日常任务，找出独立检查无法发现的问题。
+- **我们开发自己需要的工具。** 迄今为止，每个产品都始于我们当中有人用现有工具完成不了的任务。发布后我们仍在自己的电脑上使用它，所以粗糙之处总是先被我们发现。
+- **我们打磨细节，然后发布。** 我们会反复打磨每个版本，直到细节恰到好处，因为日常使用中你感受到的大多是这些细节。然后我们就发布，因为一直等待完美的工具帮不了任何人。
+- **我们舍弃配不上位置的功能。** 每个功能都必须配得上它占用的注意力。很多好点子没有加入，因为它们会让日常操作变得更繁琐。
+- **我们为日常使用而设计。** 我们希望产品美观，并以是否让工具更易读、更快上手来衡量每一个视觉决定。
+- **我们以成熟的成果为基础。** 当经过充分验证的引擎已经解决了难题，我们就在其基础上构建，把精力放在你直接接触的部分。没有合适的方案时，我们会自己编写这一部分。
 
 ## 🔒 四项承诺
 

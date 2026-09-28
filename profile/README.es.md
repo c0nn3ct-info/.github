@@ -9,12 +9,12 @@
 
 <h1 align="center">c0nn3ct.info</h1>
 
-<p align="center"><strong>Software pequeño, bien acabado y de tu lado</strong></p>
-<p align="center">Puedes empezar a usarlo sin pasar por una configuración larga ni leer un manual.</p>
+<p align="center"><strong>Herramientas potentes, fáciles de usar a diario</strong></p>
+<p align="center">Creamos software potente por dentro y sereno por fuera, para que puedas confiar en él cada día sin leer antes el manual.</p>
 
 <p align="center"><a href="https://c0nn3ct.info/es/">Sitio web</a> · <a href="https://github.com/c0nn3ct-info">GitHub</a> · <a href="mailto:hello@c0nn3ct.info">Correo</a></p>
 
-Creamos productos pequeños que podemos llevar hasta el final. Cada uno nace de una herramienta que necesitamos y seguimos usándolo en nuestros equipos después de publicarlo.
+Somos un estudio de software independiente. Hacemos productos enfocados y pulimos cada uno hasta que resulta agradable de usar y lo bastante fiable como para olvidarse de él.
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · proxy VLESS para Chrome
 
@@ -58,11 +58,11 @@ Aria2t le da una interfaz de verdad al motor de descargas aria2, en la terminal 
 
 ## ✨ Cinco principios para nuestro trabajo
 
-- **Creamos lo que necesitamos.** Noctis y Aria2t nacieron de problemas que teníamos nosotros. Asumimos el trabajo que podíamos llevar hasta el final.
-- **Usamos lo que publicamos.** Los usamos cada día en nuestros equipos. Así detectamos muchos problemas antes de recibir un mensaje de un usuario.
-- **Partimos de tecnología probada.** Otros desarrolladores resolvieron los problemas técnicos más complejos. Nosotros diseñamos una interfaz que pone esa tecnología al alcance de quien la necesita.
-- **Mantenemos tus datos en tu dispositivo.** El producto funciona en tu dispositivo por defecto. Si necesita un servicio externo, explicaremos para qué sirve y qué datos guarda.
-- **Probamos situaciones reales.** Ejecutamos el programa completo y realizamos tareas cotidianas. Así encontramos errores que las comprobaciones aisladas no muestran.
+- **Creamos las herramientas que necesitamos.** Cada producto hasta ahora empezó con una tarea que uno de nosotros no podía terminar con las herramientas disponibles. Seguimos usándolo en nuestras máquinas tras publicarlo, así que sus asperezas nos llegan primero a nosotros.
+- **Cuidamos los detalles y luego publicamos.** Pulimos cada versión hasta que los pequeños detalles encajan, porque son gran parte de lo que notas a diario. Después la publicamos, porque una herramienta que espera la perfección no ayuda a nadie.
+- **Dejamos fuera lo que no se gana su sitio.** Cada función debe justificar la atención que te pide. Muchas buenas ideas se quedan fuera porque alargarían el camino de todos los días.
+- **Diseñamos para el uso diario.** Queremos que nuestros productos se vean bien, y juzgamos cada decisión visual según si hace la herramienta más fácil de leer y más rápida de usar.
+- **Construimos sobre trabajo probado.** Cuando un motor bien probado ya resuelve el problema difícil, construimos sobre él y dedicamos el esfuerzo a lo que tocas. Cuando no existe nada adecuado, escribimos esa parte nosotros.
 
 ## 🔒 Cuatro promesas
 

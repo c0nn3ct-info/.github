@@ -23,7 +23,8 @@ export function scrollDriven(): boolean {
  * still 32 to 96px below that, which is where the jump happens. */
 const LEAD = '0px';
 
-const DUR = 420;
+/** Under the 300ms an entrance can take before it reads as waiting. */
+const DUR = 300;
 const STEP = 45;
 /** The ceiling on how long a smooth jump is given to settle, for a browser that
  * sends no `scrollend`. Long enough for the length of this page, short enough

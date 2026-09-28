@@ -21,7 +21,7 @@ export function HomePage() {
   useJumpArrival();
   return (
     <Layout home>
-      <main className="flex-1">
+      <main id="main" className="flex-1">
         <Hero onPick={setProject} />
         <Marquee />
         <Work project={project} onPick={setProject} />

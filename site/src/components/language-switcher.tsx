@@ -45,17 +45,18 @@ export function LanguageSwitcher() {
         className="icon-btn"
         onClick={() => setOpen((v) => !v)}
         aria-label={t('nav.lang_switch_aria')}
-        aria-haspopup="menu"
         aria-expanded={open}
+        aria-controls="lang-menu"
       >
         <Languages className="h-[19px] w-[19px]" aria-hidden />
       </button>
       {open && (
-        <ul className="lang-menu" role="menu">
+        // A disclosure of six links rather than a menu: role="menu" promised
+        // arrow keys and focus moving into it, and the page did neither.
+        <ul className="lang-menu" id="lang-menu">
           {LOCALES.map((code) => (
-            <li key={code} role="none">
+            <li key={code}>
               <a
-                role="menuitem"
                 href={pairPath(window.location.pathname, code)}
                 hrefLang={code}
                 lang={code}

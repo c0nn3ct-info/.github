@@ -11,9 +11,11 @@ export function SiteFooter() {
     >
       <div
         data-enter-stagger
-        className="page-col grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] items-start gap-x-8 gap-y-7"
+        className="page-col grid grid-cols-2 items-start gap-x-8 gap-y-7 min-[600px]:grid-cols-[repeat(auto-fit,minmax(170px,1fr))]"
       >
-        <div className="flex flex-col gap-2.5">
+        {/* Two columns on a phone, the byline across both: one column put
+            every link on its own row a screen tall. */}
+        <div className="col-span-2 flex flex-col gap-2.5 min-[600px]:col-span-1">
           <span className="inline-flex items-center gap-2.5 text-white/85">
             <C0nn3ctMark className="h-[18px] w-[18px] flex-none" />
             <span className="text-sm font-[560] tracking-[var(--track-name)]">c0nn3ct.info</span>
@@ -23,20 +25,20 @@ export function SiteFooter() {
         </div>
         <div className="flex flex-col gap-2.5">
           <span className="eyebrow text-white/50">{t('footer.products')}</span>
-          <a className="text-sm text-white/85 hover:text-white" href={NOCTIS_SITE}>
+          <a className="inline-flex items-center text-sm text-white/85 hover:text-white [@media(pointer:coarse)]:min-h-11" href={NOCTIS_SITE}>
             {PRODUCT_NAME.noctis}
           </a>
-          <a className="text-sm text-white/85 hover:text-white" href={ARIA2T_SITE}>
+          <a className="inline-flex items-center text-sm text-white/85 hover:text-white [@media(pointer:coarse)]:min-h-11" href={ARIA2T_SITE}>
             {PRODUCT_NAME.aria2t}
           </a>
         </div>
         <div className="flex flex-col gap-2.5">
           <span className="eyebrow text-white/50">{t('footer.reach')}</span>
-          <a className="text-sm text-white/85 hover:text-white" href={mailto(t('mail.hello'))}>
+          <a className="inline-flex items-center text-sm text-white/85 hover:text-white [@media(pointer:coarse)]:min-h-11" href={mailto(t('mail.hello'))}>
             {t('footer.mail')}
           </a>
           <a
-            className="inline-flex items-center gap-1.5 text-sm text-white/85 hover:text-white"
+            className="inline-flex items-center gap-1.5 text-sm text-white/85 hover:text-white [@media(pointer:coarse)]:min-h-11"
             href={ORG_URL}
           >
             {t('footer.github')}

@@ -17,6 +17,11 @@ describe('nextIndex', () => {
     expect(nextIndex('ArrowUp', 0, 3)).toBe(2);
   });
 
+  it('jumps to the ends on Home and End, as a tablist owes', () => {
+    expect(nextIndex('Home', 2, 3)).toBe(0);
+    expect(nextIndex('End', 0, 3)).toBe(2);
+  });
+
   it('ignores keys the list does not own', () => {
     expect(nextIndex('Enter', 0, 3)).toBeNull();
     expect(nextIndex('a', 0, 3)).toBeNull();

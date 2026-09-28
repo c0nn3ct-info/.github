@@ -267,8 +267,9 @@ describe('the carousel controls in a dialog', () => {
   // The reveal it is overriding is scoped to the pane, which is what made the
   // dialog's pair invisible in the first place.
   it('leaves the pane to reveal its own on approach', () => {
-    expect(flat).toContain(
-      '.pane-shot:hover.shot-nav,.pane-shot:focus-within.shot-nav{opacity:1;}',
-    );
+    // Focus reveals it everywhere; the pointer's approach only where there is
+    // a pointer, so a tap does not leave the pair standing.
+    expect(flat).toContain('.pane-shot:focus-within.shot-nav{opacity:1;}');
+    expect(flat).toContain('@media(hover:hover){.pane-shot:hover.shot-nav{opacity:1;}}');
   });
 });

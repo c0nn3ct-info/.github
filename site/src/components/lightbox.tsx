@@ -37,6 +37,17 @@ export function Lightbox({
     focusables(dialog)[0]?.focus();
   }, [dialog]);
 
+  // The page under the dialog holds still. On a phone a swipe across the
+  // capture that missed the track scrolled the page behind the scrim instead.
+  useEffect(() => {
+    const root = document.documentElement;
+    const was = root.style.overflow;
+    root.style.overflow = 'hidden';
+    return () => {
+      root.style.overflow = was;
+    };
+  }, []);
+
   useEffect(() => {
     if (!dialog) return;
     const onKey = (e: KeyboardEvent) => {
@@ -86,7 +97,9 @@ export function Lightbox({
         onSurface={onClose}
         eager
       />
-      <span className="eyebrow pointer-events-none absolute bottom-6 start-1/2 -translate-x-1/2 text-white/60 rtl:translate-x-1/2">
+      {/* Its own width, up to the screen's: centred from the middle, it was
+          left half the width and wrapped into a column on a phone. */}
+      <span className="eyebrow pointer-events-none absolute bottom-6 start-1/2 w-max max-w-[calc(100vw-32px)] -translate-x-1/2 text-center text-white/60 rtl:translate-x-1/2">
         {t('home.shot.close_hint')}
       </span>
     </div>

@@ -25,6 +25,23 @@ describe('SiteHeader', () => {
     );
   });
 
+  it('lets a keyboard skip straight to the page', () => {
+    render(<SiteHeader home />);
+    const skip = screen.getByRole('link', { name: 'Skip to content' });
+    expect(skip).toHaveAttribute('href', '#main');
+    expect(screen.getByRole('banner').querySelector('a')).toBe(skip);
+  });
+
+  it('keeps its name when the call to action is only an icon', () => {
+    render(<SiteHeader home />);
+    // Below 900px the label goes and the envelope stays, so the bar holds one
+    // row at 320px; the link keeps the words as its accessible name.
+    const cta = screen.getByRole('link', { name: 'Write to us' });
+    expect(cta).toHaveAttribute('aria-label', 'Write to us');
+    expect(cta.querySelector('.header-cta-icon')).not.toBeNull();
+    expect(cta.querySelector('.header-cta-label')).toHaveTextContent('Write to us');
+  });
+
   it('offers the section nav on the home page only', () => {
     const { unmount } = render(<SiteHeader home />);
     expect(screen.getByRole('link', { name: 'Work' })).toHaveAttribute('href', '#work');

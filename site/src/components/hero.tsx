@@ -114,7 +114,7 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
               {t('home.hero.lede')}
             </p>
             <a
-              className="rise-4 cta-invert inline-flex h-[clamp(38px,8.3svh,46px)] items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5svh,14px)] font-semibold tracking-[var(--track-body)] text-[#111]"
+              className="rise-4 cta-invert inline-flex h-[clamp(44px,8.3svh,46px)] items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5svh,14px)] font-semibold tracking-[var(--track-body)] text-[#111]"
               href="#work"
             >
               {t('home.hero.cta')}
@@ -158,7 +158,7 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
             {t('home.index.note')}
           </p>
           <a
-            className="tag inline-flex items-center gap-2.5 text-on-surface-variant hover:text-on-surface"
+            className="tag inline-flex min-h-11 items-center gap-2.5 self-start text-on-surface-variant hover:text-on-surface"
             href={mailto(t('mail.hello'))}
           >
             hello@c0nn3ct.info

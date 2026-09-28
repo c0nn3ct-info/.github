@@ -19,23 +19,27 @@ describe('pairPath', () => {
 });
 
 describe('LanguageSwitcher', () => {
-  it('opens and closes the menu from its own button', async () => {
+  // A disclosure, not a menu: role="menu" promised arrow keys and focus moving
+  // into it, and neither happened. The links are plain links Tab reaches.
+  it('opens and closes the list from its own button', async () => {
     render(<LanguageSwitcher />);
     const button = screen.getByRole('button', { name: 'Language' });
     expect(button).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.queryByRole('menu')).toBeNull();
+    expect(button).not.toHaveAttribute('aria-haspopup');
+    expect(screen.queryByRole('list')).toBeNull();
     await userEvent.click(button);
     expect(button).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('menu')).toBeInTheDocument();
+    expect(screen.getByRole('list')).toBeInTheDocument();
+    expect(button).toHaveAttribute('aria-controls', screen.getByRole('list').id);
     await userEvent.click(button);
-    expect(screen.queryByRole('menu')).toBeNull();
+    expect(screen.queryByRole('list')).toBeNull();
   });
 
   it('offers every language, each naming itself and linking to its own path', async () => {
     at('/');
     render(<LanguageSwitcher />);
     await userEvent.click(screen.getByRole('button', { name: 'Language' }));
-    const items = screen.getAllByRole('menuitem');
+    const items = screen.getAllByRole('link');
     expect(items.map((a) => a.textContent)).toEqual([
       'English',
       'Русский',
@@ -59,7 +63,7 @@ describe('LanguageSwitcher', () => {
     at('/fa/');
     render(<LanguageSwitcher />);
     await userEvent.click(screen.getByRole('button', { name: 'زبان' }));
-    const current = screen.getAllByRole('menuitem').filter((a) => a.getAttribute('aria-current'));
+    const current = screen.getAllByRole('link').filter((a) => a.getAttribute('aria-current'));
     expect(current.map((a) => a.textContent)).toEqual(['فارسی']);
   });
 
@@ -71,18 +75,18 @@ describe('LanguageSwitcher', () => {
       </div>,
     );
     await userEvent.click(screen.getByRole('button', { name: 'Language' }));
-    await userEvent.click(screen.getByRole('menu'));
-    expect(screen.getByRole('menu')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('list'));
+    expect(screen.getByRole('list')).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'outside' }));
-    expect(screen.queryByRole('menu')).toBeNull();
+    expect(screen.queryByRole('list')).toBeNull();
   });
 
   it('closes on Escape, and stays open for any other key', async () => {
     render(<LanguageSwitcher />);
     await userEvent.click(screen.getByRole('button', { name: 'Language' }));
     await userEvent.keyboard('{ArrowDown}');
-    expect(screen.getByRole('menu')).toBeInTheDocument();
+    expect(screen.getByRole('list')).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
-    expect(screen.queryByRole('menu')).toBeNull();
+    expect(screen.queryByRole('list')).toBeNull();
   });
 });

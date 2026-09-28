@@ -99,7 +99,6 @@
 
     --ease-emph: cubic-bezier(0.2, 0, 0, 1);
     --ease-emph-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
-    --ease-pane: cubic-bezier(0.27, 1.06, 0.18, 1);
     /* Everything that arrives is timed on this one: a strong ease-out, so the
      * motion is quickest at the moment the reader's eye lands on it. Read from
      * here by src/lib/ease.ts rather than retyped into each animation. */
@@ -221,7 +220,7 @@
      * pill rather than as the marker. */
     --shot-bar: rgb(0 0 0 / 0.18);
     --shot-bar-ink: rgb(20 20 24 / 0.72);
-    --bar: rgb(255 255 255 / 0.86);
+    --bar: rgb(255 255 255);
 
     /* Product coding. The -ink pair is the same hue pulled to AA on the light
      * card; the plain token stays the LED itself, for fills and lamps. */
@@ -333,7 +332,7 @@
     --stage-edge: rgb(255 255 255 / 0.15);
     --shot-bar: rgb(255 255 255 / 0.22);
     --shot-bar-ink: rgb(255 255 255 / 0.92);
-    --bar: rgb(13 13 15 / 0.86);
+    --bar: rgb(13 13 15);
 
     --led-noctis: hsl(0 0% 92%);
     --led-noctis-ink: hsl(0 0% 92%);
@@ -398,7 +397,7 @@
       --stage-edge: rgb(255 255 255 / 0.15);
       --shot-bar: rgb(255 255 255 / 0.22);
       --shot-bar-ink: rgb(255 255 255 / 0.92);
-      --bar: rgb(13 13 15 / 0.86);
+      --bar: rgb(13 13 15);
 
       --led-noctis: hsl(0 0% 92%);
       --led-noctis-ink: hsl(0 0% 92%);
@@ -545,8 +544,10 @@
     letter-spacing: var(--track-body);
     text-wrap: pretty;
   }
-  .hoverable:hover {
-    background: var(--hover);
+  @media (hover: hover) {
+    .hoverable:hover {
+      background: var(--hover);
+    }
   }
 
   /* Applied to the section for the gutter and to the block inside it for the
@@ -572,15 +573,18 @@
     justify-content: space-between;
     gap: 8px 24px;
     padding: 12px var(--gutter);
-    background: rgb(13 13 15 / 0.72);
-    backdrop-filter: blur(16px) saturate(1.2);
+    /* Solid, and no backdrop blur. Over the hero's loops the blur made the
+     * first frames of a scroll 67-333ms ones in Chrome in a quarter of the
+     * runs, measured; the blur only ever softened what a translucent fill let
+     * through, so the fill is the stage's own and there is nothing to soften. */
+    background: var(--stage);
     border-bottom: 1px solid rgb(255 255 255 / 0.14);
     color: #fff;
     transition:
       background var(--dur-med) var(--ease-emph),
       color var(--dur-med) var(--ease-emph),
       border-color var(--dur-med) var(--ease-emph),
-      transform 320ms var(--ease-emph);
+      transform 280ms var(--ease-emph-decel);
   }
   /* Past the hero the page ground is light, so the bar swaps with it. */
   .site-header[data-ground='page'] {
@@ -589,9 +593,33 @@
     border-bottom-color: hsl(var(--outline-variant));
   }
   @media (prefers-reduced-motion: no-preference) {
+    /* Out faster than it comes back: 200ms on an accelerating curve going,
+     * 280ms decelerating coming back, so the bar clears the way at once and
+     * returns without snapping. */
     .site-header[data-hidden='true'] {
       transform: translateY(-118%);
+      transition-duration: var(--dur-med), var(--dur-med), var(--dur-med), 200ms;
+      transition-timing-function: var(--ease-emph), var(--ease-emph), var(--ease-emph),
+        var(--ease-emph-accel);
     }
+  }
+  /* Out of sight until it has focus, then over the bar's own start edge. */
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--gutter);
+    top: 8px;
+    z-index: 70;
+    padding: 10px 16px;
+    border-radius: var(--shape-pill);
+    background: #fff;
+    color: #111;
+    font-size: 14px;
+    font-weight: 600;
+    transform: translateY(-160%);
+  }
+  .skip-link:focus-visible {
+    transform: none;
+    --focus-ring: #111;
   }
   /* The jump list wears the tag role, and takes the one step up the role does
    * not give it: these are the only labels on the page a reader clicks, and
@@ -622,8 +650,28 @@
     font-weight: 620;
     letter-spacing: var(--track-body);
     transition:
-      background var(--dur-med) var(--ease-emph),
-      color var(--dur-med) var(--ease-emph);
+      background var(--dur-short) var(--ease-emph),
+      color var(--dur-short) var(--ease-emph),
+      transform var(--dur-short) var(--ease-emph);
+  }
+  /* The two white pills said nothing to a pointer or a press. A step down in
+   * fill answers the hover, a 0.97 press answers the finger, both on the short
+   * step, where feedback belongs. */
+  @media (hover: hover) {
+    .header-cta:hover,
+    .cta-invert:hover {
+      background: rgb(255 255 255 / 0.86);
+    }
+    .site-header[data-ground='page'] .header-cta:hover {
+      background: hsl(var(--on-surface) / 0.86);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .header-cta:active,
+    .cta-invert:active,
+    .pane-cta:active {
+      transform: scale(0.97);
+    }
   }
   .site-header[data-ground='page'] .header-cta {
     background: hsl(var(--on-surface));
@@ -639,13 +687,20 @@
     color: inherit;
     opacity: 0.66;
     transition:
-      opacity 200ms var(--ease-emph),
-      background 200ms var(--ease-emph);
+      opacity var(--dur-short) var(--ease-emph),
+      background var(--dur-short) var(--ease-emph);
   }
-  .icon-btn:hover,
+  /* Open is a state and holds everywhere; the hover fill only where the
+   * pointer hovers, or a tap on a phone leaves it on the button. */
   .icon-btn[aria-expanded='true'] {
     opacity: 1;
     background: rgb(128 128 128 / 0.22);
+  }
+  @media (hover: hover) {
+    .icon-btn:hover {
+      opacity: 1;
+      background: rgb(128 128 128 / 0.22);
+    }
   }
   /* A menu that appears with no opening reads as a rendering glitch rather than
    * as something the button did. It grows from the corner it hangs off. */
@@ -670,7 +725,7 @@
     border-radius: var(--shape-md);
     background: hsl(var(--surface-container-low));
     border: 1px solid hsl(var(--outline-variant));
-    box-shadow: 0 20px 52px rgb(0 0 0 / 0.32);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.14), 0 20px 52px rgb(0 0 0 / 0.28);
     z-index: 60;
   }
   [dir='rtl'] .lang-menu {
@@ -690,9 +745,11 @@
     font-weight: 600;
     color: hsl(var(--on-surface));
   }
-  .lang-menu a:hover {
-    background: var(--hover);
-    color: hsl(var(--on-surface));
+  @media (hover: hover) {
+    .lang-menu a:hover {
+      background: var(--hover);
+      color: hsl(var(--on-surface));
+    }
   }
 
   /* ── hero stage ────────────────────────────────────────────────────────── */
@@ -837,7 +894,7 @@
    * inside a circle. Measured at 390x844: English takes three lines and 105px,
    * Russian took four and 141px, so the column ran 305px inside a 273px box and
    * the flex shrink landed on the call to action, which rendered 30px against
-   * the 38px floor its own clamp names. Only the vw half of the clamp comes
+   * the floor its own clamp names. Only the vw half of the clamp comes
    * down, so this is a phone and narrow-window correction; on a desktop the svh
    * half still wins and Russian sets at the same size as everything else. The
    * button is back at its full 46px. */
@@ -880,6 +937,35 @@
      * sections are a scroll apart and each one fills the viewport, so the
      * jump list is the part that goes. */
     .site-header nav {
+      display: none;
+    }
+    /* One row at every phone width: the call to action becomes its envelope,
+     * the gaps close to 8px, and every control is a 44px target. Logo, two
+     * icons and the envelope come to 314px with the gutters, inside 320. */
+    .site-header {
+      gap: 8px;
+      padding-block: 10px;
+    }
+    .site-brand {
+      min-height: 44px;
+    }
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+    }
+    .header-cta {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      justify-content: center;
+    }
+    .header-cta-label,
+    .header-cta-arrow {
+      display: none;
+    }
+  }
+  @media (min-width: 900px) {
+    .header-cta-icon {
       display: none;
     }
   }
@@ -978,6 +1064,12 @@
   @media (prefers-reduced-motion: no-preference) {
     .marquee-track {
       animation: marquee 46s linear infinite;
+    }
+    /* Under rtl the two copies run leftwards from the right edge, so the
+     * leftward slide carried the first out and never brought the second in:
+     * the belt stood empty for most of each loop. It slides the other way. */
+    [dir='rtl'] .marquee-track {
+      animation-name: marquee-rtl;
     }
   }
   /* Without motion the belt is a static line, so the duplicate would read as
@@ -1221,9 +1313,11 @@
       background var(--dur-short) var(--ease-emph),
       transform var(--dur-short) var(--ease-emph);
   }
-  .shot-nav:hover {
-    background: rgb(13 13 15 / 0.86);
-    border-color: rgb(255 255 255 / 0.34);
+  @media (hover: hover) {
+    .shot-nav:hover {
+      background: rgb(13 13 15 / 0.86);
+      border-color: rgb(255 255 255 / 0.34);
+    }
   }
   /* The press is the one thing here that moves, so it is the one thing behind
    * the preference; the darkening above answers a reduced-motion reader. */
@@ -1238,9 +1332,13 @@
   .shot-nav-next {
     inset-inline-end: 10px;
   }
-  .pane-shot:hover .shot-nav,
   .pane-shot:focus-within .shot-nav {
     opacity: 1;
+  }
+  @media (hover: hover) {
+    .pane-shot:hover .shot-nav {
+      opacity: 1;
+    }
   }
   @media (hover: none) {
     .shot-nav {
@@ -1439,10 +1537,14 @@
     font-weight: 620;
     letter-spacing: var(--track-body);
     --focus-ring: hsl(var(--on-surface));
-    transition: background var(--dur-med) var(--ease-emph);
+    transition:
+      background var(--dur-short) var(--ease-emph),
+      transform var(--dur-short) var(--ease-emph);
   }
-  .pane-cta:hover {
-    background: hsl(var(--on-surface) / 0.86);
+  @media (hover: hover) {
+    .pane-cta:hover {
+      background: hsl(var(--on-surface) / 0.86);
+    }
   }
 
   .pane-link {
@@ -1458,8 +1560,10 @@
     color: hsl(var(--on-surface));
     transition: background 160ms var(--ease-emph);
   }
-  .pane-link:hover {
-    background: var(--hover);
+  @media (hover: hover) {
+    .pane-link:hover {
+      background: var(--hover);
+    }
   }
 
   /* ── practices ─────────────────────────────────────────────────────────── */
@@ -1490,9 +1594,19 @@
     letter-spacing: var(--track-title);
     line-height: 1.15;
     color: hsl(var(--on-surface-variant));
-    transition: color 200ms var(--ease-emph);
+    transition: color var(--dur-short) var(--ease-emph);
   }
   .practice-row[aria-selected='true'] .practice-title {
+    color: hsl(var(--on-surface));
+  }
+  /* Lightness alone told the open habit apart. Its arrow is at full strength
+   * and the others' recede, a second signal at no cost to the layout. */
+  .practice-row svg {
+    opacity: 0.4;
+    transition: opacity var(--dur-short) var(--ease-emph);
+  }
+  .practice-row[aria-selected='true'] svg {
+    opacity: 1;
     color: hsl(var(--on-surface));
   }
   .block-card {
@@ -1535,10 +1649,12 @@
     word-break: break-word;
     border-bottom: 2px solid rgb(255 255 255 / 0.24);
     padding-bottom: 6px;
-    transition: border-color var(--dur-med) var(--ease-emph);
+    transition: border-color var(--dur-short) var(--ease-emph);
   }
-  .talk-mail:hover {
-    border-color: var(--wire-go-on-dark);
+  @media (hover: hover) {
+    .talk-mail:hover {
+      border-color: var(--wire-go-on-dark);
+    }
   }
   .talk-line {
     display: grid;
@@ -1548,13 +1664,15 @@
     padding: 16px 4px;
     border-top: 1px solid rgb(255 255 255 / 0.16);
     color: rgb(255 255 255 / 0.9);
-    transition: color var(--dur-med) var(--ease-emph);
+    transition: color var(--dur-short) var(--ease-emph);
   }
   .talk-line:last-of-type {
     border-bottom: 1px solid rgb(255 255 255 / 0.16);
   }
-  .talk-line:hover {
-    color: #fff;
+  @media (hover: hover) {
+    .talk-line:hover {
+      color: #fff;
+    }
   }
   /* The nudge rides the label rather than the row's padding: a transform costs
    * no layout, and the row's own rule stays put so its border does not slide.
@@ -1562,13 +1680,45 @@
   .talk-line > span:first-child {
     transition: transform var(--dur-med) var(--ease-emph);
   }
-  @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) {
     .talk-line:hover > span:first-child {
       transform: translateX(12px);
     }
     [dir='rtl'] .talk-line:hover > span:first-child {
       transform: translateX(-12px);
     }
+  }
+
+  /* Under a finger every control here is a 44px target. Drawn for a pointer,
+   * the pane's links were 34-40px, the language items about 40 and the big
+   * address 31, and they sat close enough together to take the wrong one. */
+  @media (pointer: coarse) {
+    .pane-cta,
+    .pane-link {
+      height: 44px;
+    }
+    .lang-menu a {
+      padding-block: 12px;
+    }
+    .talk-mail {
+      padding-block: 8px 10px;
+    }
+    /* The capture count is the only sign on a touch screen that the pane
+     * swipes: the chevrons are gone, so the marks get the width to be seen. */
+    .shot-progress {
+      width: clamp(72px, 28%, 120px);
+    }
+    .shot-seg {
+      height: 5px;
+    }
+  }
+
+  /* The track and its slides sit inside clipped frames, so the page's outside
+   * ring was cut off and a keyboard in the captures saw nothing. Drawn inside. */
+  .shot-track:focus-visible,
+  .shot-slide:focus-visible {
+    outline: 2px solid var(--shot-bar-ink);
+    outline-offset: -4px;
   }
 
   /* ── lightbox ──────────────────────────────────────────────────────────── */
@@ -1617,8 +1767,22 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     .lightbox .shot-frame {
-      animation: pop-in 420ms var(--ease-emph-decel);
+      animation: pop-in 260ms var(--ease-emph-decel);
     }
+  }
+  /* On a touch screen the dialog is the one place the chevrons come back: the
+   * capture fills the width, a swipe is not obvious on it, and the surface
+   * around them closes on a tap. A pinch zooms the page as usual, so the
+   * track leaves pinching to the browser rather than claiming the gesture. */
+  @media (hover: none) {
+    .lightbox .shot-nav {
+      display: grid;
+      width: 44px;
+      height: 44px;
+    }
+  }
+  .lightbox .shot-track {
+    touch-action: pan-x pinch-zoom;
   }
 
   /* ── section entrances ─────────────────────────────────────────────────────
@@ -1709,6 +1873,11 @@
   @keyframes marquee {
     to {
       transform: translateX(-50%);
+    }
+  }
+  @keyframes marquee-rtl {
+    to {
+      transform: translateX(50%);
     }
   }
   @keyframes scan {

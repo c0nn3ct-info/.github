@@ -14,6 +14,26 @@ describe('Practices', () => {
     );
   });
 
+  // Stacked below 900px the panel sat under all five rows, so a tap on the
+  // first opened something a screen below it. The list steps aside there
+  // (display: contents) and the order puts the one panel under the open row.
+  it('opens its panel under the row that was chosen, on a phone', async () => {
+    render(<Practices />);
+    const list = screen.getByRole('tablist');
+    expect(list).toHaveClass('max-[899px]:contents');
+    const tabs = screen.getAllByRole('tab');
+    expect(tabs.map((b) => b.style.order)).toEqual(['0', '2', '4', '6', '8']);
+    const panel = screen.getByRole('tabpanel');
+    expect(panel.style.order).toBe('1');
+    await userEvent.click(tabs[3]);
+    expect(panel.style.order).toBe('7');
+  });
+
+  it('asks a reader to choose, which a finger can do', () => {
+    render(<Practices />);
+    expect(screen.getByText('Choose a line')).toBeInTheDocument();
+  });
+
   // The panel used to be a bare aria-live region, which announced itself on top
   // of the tab a reader had just moved to. Naming it after the selected tab is
   // what a tablist owes, and it is how the work rail next door already reads.
@@ -94,10 +114,19 @@ describe('Practices', () => {
     expect(screen.getByRole('tabpanel')).toHaveTextContent('05');
   });
 
-  it('leaves keys it does not own to the browser', async () => {
+  it('jumps to either end on Home and End', async () => {
     render(<Practices />);
     screen.getAllByRole('tab')[0].focus();
     await userEvent.keyboard('{End}');
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('05');
+    await userEvent.keyboard('{Home}');
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('01');
+  });
+
+  it('leaves keys it does not own to the browser', async () => {
+    render(<Practices />);
+    screen.getAllByRole('tab')[0].focus();
+    await userEvent.keyboard('{PageDown}');
     expect(screen.getByRole('tabpanel')).toHaveTextContent('01');
   });
 });

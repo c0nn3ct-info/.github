@@ -71,9 +71,15 @@ export function Practices() {
       </div>
 
       <div className="page-col grid items-stretch gap-[var(--gap-part)] [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(0,1fr)_minmax(240px,0.44fr)]">
+        {/* Below 900px the list steps aside (display: contents), so its rows and
+            the one panel are items of the same stack, and the order below puts
+            the panel under whichever row is open: an accordion made of the
+            design's own card, with the tablist's semantics intact. Stacked in
+            source order it sat under all five rows, a screen below a tap on
+            the first. */}
         <div
           data-enter-stagger="wipe"
-          className="flex flex-col"
+          className="flex flex-col max-[899px]:contents"
           role="tablist"
           aria-label={t('home.how.list_aria')}
           aria-orientation="vertical"
@@ -90,6 +96,7 @@ export function Practices() {
               aria-selected={n === i}
               aria-controls="practice-panel"
               tabIndex={n === i ? 0 : -1}
+              style={{ order: n * 2 }}
               onClick={() => setI(n)}
               onPointerEnter={() => setI(n)}
               onFocus={() => setI(n)}
@@ -109,6 +116,7 @@ export function Practices() {
           role="tabpanel"
           aria-labelledby={`habit-${HABITS[i]}`}
           tabIndex={-1}
+          style={{ order: i * 2 + 1 }}
         >
           <span
             data-swap

@@ -124,7 +124,7 @@ describe('useSectionEntrance', () => {
       opacity: 0,
       transform: 'translateX(-14px)',
     });
-    expect(animations[1].options.duration).toBe(420);
+    expect(animations[1].options.duration).toBe(300);
   });
 
   it('takes the rise for a lone mark that names no gesture', () => {

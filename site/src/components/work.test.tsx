@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen, userEvent, within } from '../test/render';
-import { animations, fireResize, setReducedMotion } from '../test/setup';
+import { animations, fireResize, setMedia, setReducedMotion } from '../test/setup';
 import { Work, type Project } from './work';
 
 /** The page owns the choice, so the harness does too. */
@@ -31,6 +31,64 @@ describe('Work rail', () => {
     ).toBeInTheDocument();
   });
 
+  describe('on a phone', () => {
+    const PHONE = '(max-width: 899px)';
+    /** Where the pane's top edge is, as the viewport sees it. */
+    const paneAt = (top: number) => {
+      const pane = screen.getByRole('tabpanel').parentElement as HTMLElement;
+      pane.getBoundingClientRect = () => ({ top }) as DOMRect;
+      const into = vi.fn();
+      pane.scrollIntoView = into;
+      return into;
+    };
+
+    // Stacked, the rail sits above the pane, so a tap on its last rows swapped
+    // content a screen below the finger that asked for it.
+    it('brings the pane up when the rail sent it below the fold', async () => {
+      setMedia(PHONE, true);
+      render(<Harness />);
+      const into = paneAt(700);
+      await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
+      expect(into).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+      setMedia(PHONE, false);
+    });
+
+    it('jumps rather than glides for a reader who asked for less motion', async () => {
+      setMedia(PHONE, true);
+      setReducedMotion(true);
+      render(<Harness />);
+      const into = paneAt(700);
+      await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
+      expect(into).toHaveBeenCalledWith({ behavior: 'auto', block: 'start' });
+      setReducedMotion(false);
+      setMedia(PHONE, false);
+    });
+
+    it('leaves the page alone when the pane is already in view, or beside the rail', async () => {
+      setMedia(PHONE, true);
+      const { unmount } = render(<Harness />);
+      const near = paneAt(200);
+      await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
+      expect(near).not.toHaveBeenCalled();
+      unmount();
+
+      setMedia(PHONE, false);
+      render(<Harness />);
+      const wide = paneAt(700);
+      await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
+      expect(wide).not.toHaveBeenCalled();
+    });
+
+    it('does not move the page for a choice made anywhere but the rail', () => {
+      setMedia(PHONE, true);
+      const { rerender } = render(<Work project="noctis" onPick={() => {}} />);
+      const into = paneAt(700);
+      rerender(<Work project="aria2t" onPick={() => {}} />);
+      expect(into).not.toHaveBeenCalled();
+      setMedia(PHONE, false);
+    });
+  });
+
   it('walks the rail with the arrow keys and wraps round', async () => {
     render(<Harness />);
     screen.getAllByRole('tab')[0].focus();
@@ -44,10 +102,26 @@ describe('Work rail', () => {
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'next');
   });
 
-  it('leaves other keys to the browser', async () => {
+  it('jumps to either end on Home and End', async () => {
     render(<Harness />);
     screen.getAllByRole('tab')[0].focus();
     await userEvent.keyboard('{End}');
+    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'next');
+    await userEvent.keyboard('{Home}');
+    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'noctis');
+  });
+
+  // Only the open pane is in the document, so only its tab can point at it.
+  it('names a controlled pane only on the tab whose pane exists', () => {
+    render(<Harness />);
+    const tabs = screen.getAllByRole('tab');
+    expect(tabs.map((b) => b.getAttribute('aria-controls'))).toEqual(['noctis', null, null]);
+  });
+
+  it('leaves other keys to the browser', async () => {
+    render(<Harness />);
+    screen.getAllByRole('tab')[0].focus();
+    await userEvent.keyboard('{PageDown}');
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'noctis');
   });
 });
@@ -306,11 +380,17 @@ describe('Work lightbox', () => {
     );
     const dialog = screen.getByRole('dialog');
     expect(dialog).toBeInTheDocument();
-    expect(screen.getByText('Select anywhere outside the image to close')).toBeInTheDocument();
+    // The capture closes too, so the hint no longer says "outside the image",
+    // and it keeps the width it needs instead of the half the centring left it.
+    const hint = screen.getByText('Select anywhere to close');
+    expect(hint).toHaveClass('w-max', 'max-w-[calc(100vw-32px)]', 'text-center');
+    // The page under the dialog holds still: a swipe on a phone scrolled it.
+    expect(document.documentElement.style.overflow).toBe('hidden');
     const close = screen.getByRole('button', { name: 'Close the preview' });
     expect(close).toHaveFocus();
     await userEvent.click(close);
     expect(screen.queryByRole('dialog')).toBeNull();
+    expect(document.documentElement.style.overflow).toBe('');
   });
 
   it('closes on Escape', async () => {

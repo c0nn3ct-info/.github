@@ -2,6 +2,9 @@ import type { Config } from 'tailwindcss';
 import animate from 'tailwindcss-animate';
 
 export default {
+  // `hover:` only where the pointer can hover: a touch screen keeps an element
+  // hovered after a tap until the next one lands elsewhere.
+  future: { hoverOnlyWhenSupported: true },
   darkMode: ['variant', ['.dark &', '[data-theme="dark"] &']],
   content: ['./src/**/*.{ts,tsx,html}', './pages/**/index.html'],
   theme: {
@@ -162,7 +165,6 @@ export default {
       transitionTimingFunction: {
         emph: 'var(--ease-emph)',
         'emph-decel': 'var(--ease-emph-decel)',
-        pane: 'var(--ease-pane)',
       },
       transitionDuration: {
         'x-short': '80ms',

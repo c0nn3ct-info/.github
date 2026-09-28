@@ -263,6 +263,9 @@ export function Work({ project, onPick }: WorkProps) {
   const [rail, setRail] = useState<HTMLDivElement | null>(null);
   const pane = useRef<HTMLDivElement>(null);
   const shown = useRef(PROJECTS.indexOf(project));
+  /** Whether the last choice came from a tap on the rail, which on a phone is
+   * a screen above the pane it changes. */
+  const fromRail = useRef(false);
 
   // Choosing a product replaces the whole pane, and it used to happen with no
   // acknowledgement at all: the screenshot, the name, the sentence and the
@@ -299,7 +302,19 @@ export function Work({ project, onPick }: WorkProps) {
     const from = shown.current;
     shown.current = to;
     if (to === from || !pane.current) return;
-    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+    const motion = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    // Stacked below 900px the rail sits above the pane, and a tap on its last
+    // rows changed content below the fold. The pane comes up to meet it; a
+    // choice made from the hero's index already scrolls here by its link.
+    if (
+      fromRail.current &&
+      window.matchMedia('(max-width: 899px)').matches &&
+      pane.current.getBoundingClientRect().top > window.innerHeight * 0.6
+    ) {
+      pane.current.scrollIntoView({ behavior: motion ? 'smooth' : 'auto', block: 'start' });
+    }
+    fromRail.current = false;
+    if (!motion) return;
     pane.current.animate(
       [
         { opacity: 0, transform: `translateY(${to > from ? 10 : -10}px)` },
@@ -362,9 +377,12 @@ export function Work({ project, onPick }: WorkProps) {
                 className="rail-btn hoverable"
                 role="tab"
                 aria-selected={p === project}
-                aria-controls={p}
+                aria-controls={p === project ? p : undefined}
                 tabIndex={p === project ? 0 : -1}
-                onClick={() => onPick(p)}
+                onClick={() => {
+                  fromRail.current = true;
+                  onPick(p);
+                }}
               >
                 <span className="ordinal" data-product={p}>{`0${i + 1}`}</span>
                 <span className="flex min-w-0 flex-col gap-0.5">

@@ -14,11 +14,11 @@
 
 <p align="center"><a href="https://c0nn3ct.info/fa/">وب‌سایت</a> · <a href="https://github.com/c0nn3ct-info">GitHub</a> · <a href="mailto:hello@c0nn3ct.info">ایمیل</a></p>
 
-ما یک استودیوی مستقل نرم‌افزار هستیم. محصول‌های متمرکز می‌سازیم و هر کدام را آن‌قدر بهتر می‌کنیم تا کار با آن لذت‌بخش باشد و آن‌قدر قابل‌اعتماد که دیگر به آن فکر نکنید.
+محصول‌های متمرکز می‌سازیم و هر کدام را آن‌قدر بهتر می‌کنیم تا کار با آن لذت‌بخش باشد و آن‌قدر قابل‌اعتماد که دیگر به آن فکر نکنید.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · پراکسی VLESS برای کروم
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · کلاینت پراکسی برای sing‑box، xray و mihomo
 
-<picture>
+Noctis سرورهای شما را نگه می‌دارد و موتوری را که هر کدام نیاز دارد راه می‌اندازد. فقط مرورگری که آن را نصب کرده‌اید از تونل عبور می‌کند و بقیه‌ی دستگاه اتصال خودش را حفظ می‌کند.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis با اتصال آماده و پراکسی‌های تازه‌استفاده‌شده" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
@@ -26,9 +26,9 @@
 <table><tr><td width="72%">
 ترافیک مرورگر را از پراکسی‌های خودتان عبور دهید. بانک و تماس‌های تصویری از اتصال معمول استفاده می‌کنند.
 
-- پیوند اتصال یا نشانی اشتراک را اضافه کنید و قواعد مسیریابی را بسازید.
-- اگر سروری پاسخ ندهد، مرورگر به سرور دیگری می‌رود.
-- نصب و حذف آن به دسترسی مدیر نیاز ندارد.
+- پیوند اشتراک‌گذاری یا نشانی اشتراک را بچسبانید تا فهرست سرورها طبق برنامه به‌روز شود.
+- هر سایت طبق قواعد نمایه از تونل یا مستقیم عبور می‌کند.
+- از میان سه موتور همراهش، همانی را که هر سرور نیاز دارد راه می‌اندازد.
 </td><td width="28%" align="left">
 
 [![صفحهٔ Noctis](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/fa/)
@@ -38,7 +38,7 @@
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · مدیر دانلود aria2
 
-<picture>
+‏Aria2t دانلودهای مرورگر را به aria2 می‌سپارد و شما صف و انتخاب فایل‌ها را در افزونه یا در ترمینال مدیریت می‌کنید.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="Aria2t دانلودهای فعال را همراه پیشرفت و سرعت نشان می‌دهد" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
@@ -59,9 +59,9 @@
 ## ✨ پنج اصل در شیوهٔ کار ما
 
 - **ابزارهایی را می‌سازیم که خودمان نیاز داریم.** تا امروز هر محصول ما از کاری شروع شده که یکی از ما با ابزارهای موجود نمی‌توانست انجامش دهد. پس از انتشار هم روی دستگاه‌های خودمان از آن استفاده می‌کنیم، پس ناهمواری‌هایش اول به ما می‌رسد.
-- **جزئیات را درست می‌کنیم، بعد منتشر می‌کنیم.** هر نسخه را آن‌قدر صیقل می‌دهیم تا جزئیات درست بنشینند، چون بیشتر آنچه هر روز حس می‌کنید همین جزئیات است. بعد منتشرش می‌کنیم، چون ابزاری که منتظر کمال بماند به کسی کمک نمی‌کند.
-- **هر چه جایش را به دست نیاورد، کنار می‌گذاریم.** هر قابلیت باید توجهی را که از شما می‌خواهد توجیه کند. بسیاری از ایده‌های خوب بیرون می‌مانند، چون مسیر روزمره را طولانی‌تر می‌کنند.
-- **برای استفاده‌ی روزانه طراحی می‌کنیم.** می‌خواهیم محصول‌هایمان زیبا باشند و هر تصمیم بصری را با این می‌سنجیم که آیا ابزار را خواناتر و سریع‌تر می‌کند.
+- **به کمال‌گرایی سالم پایبندیم.** به جزئیات اهمیت می‌دهیم و هر نسخه را آن‌قدر صیقل می‌دهیم تا درست به نظر برسد. می‌دانیم کجا دست نگه داریم، چون ابزاری که منتظر کمال بماند به کسی کمک نمی‌کند.
+- **هر پیام را با دقت می‌خوانیم.** هر پیام به دست کسی می‌رسد که آن را کامل می‌خواند، چه گزارش یک مشکل باشد و چه یک ایده. بازخورد ارزشمندترین چیزی است که به دستمان می‌رسد و مسیر کار بعدی‌مان را تعیین می‌کند.
+- **به زیبایی‌شناسی عمل‌گرا پایبندیم.** می‌خواهیم محصول‌هایمان زیبا باشند و هر تصمیم بصری تنها وقتی می‌ماند که ابزار را خواناتر یا سریع‌تر کند.
 - **بر کارهای آزموده بنا می‌کنیم.** وقتی موتوری آزموده بخش دشوار مسئله را حل کرده، روی آن می‌سازیم و تلاشمان را صرف بخش‌هایی می‌کنیم که با آن‌ها کار می‌کنید. اگر گزینه‌ی مناسبی نباشد، آن بخش را خودمان می‌نویسیم.
 
 ## 🔒 چهار قول

@@ -14,11 +14,11 @@
 
 <p align="center"><a href="https://c0nn3ct.info/ar/">الموقع</a> · <a href="https://github.com/c0nn3ct-info">GitHub</a> · <a href="mailto:hello@c0nn3ct.info">البريد</a></p>
 
-نحن استوديو برمجيات مستقل. نصنع منتجات مركّزة ونواصل تحسين كل منها حتى يصبح استخدامه ممتعًا وموثوقًا بما يكفي لتنساه.
+نصنع منتجات مركّزة ونواصل تحسين كل منها حتى يصبح استخدامه ممتعًا وموثوقًا بما يكفي لتنساه.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · بروكسي VLESS لمتصفّح Chrome
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · عميل بروكسي لـ sing‑box وxray وmihomo
 
-<picture>
+يحتفظ Noctis بخوادمك ويشغّل المحرك الذي يحتاجه كل منها. لا يمرّ عبر النفق إلا المتصفح الذي ثبّته فيه، ويبقى باقي جهازك على اتصاله الخاص.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis يعرض اتصالًا جاهزًا وخوادم البروكسي المستخدمة مؤخرًا" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
@@ -26,9 +26,9 @@
 <table><tr><td width="72%">
 مرّر حركة المتصفّح عبر خوادم البروكسي الخاصة بك. تبقى الخدمات المصرفية ومكالمات الفيديو على اتصالها المعتاد.
 
-- أضف رابط اتصال أو عنوان اشتراك واضبط قواعد التوجيه.
-- إذا توقّف خادم عن الاستجابة، ينتقل المتصفّح إلى خادم آخر.
-- لا تحتاج إلى صلاحيات المسؤول عند التثبيت أو الإزالة.
+- الصق رابط مشاركة أو عنوان اشتراك، فتتحدّث قائمة الخوادم وفق جدول.
+- يمرّ كل موقع عبر النفق أو مباشرة، وفق قواعد الملف الشخصي.
+- يشغّل المحرك الذي يحتاجه كل خادم من بين المحركات الثلاثة المضمّنة.
 </td><td width="28%" align="left">
 
 [![صفحة Noctis](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/ar/)
@@ -38,7 +38,7 @@
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · مدير التنزيلات aria2
 
-<picture>
+يسلّم Aria2t تنزيلات المتصفح إلى aria2، وتدير أنت قائمة الانتظار وتختار الملفات في الإضافة أو في الطرفية.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="Aria2t يعرض التنزيلات النشطة مع التقدّم والسرعة" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
@@ -59,9 +59,9 @@
 ## ✨ خمسة مبادئ نعمل بها
 
 - **نصنع الأدوات التي نحتاج إليها.** بدأ كل منتج حتى الآن بمهمة لم يستطع أحدنا إنجازها بالأدوات المتاحة. نواصل استخدامه على أجهزتنا بعد إصداره، فتصل إلينا عيوبه قبل أن تصل إليك.
-- **نتقن التفاصيل ثم نُصدر.** نصقل كل إصدار حتى تستقر التفاصيل الصغيرة في مكانها، فهي معظم ما تلاحظه يومًا بعد يوم. ثم نُصدره، لأن أداة تنتظر الكمال لا تساعد أحدًا.
-- **نستبعد ما لا يستحق مكانه.** على كل ميزة أن تبرّر الانتباه الذي تطلبه منك. تبقى أفكار جيدة كثيرة خارج المنتج لأنها ستطيل طريق الاستخدام اليومي.
-- **نصمّم للاستخدام اليومي.** نريد لمنتجاتنا أن تبدو جميلة، ونحكم على كل قرار بصري بمدى ما يجعل الأداة أسهل قراءة وأسرع استخدامًا.
+- **نلتزم بكمالية صحية.** نهتم بالتفاصيل الصغيرة ونصقل كل إصدار حتى يبدو صحيحًا. ونعرف أيضًا متى نتوقف، لأن أداة تنتظر الكمال لا تساعد أحدًا.
+- **نقرأ كل رسالة بعناية.** تصل كل رسالة إلى شخص يقرؤها كاملة، سواء أبلغت عن مشكلة أو اقترحت فكرة. الملاحظات أنفع ما يصلنا، وهي التي توجّه ما نعمل عليه بعد ذلك.
+- **نلتزم بجماليات عملية.** نريد لمنتجاتنا أن تبدو جميلة، ولا يبقى أي قرار بصري إلا إذا جعل الأداة أسهل قراءة أو أسرع استخدامًا.
 - **نبني على أعمال مجرّبة.** حين يحلّ محرّك مجرّب المشكلة الصعبة، نبني عليه ونوجّه جهدنا إلى الأجزاء التي تتعامل معها. وإن لم يوجد ما يناسب، نكتب ذلك الجزء بأنفسنا.
 
 ## 🔒 أربعة وعود

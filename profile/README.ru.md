@@ -14,11 +14,11 @@
 
 <p align="center"><a href="https://c0nn3ct.info/ru/">Сайт</a> · <a href="https://github.com/c0nn3ct-info">GitHub</a> · <a href="mailto:hello@c0nn3ct.info">Почта</a></p>
 
-Мы независимая студия разработки. Мы делаем сфокусированные продукты и доводим каждый до состояния, когда им приятно пользоваться, а о его надёжности можно не думать.
+Мы делаем сфокусированные продукты и доводим каждый до состояния, когда им приятно пользоваться, а о его надёжности можно не думать.
 
-## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · VLESS-прокси для Chrome
+## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · прокси-клиент для sing‑box, xray и mihomo
 
-<picture>
+Noctis хранит ваши серверы и запускает движок, который нужен каждому из них. Через туннель идёт только браузер, в котором он установлен, а остальная система сохраняет своё подключение.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-dark.png">
   <img alt="Noctis с готовым подключением и списком недавно использованных прокси" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/noctis-light.png">
 </picture>
@@ -26,9 +26,9 @@
 <table><tr><td width="72%">
 Направляйте трафик браузера через свои прокси. Банковские сайты и видеозвонки продолжат работать через обычное подключение.
 
-- Добавьте ссылку подключения или подписку и настройте правила маршрутизации.
-- Если сервер перестанет отвечать, браузер переключится на другой.
-- Для установки и удаления не нужны права администратора.
+- Вставьте ссылку подключения или адрес подписки, и список серверов будет обновляться по расписанию.
+- Каждый сайт идёт через туннель или напрямую, по правилам профиля.
+- Запускает нужный серверу движок из трёх встроенных.
 </td><td width="28%" align="left">
 
 [![Страница Noctis](https://img.shields.io/badge/site-noctis.c0nn3ct.info-bb9af7?style=flat-square&labelColor=16161e)](https://noctis.c0nn3ct.info/ru/)
@@ -38,7 +38,7 @@
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-dark.svg"><img src="https://raw.githubusercontent.com/c0nn3ct-info/aria2t/main/tui/docs/media/logo-light.svg" width="28" align="absmiddle" alt=""></picture> [Aria2t](https://github.com/c0nn3ct-info/aria2t) · менеджер загрузок aria2
 
-<picture>
+Aria2t передаёт загрузки из браузера в aria2, а очередью и выбором файлов вы управляете в расширении или в терминале.
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-dark.png">
   <img alt="Aria2t показывает активные загрузки, их прогресс и скорость" src="https://raw.githubusercontent.com/c0nn3ct-info/.github/main/profile/media/aria2t-light.png">
 </picture>
@@ -59,9 +59,9 @@ Aria2t даёт движку загрузок aria2 полноценный ин�
 ## ✨ Пять принципов нашей работы
 
 - **Мы делаем инструменты, которые нужны нам самим.** Каждый наш продукт начинался с задачи, которую кто-то из нас не мог решить имеющимися средствами. После выпуска мы продолжаем пользоваться им на своих машинах, поэтому шероховатости первыми замечаем мы.
-- **Мы доводим детали, а потом выпускаем.** Мы шлифуем выпуск, пока мелочи не встанут на свои места, ведь именно их вы замечаете каждый день. Потом выпускаем, потому что инструмент, который ждёт идеала, никому не помогает.
-- **Мы не добавляем то, что не заслужило места.** Каждая функция должна оправдать внимание, которого она от вас требует. Многие хорошие идеи остаются за бортом, потому что удлинили бы повседневный путь.
-- **Мы проектируем для ежедневной работы.** Мы хотим, чтобы наши продукты выглядели хорошо, и оцениваем каждое визуальное решение по тому, помогает ли оно читать и работать быстрее.
+- **Мы придерживаемся здорового перфекционизма.** Мы внимательны к мелочам и шлифуем выпуск, пока он не станет ощущаться правильно. И мы знаем, когда остановиться, потому что инструмент, который ждёт идеала, никому не помогает.
+- **Мы внимательно читаем каждое обращение.** Каждое письмо читает человек, целиком, будь то сообщение о проблеме или идея. Обратная связь для нас самый ценный источник, и именно она подсказывает, чем заняться дальше.
+- **Мы держимся прагматичной эстетики.** Мы хотим, чтобы наши продукты выглядели хорошо, и каждое визуальное решение остаётся, только если помогает читать или работать быстрее.
 - **Мы опираемся на проверенные решения.** Если надёжный движок уже решает сложную часть задачи, мы строим на нём и тратим силы на то, с чем работаете вы. Если подходящего нет, мы пишем эту часть сами.
 
 ## 🔒 Четыре обещания

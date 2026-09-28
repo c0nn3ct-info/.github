@@ -174,12 +174,13 @@ function Pane({ project, onOpen, auto }: PaneProps) {
       aria-labelledby={`rail-${project}`}
       tabIndex={-1}
     >
-      {/* An explicit grid, because flex-wrap left the arrangement to arithmetic
-          and the answer changed twice on the way out: the three facts sat in one
-          column to 1100, spread to three to 1440, then collapsed back into a
-          234px column above 1600. Two rows now, at every width that has room
-          for them, so a reader resizing sees one layout. */}
-      <div className="grid gap-[var(--gap-part)] [grid-template-columns:minmax(0,1fr)] min-[1100px]:[grid-template-columns:minmax(0,1.5fr)_minmax(0,1fr)]">
+      {/* The capture and the details side by side from 1280, stacked below:
+          measured at 1100 the details ran 37-60px taller than the 16/10
+          capture beside them and stretched its frame into a matte.
+          The row of three fact cards that sat under them is gone (owner-
+          directed): the details card says what the product is, and the
+          product's own site says the rest. */}
+      <div className="grid gap-[var(--gap-part)] [grid-template-columns:minmax(0,1fr)] min-[1280px]:[grid-template-columns:minmax(0,1.5fr)_minmax(0,1fr)]">
         <Screen project={project} onOpen={onOpen} auto={auto} />
 
         <div className="pane pane-details">
@@ -208,21 +209,13 @@ function Pane({ project, onOpen, auto }: PaneProps) {
               </h3>
               <span className="tag text-led-ink">{t(`home.work.${project}_own`)}</span>
             </div>
-            <p className="m-0 text-pretty text-[clamp(16px,1.5vw,20px)] leading-snug tracking-[var(--track-name)]">
+            <p className="m-0 text-pretty text-[clamp(16px,1.25vw,19px)] leading-snug tracking-[var(--track-name)]">
               {t(`home.work.${project}_lead`)}
             </p>
             <PaneLinks project={project} />
           </div>
         </div>
 
-        <div className="grid auto-rows-fr grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-[var(--gap-group)] min-[1100px]:col-span-2">
-          {['f1', 'f2', 'f3'].map((f, i) => (
-            <div className="fact-card" key={f}>
-              <span className="ordinal">{`0${i + 1}`}</span>
-              <span className="note">{t(`home.work.${project}_${f}`)}</span>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ describe('Work rail', () => {
     expect(tabs.map((b) => b.textContent)).toEqual([
       '01Noctisproxy client',
       '02Aria2tdownload manager',
-      '03the workshopwhat comes next',
+      '03Workshopwhat comes next',
     ]);
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
   });
@@ -27,7 +27,7 @@ describe('Work rail', () => {
     await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'aria2t');
     expect(
-      screen.getByText('hands your browser downloads to aria2', { exact: false }),
+      screen.getByText('gives the aria2 engine a proper interface', { exact: false }),
     ).toBeInTheDocument();
   });
 
@@ -152,7 +152,7 @@ describe('Work rail marker', () => {
     measure(container);
     fireResize();
     expect(mark(container)).toEqual(['0px', '78']);
-    await userEvent.click(screen.getByRole('tab', { name: /the workshop/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /Workshop/ }));
     expect(mark(container)).toEqual(['156px', '78']);
   });
 
@@ -317,7 +317,7 @@ describe('Work panes', () => {
   it('gives noctis its capture, its own line and three places to go', () => {
     render(<Harness />);
     expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/noctis-promo-light.webp');
-    expect(screen.getByText('proxy client for sing‑box, xray and mihomo')).toBeInTheDocument();
+    expect(screen.getByText('multi-engine proxy client')).toBeInTheDocument();
     // The product's own page is the button across the card; the rest keep the
     // row under the line.
     const lead = screen.getByRole('link', { name: /Project page/ });
@@ -362,13 +362,13 @@ describe('Work panes', () => {
     );
   });
 
-  it('carries three checkable facts per product', () => {
-    render(<Harness />);
-    expect(
-      screen.getByText('Starts the engine each server needs from the three it ships with'),
-    ).toBeInTheDocument();
-    // Once on the rail, once on the first fact card.
-    expect(screen.getAllByText('01')).toHaveLength(2);
+  // The row of three fact cards under each product is gone (owner-directed):
+  // the details card says what the product is, its own site says the rest.
+  it('carries no fact cards under the product', () => {
+    const { container } = render(<Harness />);
+    expect(container.querySelector('.fact-card')).toBeNull();
+    // The ordinal lives on the rail alone now.
+    expect(screen.getAllByText('01')).toHaveLength(1);
   });
 });
 

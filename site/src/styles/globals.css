@@ -233,8 +233,12 @@
      * keeps its name because a later product may need a darker cut for text,
      * but neither of these does: both clear 4.5:1 as they stand, at 16.5 and
      * 7.3 on the card, where the pair they replace sat at 4.31 and 4.02. */
-    --led-noctis: hsl(0 0% 12%);
-    --led-noctis-ink: hsl(0 0% 12%);
+    /* Noctis's own accent, the planet violet its landing is set in: it used
+     * to be the page's ink here, the one product with no colour of its own
+     * beside aria2t's blue. Light takes the landing's light primary, which
+     * clears 4.5:1 on the card for the -ink text as well as the lamp. */
+    --led-noctis: hsl(258 56% 45%);
+    --led-noctis-ink: hsl(258 56% 45%);
     --led-aria2t: hsl(225 65% 45%);
     --led-aria2t-ink: hsl(225 65% 45%);
     --led-next: #7a7a86;
@@ -338,8 +342,8 @@
     --shot-bar-ink: rgb(255 255 255 / 0.92);
     --bar: rgb(13 13 15);
 
-    --led-noctis: hsl(0 0% 92%);
-    --led-noctis-ink: hsl(0 0% 92%);
+    --led-noctis: hsl(256 92% 86%);
+    --led-noctis-ink: hsl(256 92% 86%);
     --led-aria2t: hsl(221 85% 72%);
     --led-aria2t-ink: hsl(221 85% 72%);
     --led-next: #9a9aa6;
@@ -403,8 +407,8 @@
       --shot-bar-ink: rgb(255 255 255 / 0.92);
       --bar: rgb(13 13 15);
 
-      --led-noctis: hsl(0 0% 92%);
-      --led-noctis-ink: hsl(0 0% 92%);
+      --led-noctis: hsl(256 92% 86%);
+      --led-noctis-ink: hsl(256 92% 86%);
       --led-aria2t: hsl(221 85% 72%);
       --led-aria2t-ink: hsl(221 85% 72%);
       --led-next: #9a9aa6;
@@ -1511,19 +1515,6 @@
     --led: var(--led-next);
     --led-ink: var(--led-next-ink);
   }
-  .fact-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--gap-knit);
-    min-height: 0;
-    padding: 16px;
-    border-radius: var(--shape-md);
-    border: 1px solid hsl(var(--outline-variant));
-    background: hsl(var(--surface-container-low));
-    /* Still under the pointer: nothing here can be clicked, and a lift said
-     * it could. */
-  }
   /* The product's own page is what the whole entry points at, so it is a button
    * across the card rather than the first of three equal names in a row. Its
    * fill is the ink of the card it sits on, which is the page's rule for a
@@ -1981,8 +1972,7 @@
     }
     .glass,
     .block-card,
-    .pane,
-    .fact-card {
+    .pane {
       background: #fff;
       color: #111;
       box-shadow: none;

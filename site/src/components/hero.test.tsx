@@ -35,8 +35,8 @@ describe('Hero', () => {
 
   it('lists the unbuilt third slot as a statement rather than a control', () => {
     render(<Hero onPick={vi.fn()} />);
-    expect(screen.getByText('in the workshop')).toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: /in the workshop/ })).toBeNull();
+    expect(screen.getByText('Workshop')).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /Workshop/ })).toBeNull();
     expect(screen.getByText('listed when it is ready to ship')).toBeInTheDocument();
   });
 

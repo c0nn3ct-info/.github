@@ -96,8 +96,8 @@ describe('Practices', () => {
 
   it('commits on a click', async () => {
     render(<Practices />);
-    await userEvent.click(screen.getByRole('tab', { name: /We leave out what does not earn its place/ }));
-    expect(screen.getByRole('tab', { name: /We leave out what does not earn its place/ })).toHaveAttribute(
+    await userEvent.click(screen.getByRole('tab', { name: /We read every message with care/ }));
+    expect(screen.getByRole('tab', { name: /We read every message with care/ })).toHaveAttribute(
       'aria-selected',
       'true',
     );

@@ -103,9 +103,6 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
 
         <div className="glass">
           <div className="glass-inner">
-            <span className="rise-1 eyebrow text-balance text-on-stage/75 min-[900px]:whitespace-nowrap">
-              {t('home.hero.eyebrow')}
-            </span>
             <h1 className="rise-2 m-0 text-balance text-[clamp(23px,min(5.4svh,8.5vw),46px)] font-[520] leading-[1.06] tracking-[var(--track-h1)] text-on-stage">
               {t('home.hero.h1_a')}{' '}
               <em className="font-semibold not-italic">{t('home.hero.h1_em')}</em>

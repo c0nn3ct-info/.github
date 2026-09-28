@@ -15,7 +15,7 @@ describe('Work rail', () => {
     render(<Harness />);
     const tabs = screen.getAllByRole('tab');
     expect(tabs.map((b) => b.textContent)).toEqual([
-      '01Noctisbrowser proxy',
+      '01Noctisproxy client',
       '02Aria2tdownload manager',
       '03the workshopwhat comes next',
     ]);
@@ -27,7 +27,7 @@ describe('Work rail', () => {
     await userEvent.click(screen.getByRole('tab', { name: /Aria2t/ }));
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'aria2t');
     expect(
-      screen.getByText('puts a real interface on the aria2 download engine', { exact: false }),
+      screen.getByText('hands your browser downloads to aria2', { exact: false }),
     ).toBeInTheDocument();
   });
 
@@ -198,8 +198,8 @@ describe('Work carousel', () => {
     expect(shots()).toEqual([
       '/media/noctis-promo-light.webp',
       '/media/noctis-home-light.webp',
-      '/media/noctis-servers-light.webp',
       '/media/noctis-routing-light.webp',
+      '/media/noctis-settings-light.webp',
     ]);
     expect(screen.getAllByRole('button', { name: /Open the screenshot full size/ })).toHaveLength(
       4,
@@ -234,7 +234,7 @@ describe('Work carousel', () => {
   it('opens the capture that was clicked, not whichever one is current', async () => {
     render(<Harness />);
     await userEvent.click(screen.getAllByRole('button', { name: /Open the screenshot/ })[3]);
-    expect(screen.getByRole('dialog')).toHaveAccessibleName('Noctis · Routing');
+    expect(screen.getByRole('dialog')).toHaveAccessibleName('Noctis · Settings');
   });
 
   it('tells the hairline how many there are', () => {
@@ -317,7 +317,7 @@ describe('Work panes', () => {
   it('gives noctis its capture, its own line and three places to go', () => {
     render(<Harness />);
     expect(screen.getAllByRole('img')[0]).toHaveAttribute('src', '/media/noctis-promo-light.webp');
-    expect(screen.getByText('VLESS extension for Chrome')).toBeInTheDocument();
+    expect(screen.getByText('proxy client for sing‑box, xray and mihomo')).toBeInTheDocument();
     // The product's own page is the button across the card; the rest keep the
     // row under the line.
     const lead = screen.getByRole('link', { name: /Project page/ });
@@ -365,7 +365,7 @@ describe('Work panes', () => {
   it('carries three checkable facts per product', () => {
     render(<Harness />);
     expect(
-      screen.getByText('Install and remove it without administrator access'),
+      screen.getByText('Starts the engine each server needs from the three it ships with'),
     ).toBeInTheDocument();
     // Once on the rail, once on the first fact card.
     expect(screen.getAllByText('01')).toHaveLength(2);

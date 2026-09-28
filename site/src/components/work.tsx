@@ -34,7 +34,7 @@ export const PROJECTS: readonly Project[] = ['noctis', 'aria2t', 'next'];
 const SLIDES: Partial<Record<Project, readonly string[]>> = {
   // Both open on their promo tile (owner-directed): it names the product and
   // says what it does before the reader is asked to read an interface.
-  noctis: ['promo', 'home', 'servers', 'routing'],
+  noctis: ['promo', 'home', 'routing', 'settings'],
   aria2t: ['promo', 'home', 'detail', 'settings'],
 };
 

@@ -8,7 +8,8 @@ describe('Hero', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       'Powerful tools, made easy to live with',
     );
-    expect(screen.getByText('independent software studio')).toBeInTheDocument();
+    // No eyebrow over the claim (owner-directed): the headline speaks first.
+    expect(screen.queryByText('independent software studio')).toBeNull();
     expect(
       screen.getByText('We build software that is capable under the hood and calm on the surface, so you can rely on it every day without reading the manual first.'),
     ).toBeInTheDocument();
@@ -19,7 +20,7 @@ describe('Hero', () => {
     render(<Hero onPick={vi.fn()} />);
     const index = screen.getByRole('complementary', { name: 'The products, in order' });
     expect(index).toBeInTheDocument();
-    expect(screen.getByText('browser proxy · out now')).toBeInTheDocument();
+    expect(screen.getByText('proxy client · out now')).toBeInTheDocument();
     expect(screen.getByText('download manager · soon')).toBeInTheDocument();
   });
 

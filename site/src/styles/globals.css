@@ -883,9 +883,8 @@
     justify-content: center;
     gap: 0;
   }
-  /* Four things at four levels of importance had one gap between them, so the
-   * eyebrow, the headline, the lede and the button read as a list of equals.
-   * The eyebrow is the headline's own label and sits knit to it; the lede
+  /* Three things at three levels of importance had one gap between them, so
+   * the headline, the lede and the button read as a list of equals. The lede
    * belongs to the headline; the button is a different kind of thing and
    * stands apart. Every step scales with the circle, as the type does.
    *

@@ -1,50 +1,101 @@
-import { Arrow } from '@/components/arrow';
+import type { ComponentType, ReactNode, SVGProps } from 'react';
+import { Github, Languages, Mail } from 'lucide-react';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
+import { pairPath } from '@/components/language-switcher';
+import { Aria2tMark, NoctisMark } from '@/components/product-mark';
 import { ARIA2T_SITE, NOCTIS_SITE, ORG_URL, PRODUCT_NAME, mailto } from '@/constants';
-import { t } from '../i18n';
+import { LOCALES, LOCALE_LABEL, getLocale, localePath, t } from '../i18n';
 
-export function SiteFooter() {
+type Icon = ComponentType<SVGProps<SVGSVGElement>>;
+
+/** A column of links under its own label; the nav names the group, so the
+ * label stays a label rather than adding a heading to the outline. */
+function FooterColumn({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <footer
-      data-enter-section
-      className="page-pad border-t border-white/15 bg-stage pb-6 pt-8 text-on-stage/60"
-    >
-      <div
-        data-enter-stagger
-        className="page-col grid grid-cols-2 items-start gap-x-8 gap-y-7 min-[600px]:grid-cols-[repeat(auto-fit,minmax(170px,1fr))]"
+    <nav aria-label={label}>
+      <div className="eyebrow mb-2 text-on-surface-variant">{label}</div>
+      <ul className="min-[600px]:space-y-1.5">{children}</ul>
+    </nav>
+  );
+}
+
+/** 44px under a finger, 24px from `sm`, where a pointer can still pick the
+ * rows apart. */
+function FooterLink({ href, icon: Glyph, children }: { href: string; icon: Icon; children: ReactNode }) {
+  return (
+    <li>
+      <a
+        className="inline-flex min-h-11 items-center gap-2 text-sm text-on-surface underline-offset-4 hover:underline min-[600px]:min-h-6"
+        href={href}
       >
-        {/* Two columns on a phone, the byline across both: one column put
-            every link on its own row a screen tall. */}
-        <div className="col-span-2 flex flex-col gap-2.5 min-[600px]:col-span-1">
-          <span className="inline-flex items-center gap-2.5 text-on-stage/85">
-            <C0nn3ctMark className="h-[18px] w-[18px] flex-none" />
-            <span className="text-sm font-[560] tracking-[var(--track-name)]">c0nn3ct.info</span>
-          </span>
-          <span className="note max-w-[26ch]">{t('footer.byline')}</span>
-          <span className="note max-w-[26ch] text-on-stage/45">{t('footer.measure')}</span>
+        <Glyph className="h-3.5 w-3.5 flex-none" aria-hidden />
+        {children}
+      </a>
+    </li>
+  );
+}
+
+/** The close both products use: the mark and one line about the work, a
+ * column per kind of link, and every language as a plain link under a rule,
+ * so a crawler finds each locale without opening the header's menu. */
+export function SiteFooter() {
+  const locale = getLocale();
+  const here = window.location.pathname;
+  return (
+    <footer data-enter-section className="page-pad pb-8 text-on-surface-variant">
+      <div className="page-col">
+        <div
+          data-enter-stagger
+          className="grid grid-cols-2 items-start gap-x-6 gap-y-6 border-t border-outline-variant pt-6 min-[600px]:flex min-[600px]:flex-wrap min-[600px]:gap-x-12"
+        >
+          <div className="col-span-2 flex max-w-[280px] flex-col gap-3">
+            <a className="inline-flex items-center gap-2.5 text-on-surface" href={localePath('/')}>
+              <C0nn3ctMark className="h-5 w-5 flex-none" />
+              <span className="text-base font-[560] tracking-[var(--track-name)]">c0nn3ct.info</span>
+            </a>
+            <p className="note m-0">{t('footer.byline')}</p>
+          </div>
+          <FooterColumn label={t('footer.products')}>
+            <FooterLink href={NOCTIS_SITE} icon={NoctisMark}>
+              {PRODUCT_NAME.noctis}
+            </FooterLink>
+            <FooterLink href={ARIA2T_SITE} icon={Aria2tMark}>
+              {PRODUCT_NAME.aria2t}
+            </FooterLink>
+          </FooterColumn>
+          <FooterColumn label={t('footer.reach')}>
+            <FooterLink href={ORG_URL} icon={Github}>
+              {t('footer.github')}
+            </FooterLink>
+            <FooterLink href={mailto(t('mail.hello'))} icon={Mail}>
+              {t('footer.mail')}
+            </FooterLink>
+          </FooterColumn>
         </div>
-        <div className="flex flex-col gap-2.5">
-          <span className="eyebrow text-on-stage/50">{t('footer.products')}</span>
-          <a className="inline-flex items-center text-sm text-on-stage/85 hover:text-on-stage [@media(pointer:coarse)]:min-h-11" href={NOCTIS_SITE}>
-            {PRODUCT_NAME.noctis}
-          </a>
-          <a className="inline-flex items-center text-sm text-on-stage/85 hover:text-on-stage [@media(pointer:coarse)]:min-h-11" href={ARIA2T_SITE}>
-            {PRODUCT_NAME.aria2t}
-          </a>
-        </div>
-        <div className="flex flex-col gap-2.5">
-          <span className="eyebrow text-on-stage/50">{t('footer.reach')}</span>
-          <a className="inline-flex items-center text-sm text-on-stage/85 hover:text-on-stage [@media(pointer:coarse)]:min-h-11" href={mailto(t('mail.hello'))}>
-            {t('footer.mail')}
-          </a>
-          <a
-            className="inline-flex items-center gap-1.5 text-sm text-on-stage/85 hover:text-on-stage [@media(pointer:coarse)]:min-h-11"
-            href={ORG_URL}
-          >
-            {t('footer.github')}
-            <Arrow away />
-          </a>
-        </div>
+        <nav
+          aria-label={t('footer.languages')}
+          className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-outline-variant pt-4 text-sm"
+        >
+          <Languages className="me-1 h-3.5 w-3.5 flex-none" aria-hidden />
+          {LOCALES.map((code, i) => (
+            <span key={code} className="inline-flex items-center gap-2">
+              {i > 0 && (
+                <span aria-hidden className="text-outline">
+                  ·
+                </span>
+              )}
+              <a
+                className="inline-flex min-h-11 items-center underline-offset-4 hover:underline min-[600px]:min-h-6"
+                href={pairPath(here, code)}
+                hrefLang={code}
+                lang={code}
+                aria-current={code === locale ? 'true' : undefined}
+              >
+                {LOCALE_LABEL[code]}
+              </a>
+            </span>
+          ))}
+        </nav>
       </div>
     </footer>
   );

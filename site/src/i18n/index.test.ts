@@ -69,18 +69,18 @@ describe('dictionaries', () => {
   // shipped a tab title and a search snippet claiming a positioning the page
   // itself had dropped. The tie is asserted rather than remembered.
   // The tab reads "brand - what it is", the way noctis and aria2t title theirs,
-  // and what it is is the category the hero's eyebrow names. The description
-  // says the same thing a sentence at a time, so a search result and the page
-  // it opens agree.
-  it('title and description name the studio the hero names', () => {
+  // and what it is is the claim the hero makes. The description opens on the
+  // same claim, so a search result and the page it opens agree.
+  it('title and description carry the headline the page actually shows', () => {
     for (const [locale, dict] of Object.entries(DICTS)) {
-      const category = dict['home.hero.eyebrow'];
-      expect({ locale, title: dict['home.title'] }).toEqual({
+      const claim = dict['home.hero.h1_em'];
+      const title = dict['home.title'];
+      expect({ locale, brand: title.startsWith('c0nn3ct.info - '), claim: title.includes(claim) }).toEqual({
         locale,
-        title: `c0nn3ct.info - ${category}`,
+        brand: true,
+        claim: true,
       });
-      const inDesc = dict['home.description'].toLowerCase().includes(category.toLowerCase());
-      expect({ locale, inDesc }).toEqual({ locale, inDesc: true });
+      expect({ locale, inDesc: dict['home.description'].includes(claim) }).toEqual({ locale, inDesc: true });
     }
   });
 

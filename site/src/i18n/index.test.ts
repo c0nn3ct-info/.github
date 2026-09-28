@@ -68,17 +68,19 @@ describe('dictionaries', () => {
   // The port updated the headline and left the head behind, so every locale
   // shipped a tab title and a search snippet claiming a positioning the page
   // itself had dropped. The tie is asserted rather than remembered.
-  it('title and description carry the headline the page actually shows', () => {
+  // The tab reads "brand - what it is", the way noctis and aria2t title theirs,
+  // and what it is is the category the hero's eyebrow names. The description
+  // says the same thing a sentence at a time, so a search result and the page
+  // it opens agree.
+  it('title and description name the studio the hero names', () => {
     for (const [locale, dict] of Object.entries(DICTS)) {
-      const claim = dict['home.hero.h1_em'];
-      expect({ locale, inTitle: dict['home.title'].includes(claim) }).toEqual({
+      const category = dict['home.hero.eyebrow'];
+      expect({ locale, title: dict['home.title'] }).toEqual({
         locale,
-        inTitle: true,
+        title: `c0nn3ct.info - ${category}`,
       });
-      expect({ locale, inDesc: dict['home.description'].includes(claim) }).toEqual({
-        locale,
-        inDesc: true,
-      });
+      const inDesc = dict['home.description'].toLowerCase().includes(category.toLowerCase());
+      expect({ locale, inDesc }).toEqual({ locale, inDesc: true });
     }
   });
 
@@ -93,9 +95,9 @@ describe('dictionaries', () => {
 
 describe('t', () => {
   it('resolves known keys in the current locale', () => {
-    expect(t('home.hero.h1_em')).toBe('answers to you');
+    expect(t('home.hero.h1_em')).toBe('easy to live with');
     setLocale('ru');
-    expect(t('home.hero.h1_em')).toBe('доведённые до конца');
+    expect(t('home.hero.h1_em')).toBe('которыми легко пользоваться');
   });
 
   it('returns the key and warns for unknown keys', () => {

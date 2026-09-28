@@ -103,22 +103,22 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
 
         <div className="glass">
           <div className="glass-inner">
-            <span className="rise-1 eyebrow whitespace-nowrap text-white/75">
+            <span className="rise-1 eyebrow text-balance text-on-stage/75 min-[900px]:whitespace-nowrap">
               {t('home.hero.eyebrow')}
             </span>
-            <h1 className="rise-2 m-0 text-balance text-[clamp(23px,min(5.4svh,8.5vw),46px)] font-[520] leading-[1.06] tracking-[var(--track-h1)] text-white">
+            <h1 className="rise-2 m-0 text-balance text-[clamp(23px,min(5.4svh,8.5vw),46px)] font-[520] leading-[1.06] tracking-[var(--track-h1)] text-on-stage">
               {t('home.hero.h1_a')}{' '}
               <em className="font-semibold not-italic">{t('home.hero.h1_em')}</em>
             </h1>
-            <p className="rise-3 m-0 max-w-[36ch] text-pretty text-[clamp(13px,min(2.7svh,3.6vw),15px)] leading-normal text-white/75">
+            <p className="rise-3 m-0 max-w-[28ch] text-pretty min-[900px]:max-w-[36ch] text-[clamp(13px,min(2.7svh,3.6vw),15px)] leading-normal text-on-stage/75">
               {t('home.hero.lede')}
             </p>
             <a
-              className="rise-4 cta-invert inline-flex h-[clamp(44px,8.3svh,46px)] items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5svh,14px)] font-semibold tracking-[var(--track-body)] text-[#111]"
+              className="rise-4 cta-invert inline-flex h-[clamp(44px,8.3svh,46px)] shrink-0 items-center gap-3 rounded-pill bg-white pe-2 ps-5 text-[clamp(12px,2.5svh,14px)] font-semibold tracking-[var(--track-body)] text-[#111]"
               href="#work"
             >
               {t('home.hero.cta')}
-              <span className="grid h-[clamp(24px,5.4svh,30px)] w-[clamp(24px,5.4svh,30px)] place-items-center rounded-full bg-[#111] text-white">
+              <span className="grid h-[clamp(24px,5.4svh,30px)] w-[clamp(24px,5.4svh,30px)] place-items-center rounded-full bg-[#111] text-on-stage">
                 <ArrowDown className="h-3.5 w-3.5" aria-hidden />
               </span>
             </a>

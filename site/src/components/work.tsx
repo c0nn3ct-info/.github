@@ -112,7 +112,7 @@ function Screen({ project, onOpen, auto }: ScreenProps) {
   const keys = SLIDES[project];
   if (!keys) {
     return (
-      <div className="pane pane-shot pane-stage border-0 text-white">
+      <div className="pane pane-shot pane-stage border-0 text-on-stage">
         {/* The same frame a capture gets, so the workshop's pane is the size of
             the other two rather than the height of the words inside it: it used
             to measure 300px against their 400 at 1440. */}
@@ -127,7 +127,7 @@ function Screen({ project, onOpen, auto }: ScreenProps) {
             className="scan-band absolute inset-x-0 h-[34%] bg-[linear-gradient(to_bottom,transparent,rgba(255,255,255,.07)_48%,rgba(255,255,255,.14)_50%,rgba(255,255,255,.07)_52%,transparent)]"
           />
           <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 p-6">
-            <span className="eyebrow text-white/55">{t('home.work.next_eyebrow')}</span>
+            <span className="eyebrow text-on-stage/55">{t('home.work.next_eyebrow')}</span>
             <span className="text-balance text-[clamp(19px,2.2vw,32px)] font-[580] leading-tight tracking-[var(--track-display)]">
               {t('home.work.next_caption')}
               <span
@@ -357,7 +357,6 @@ export function Work({ project, onPick }: WorkProps) {
             >
               {t('home.work.h2')}
             </h2>
-            <span className="eyebrow text-on-surface-variant">{t('home.work.anno')}</span>
           </div>
 
           <div

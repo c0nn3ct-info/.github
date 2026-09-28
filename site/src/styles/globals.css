@@ -206,7 +206,11 @@
     --faint-ink: hsl(220 14% 46%);
     --hover: color-mix(in oklab, hsl(220 15% 10%) 7%, transparent);
     --block: #111;
-    --on-block: #fff;
+    /* The ink of every dark surface: the stage, the bar over it, the contact
+     * slab, the dark card. A step down from pure white, which glared on the
+     * near-black grounds it sits on. */
+    --on-stage: 240 14% 95%;
+    --on-block: hsl(var(--on-stage));
     --on-block-dim: rgb(255 255 255 / 0.74);
     --on-block-faint: rgb(255 255 255 / 0.58);
     --on-block-line: rgb(255 255 255 / 0.2);
@@ -435,13 +439,12 @@
   /* One focus language for plain links too; :where keeps specificity at the
    * pseudo-class alone, so component-level ring utilities still win.
    *
-   * currentColor is right everywhere the element's ink already contrasts with
-   * what is behind it, which is everywhere except the inverted pills: their
-   * ink is the colour of the ground they sit on, so a currentColor ring lands
-   * at 1.03:1 and disappears. Those set --focus-ring to their own fill, and
-   * the 2px offset then reads as a gap rather than hiding the ring. */
+   * The ring is the wire's colour, the one accent the page already has, so it
+   * is never the colour of a selection: the rail's marker and the chosen
+   * habit are the page's ink, and a ring in that ink told the two apart by
+   * shape alone. Over the dark surfaces it takes the wire's bright tone. */
   :where(a, button):focus-visible {
-    outline: 2px solid var(--focus-ring, currentColor);
+    outline: 2px solid var(--focus-ring, var(--wire-go));
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -579,7 +582,7 @@
      * through, so the fill is the stage's own and there is nothing to soften. */
     background: var(--stage);
     border-bottom: 1px solid rgb(255 255 255 / 0.14);
-    color: #fff;
+    color: hsl(var(--on-stage));
     transition:
       background var(--dur-med) var(--ease-emph),
       color var(--dur-med) var(--ease-emph),
@@ -619,7 +622,6 @@
   }
   .skip-link:focus-visible {
     transform: none;
-    --focus-ring: #111;
   }
   /* The jump list wears the tag role, and takes the one step up the role does
    * not give it: these are the only labels on the page a reader clicks, and
@@ -627,14 +629,14 @@
   .site-header .tag {
     font-size: 12px;
   }
-  /* Both pills invert against their ground, so the ring takes the pill's own
-   * fill: white over the dark stage, ink over the light bar. */
-  .header-cta,
-  .cta-invert {
-    --focus-ring: #fff;
-  }
-  .site-header[data-ground='page'] .header-cta {
-    --focus-ring: hsl(var(--on-surface));
+  /* The dark surfaces take the wire's bright tone for their focus ring. */
+  .site-header[data-ground='stage'],
+  .stage,
+  .stage-slab,
+  .lightbox,
+  .block-card,
+  .pane-stage {
+    --focus-ring: var(--wire-go-on-dark);
   }
   .header-cta {
     flex: none;
@@ -644,13 +646,19 @@
     height: 38px;
     padding: 0 18px;
     border-radius: var(--shape-pill);
-    background: #fff;
-    color: #111;
+    /* An outline over the stage, so the hero's own white pill is the one
+     * filled button on the first screen; the two identical pills there
+     * split the reader's attention. Filled once the bar is on the page
+     * ground, where it is the only primary in view. */
+    background: transparent;
+    border: 1px solid rgb(255 255 255 / 0.36);
+    color: hsl(var(--on-stage));
     font-size: 13px;
     font-weight: 620;
     letter-spacing: var(--track-body);
     transition:
       background var(--dur-short) var(--ease-emph),
+      border-color var(--dur-short) var(--ease-emph),
       color var(--dur-short) var(--ease-emph),
       transform var(--dur-short) var(--ease-emph);
   }
@@ -658,7 +666,9 @@
    * fill answers the hover, a 0.97 press answers the finger, both on the short
    * step, where feedback belongs. */
   @media (hover: hover) {
-    .header-cta:hover,
+    .header-cta:hover {
+      background: rgb(255 255 255 / 0.12);
+    }
     .cta-invert:hover {
       background: rgb(255 255 255 / 0.86);
     }
@@ -675,6 +685,7 @@
   }
   .site-header[data-ground='page'] .header-cta {
     background: hsl(var(--on-surface));
+    border-color: transparent;
     color: hsl(var(--background));
   }
   .icon-btn {
@@ -818,7 +829,7 @@
      * 280px, where the sidebearings the floor protects are simply too big. */
     letter-spacing: -0.06em;
     line-height: 0.9;
-    color: #fff;
+    color: hsl(var(--on-stage));
     text-shadow: 0 4px 40px rgb(0 0 0 / 0.5);
   }
   .stage-ring,
@@ -983,8 +994,10 @@
    * normal flow with room for the bar above it, and the stage takes its height
    * from what is actually in it rather than from a fraction of the viewport.
    * Keyed on height alone, because a short desktop window runs out of circle
-   * for the same reason a landscape phone does. */
-  @media (max-height: 560px) {
+   * for the same reason a landscape phone does. A phone below 720px of height
+   * runs out too since the copy became a sentence longer (2026-09-28): at
+   * 375x667 and 320x568 the eyebrow went up under the bar. */
+  @media (max-height: 560px), (max-width: 899px) and (max-height: 720px) {
     .stage {
       min-height: auto;
       display: grid;
@@ -1305,9 +1318,8 @@
     background: rgb(13 13 15 / 0.66);
     backdrop-filter: blur(8px);
     border: 1px solid rgb(255 255 255 / 0.2);
-    color: #fff;
+    color: hsl(var(--on-stage));
     opacity: 0;
-    --focus-ring: #fff;
     transition:
       opacity var(--dur-short) var(--ease-emph),
       background var(--dur-short) var(--ease-emph),
@@ -1510,15 +1522,8 @@
     border-radius: var(--shape-md);
     border: 1px solid hsl(var(--outline-variant));
     background: hsl(var(--surface-container-low));
-    transition:
-      transform 220ms var(--ease-emph-decel),
-      border-color 220ms var(--ease-emph-decel);
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .fact-card:hover {
-      transform: translateY(-3px);
-      border-color: hsl(var(--outline));
-    }
+    /* Still under the pointer: nothing here can be clicked, and a lift said
+     * it could. */
   }
   /* The product's own page is what the whole entry points at, so it is a button
    * across the card rather than the first of three equal names in a row. Its
@@ -1536,7 +1541,6 @@
     font-size: 14px;
     font-weight: 620;
     letter-spacing: var(--track-body);
-    --focus-ring: hsl(var(--on-surface));
     transition:
       background var(--dur-short) var(--ease-emph),
       transform var(--dur-short) var(--ease-emph);
@@ -1641,7 +1645,7 @@
   .talk-mail {
     display: inline-block;
     align-self: flex-start;
-    color: #fff;
+    color: hsl(var(--on-stage));
     font-size: clamp(26px, 4.6vw, 68px);
     font-weight: 600;
     letter-spacing: var(--track-display);
@@ -1663,7 +1667,7 @@
     gap: 16px;
     padding: 16px 4px;
     border-top: 1px solid rgb(255 255 255 / 0.16);
-    color: rgb(255 255 255 / 0.9);
+    color: hsl(var(--on-stage) / 0.9);
     transition: color var(--dur-short) var(--ease-emph);
   }
   .talk-line:last-of-type {
@@ -1671,7 +1675,7 @@
   }
   @media (hover: hover) {
     .talk-line:hover {
-      color: #fff;
+      color: hsl(var(--on-stage));
     }
   }
   /* The nudge rides the label rather than the row's padding: a transform costs

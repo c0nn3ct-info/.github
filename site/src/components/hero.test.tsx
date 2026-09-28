@@ -6,13 +6,13 @@ describe('Hero', () => {
   it('states the positioning, the lede and one action', () => {
     render(<Hero onPick={vi.fn()} />);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Small, finished software that answers to you',
+      'Powerful tools, made easy to live with',
     );
-    expect(screen.getByText('on your side of the wire')).toBeInTheDocument();
+    expect(screen.getByText('independent software studio')).toBeInTheDocument();
     expect(
-      screen.getByText('Capable software for people who should not have to study it first.'),
+      screen.getByText('We build software that is capable under the hood and calm on the surface, so you can rely on it every day without reading the manual first.'),
     ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /See the work/ })).toHaveAttribute('href', '#work');
+    expect(screen.getByRole('link', { name: /See the products/ })).toHaveAttribute('href', '#work');
   });
 
   it('indexes both shipped products with their status', () => {

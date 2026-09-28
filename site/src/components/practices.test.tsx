@@ -10,7 +10,7 @@ describe('Practices', () => {
     expect(tabs).toHaveLength(5);
     expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('tabpanel')).toHaveTextContent(
-      'Noctis and Aria2t began with a task one of us could not complete',
+      'Every product so far began with a task one of us could not finish',
     );
   });
 
@@ -41,16 +41,16 @@ describe('Practices', () => {
     render(<Practices />);
     const panel = screen.getByRole('tabpanel');
     expect(panel).not.toHaveAttribute('aria-live');
-    expect(panel).toHaveAccessibleName(/We start with a tool we need/);
-    await userEvent.click(screen.getByRole('tab', { name: /We test against the real thing/ }));
-    expect(panel).toHaveAccessibleName(/We test against the real thing/);
+    expect(panel).toHaveAccessibleName(/We build the tools we need/);
+    await userEvent.click(screen.getByRole('tab', { name: /We build on proven work/ }));
+    expect(panel).toHaveAccessibleName(/We build on proven work/);
   });
 
   // The panel follows the pointer, so it is a preview, and it used to change
   // with a hard cut: sweeping the five habits strobed the card.
   it('dips rather than blinks when the panel follows the pointer', async () => {
     render(<Practices />);
-    await userEvent.hover(screen.getByRole('tab', { name: /We test against the real thing/ }));
+    await userEvent.hover(screen.getByRole('tab', { name: /We build on proven work/ }));
     // Both halves of the card, the ordinal and the reasoning, move together.
     expect(animations).toHaveLength(2);
     expect(animations[0].keyframes).toEqual([{ opacity: 0.45 }, { opacity: 1 }]);
@@ -68,7 +68,7 @@ describe('Practices', () => {
   it('changes without moving when the reader asked for reduced motion', async () => {
     setReducedMotion(true);
     render(<Practices />);
-    await userEvent.click(screen.getByRole('tab', { name: /We test against the real thing/ }));
+    await userEvent.click(screen.getByRole('tab', { name: /We build on proven work/ }));
     expect(animations).toHaveLength(0);
     expect(screen.getByRole('tabpanel')).toHaveTextContent('05');
   });
@@ -87,17 +87,17 @@ describe('Practices', () => {
 
   it('follows the pointer', async () => {
     render(<Practices />);
-    await userEvent.hover(screen.getByRole('tab', { name: /We test against the real thing/ }));
+    await userEvent.hover(screen.getByRole('tab', { name: /We build on proven work/ }));
     expect(screen.getByRole('tabpanel')).toHaveTextContent(
-      'same conditions you use it in',
+      'spend our effort on the parts you touch',
     );
     expect(screen.getByRole('tabpanel')).toHaveTextContent('05');
   });
 
   it('commits on a click', async () => {
     render(<Practices />);
-    await userEvent.click(screen.getByRole('tab', { name: /We build on proven work/ }));
-    expect(screen.getByRole('tab', { name: /We build on proven work/ })).toHaveAttribute(
+    await userEvent.click(screen.getByRole('tab', { name: /We leave out what does not earn its place/ }));
+    expect(screen.getByRole('tab', { name: /We leave out what does not earn its place/ })).toHaveAttribute(
       'aria-selected',
       'true',
     );

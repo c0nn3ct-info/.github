@@ -99,7 +99,7 @@ export function Lightbox({
       />
       {/* Its own width, up to the screen's: centred from the middle, it was
           left half the width and wrapped into a column on a phone. */}
-      <span className="eyebrow pointer-events-none absolute bottom-6 start-1/2 w-max max-w-[calc(100vw-32px)] -translate-x-1/2 text-center text-white/60 rtl:translate-x-1/2">
+      <span className="eyebrow pointer-events-none absolute bottom-6 start-1/2 w-max max-w-[calc(100vw-32px)] -translate-x-1/2 text-center text-on-stage/60 rtl:translate-x-1/2">
         {t('home.shot.close_hint')}
       </span>
     </div>

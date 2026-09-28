@@ -8,7 +8,7 @@ describe('HomePage', () => {
   it('runs the hero, the belt, the work, the habits, the floor and the close', () => {
     render(<HomePage />);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Small, finished software that answers to you',
+      'Powerful tools, made easy to live with',
     );
     for (const id of ['top', 'work', 'how', 'settled', 'contact']) {
       expect(document.getElementById(id)).not.toBeNull();
@@ -50,7 +50,7 @@ describe('HomePage', () => {
     try {
       render(<HomePage />);
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-        'Небольшие программы, доведённые до конца',
+        'Мощные инструменты, которыми легко пользоваться',
       );
     } finally {
       setLocale('en');

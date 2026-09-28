@@ -125,7 +125,7 @@ describe('getMeta', () => {
   it('reads title and description from the catalogue and builds canonical urls', () => {
     const meta = core.getMeta('home', 'en');
     expect(meta.title).toContain('c0nn3ct.info');
-    expect(meta.description).toContain('answers to you');
+    expect(meta.description).toContain('calm on the surface');
     expect(meta.canonical).toBe('https://c0nn3ct.info/');
     expect(meta.og.siteName).toBe('c0nn3ct.info');
     expect(meta.og.localeAlternate).toEqual(['ru_RU', 'es_ES', 'zh_CN', 'fa_IR', 'ar_AR']);
@@ -169,7 +169,7 @@ describe('locale alternates', () => {
   });
 
   it('titles the card in the language of the page', () => {
-    expect(core.buildHeadInjection('home', 'ru')).toContain('программы, доведённые до конца');
+    expect(core.buildHeadInjection('home', 'ru')).toContain('независимая студия разработки');
   });
 
   it('names the identity itself when a page has no title of its own', () => {

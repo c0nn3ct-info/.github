@@ -56,6 +56,7 @@ export default {
          * stage, the AA-safe faint ink, and the per-product LED pair a
          * [data-product] scope sets. */
         block: 'var(--block)',
+        'on-stage': 'hsl(var(--on-stage) / <alpha-value>)',
         'on-block': 'var(--on-block)',
         'on-block-dim': 'var(--on-block-dim)',
         'on-block-faint': 'var(--on-block-faint)',

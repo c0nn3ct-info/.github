@@ -44,13 +44,13 @@ describe('SiteHeader', () => {
 
   it('offers the section nav on the home page only', () => {
     const { unmount } = render(<SiteHeader home />);
-    expect(screen.getByRole('link', { name: 'Work' })).toHaveAttribute('href', '#work');
-    expect(screen.getByRole('link', { name: 'How we work' })).toHaveAttribute('href', '#how');
-    expect(screen.getByRole('link', { name: 'Settled' })).toHaveAttribute('href', '#settled');
+    expect(screen.getByRole('link', { name: 'Products' })).toHaveAttribute('href', '#work');
+    expect(screen.getByRole('link', { name: 'Principles' })).toHaveAttribute('href', '#how');
+    expect(screen.getByRole('link', { name: 'Promises' })).toHaveAttribute('href', '#settled');
     unmount();
 
     render(<SiteHeader home={false} />);
-    expect(screen.queryByRole('link', { name: 'Work' })).toBeNull();
+    expect(screen.queryByRole('link', { name: 'Products' })).toBeNull();
   });
 
   it('takes the page colours once the hero has scrolled past', () => {

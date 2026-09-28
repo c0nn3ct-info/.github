@@ -6,7 +6,7 @@ describe('SiteFooter', () => {
   it('states the byline and both ways to reach a person', () => {
     render(<SiteFooter />);
     expect(
-      screen.getByText('Small, finished software with source available when it helps you verify our work.'),
+      screen.getByText('An independent software studio. We publish source where it helps you verify our work.'),
     ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'hello@c0nn3ct.info' })).toHaveAttribute(
       'href',

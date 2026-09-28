@@ -61,15 +61,20 @@ describe('the page column', () => {
 describe('the full-height spine', () => {
   const FULL = /(work|practices|promises|talk)\.tsx$/;
 
-  // Every band except the hero reserves a screen and centres what it holds, so
-  // a reader arriving at one lands on its content rather than on its ceiling.
-  it('centres what a reserved screen holds', () => {
+  // Below 900px every band except the hero reserves a screen and centres what
+  // it holds. From 900px the bands take their content's height (owner-directed
+  // 2026-09-28): once the captions went, a reserved screen was half empty.
+  it('reserves a screen on a phone only, and centres what it holds', () => {
     const bands = SOURCES.filter(([f]) => FULL.test(f));
     expect(bands.length).toBe(4);
     for (const [file, src] of bands) {
-      const cn = src.match(/<section\b[^>]*className="([^"]*)"/)![1];
-      expect({ file, tall: cn.includes('min-h-[100svh]'), centred: cn.includes('justify-center') })
-        .toEqual({ file, tall: true, centred: true });
+      const cn = src.match(/<section\b[^>]*className="([^"]*)"/)![1].split(/\s+/);
+      expect({
+        file,
+        phone: cn.includes('max-[899px]:min-h-[100svh]'),
+        always: cn.includes('min-h-[100svh]'),
+        centred: cn.includes('justify-center'),
+      }).toEqual({ file, phone: true, always: false, centred: true });
     }
   });
 

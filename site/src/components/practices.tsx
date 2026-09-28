@@ -70,7 +70,7 @@ export function Practices() {
       id="how"
       aria-labelledby="how-h"
       data-enter-section
-      className="page-pad flex min-h-[100svh] flex-col justify-center gap-[var(--gap-band)] border-y border-outline-variant bg-surface py-16"
+      className="page-pad flex flex-col justify-center gap-[var(--gap-band)] border-y border-outline-variant bg-surface py-16 max-[899px]:min-h-[100svh] min-[900px]:py-28"
     >
       <h2
         id="how-h"

@@ -10,7 +10,7 @@ export function Talk() {
       id="contact"
       aria-labelledby="contact-h"
       data-enter-section
-      className="stage-slab page-pad relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-stage pb-20 pt-24 text-on-stage"
+      className="stage-slab page-pad relative flex flex-col justify-center overflow-hidden bg-stage pb-20 pt-24 text-on-stage max-[899px]:min-h-[100svh] min-[900px]:py-32"
     >
       <div
         aria-hidden

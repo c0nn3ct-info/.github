@@ -11,7 +11,7 @@ export function Promises() {
       id="settled"
       aria-labelledby="settled-h"
       data-enter-section
-      className="page-pad flex min-h-[100svh] flex-col justify-center py-16"
+      className="page-pad flex flex-col justify-center py-16 max-[899px]:min-h-[100svh] min-[900px]:py-28"
     >
       <div className="page-col grid gap-[var(--gap-part)] min-[900px]:grid-cols-12">
         <div data-enter className="block-card flex flex-col p-7 min-[900px]:col-span-5">

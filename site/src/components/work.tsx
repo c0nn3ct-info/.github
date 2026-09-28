@@ -331,15 +331,10 @@ export function Work({ project, onPick }: WorkProps) {
       id="work"
       aria-labelledby="work-h"
       data-enter-section
-      /* Geometric centre reads low here, because the block's own weight sits
-         under its top edge: the rail's rows and the screenshot are dark mass,
-         and the captions and links below them are mostly ground. The extra
-         bottom padding lifts it 24px above the middle, which is the optical
-         centre rather than the arithmetic one. It is scoped to the two-column
-         width, because below 900px the block is taller than the screen it
-         sits in and there is no slack to spend: the lift would land as 48px of
-         extra ground above the next section's border instead. */
-      className="page-pad flex min-h-[100svh] flex-col justify-center gap-6 py-16 min-[900px]:pb-28"
+      /* From 900px the bands take the height of what they hold (owner-directed
+         2026-09-28): a reserved screen left them 41-56% empty once the
+         captions were gone. Phones keep the screen, where content fills it. */
+      className="page-pad flex flex-col justify-center gap-6 py-16 max-[899px]:min-h-[100svh] min-[900px]:py-28"
     >
       <div className="page-col grid items-start gap-6 [grid-template-columns:minmax(0,1fr)] min-[900px]:[grid-template-columns:minmax(190px,236px)_minmax(0,1fr)]">
         <div className="flex flex-col min-[900px]:sticky min-[900px]:top-24">

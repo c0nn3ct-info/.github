@@ -10,11 +10,9 @@
 <h1 align="center">c0nn3ct.info</h1>
 
 <p align="center"><strong>Powerful tools, made easy to live with</strong></p>
-<p align="center">We build software that is capable under the hood and calm on the surface, so you can rely on it every day without reading the manual first.</p>
+<p align="center">Software you can rely on every day.</p>
 
 <p align="center"><a href="https://c0nn3ct.info">Website</a> · <a href="https://github.com/c0nn3ct-info">GitHub</a> · <a href="mailto:hello@c0nn3ct.info">Email</a></p>
-
-We make focused products and keep refining each one until it is pleasant to use and dependable enough to forget about.
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-dark.png"><img src="https://raw.githubusercontent.com/c0nn3ct-info/noctis/main/site/media/logo-light.png" width="28" align="absmiddle" alt=""></picture> [Noctis](https://github.com/c0nn3ct-info/noctis) · multi-engine proxy client
 
@@ -53,15 +51,15 @@ Aria2t gives the aria2 engine a proper interface, in the browser and in the term
 ## ✨ Five principles we put into practice
 
 - **We build the tools we need.** Every product so far began with a task one of us could not finish with the tools at
-  hand. We keep using each one on our own machines after release, so its rough edges reach us first.
-- **We practice healthy perfectionism.** We care about the small things and keep refining a release until it feels
-  right. We also know when to stop, because a tool that waits for perfection helps nobody.
-- **We read every message with care.** Every message reaches a person who reads it in full, whether it reports a problem
-  or suggests an idea. Feedback is the most useful input we get, and it steers what we work on next.
-- **We keep our aesthetics pragmatic.** We want our products to look good, and each visual choice has to make the tool
-  easier to read or quicker to use before it stays.
-- **We build on proven work.** When a well-tested engine already solves the hard problem, we build on it and spend our
-  effort on the parts you touch. When nothing suitable exists, we write that part ourselves.
+  hand. We keep using each one on our own machines after release, so we hit its rough edges before you do.
+- **We practice healthy perfectionism.** We refine the small things until a release feels right. Then we ship it, and
+  the next round of polish goes into an update.
+- **We read every message with care.** A person reads each message in full, whether it reports a problem or suggests an
+  idea. We plan our next work around what you tell us.
+- **We keep our aesthetics pragmatic.** We want our products to look good, and we keep a visual choice only when it
+  makes the tool easier to read or quicker to use.
+- **We build on proven work.** When a well-tested engine solves the hard problem, we build on it and put our effort into
+  the parts you touch. When none fits, we write that part ourselves.
 
 ## 🔒 Four promises
 

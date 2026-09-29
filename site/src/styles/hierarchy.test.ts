@@ -13,12 +13,13 @@ const SOURCES = ['src/components', 'src/pages'].flatMap((dir) =>
 
 describe('what the page asks the eye to look at', () => {
   // Two identical white pills on the first screen split the reader's attention
-  // between the header's "write to us" and the hero's "see the products". Over
-  // the stage the header's is an outline; it fills once the bar is on the page
-  // ground, where it is the only primary in view.
-  it('leaves one filled pill on the first screen', () => {
+  // between the header's "write to us" and the hero's "see the products". The
+  // header's is an outline on both grounds, because on the page ground the
+  // products pane and the contact slab carry their own filled action.
+  it('never adds a second filled pill to a screen', () => {
     expect(FLAT).toMatch(/\.header-cta \{[^}]*background: transparent;/);
-    expect(FLAT).toMatch(/\.site-header\[data-ground='page'\] \.header-cta \{[^}]*background: hsl\(var\(--on-surface\)\);/);
+    expect(FLAT).not.toMatch(/\.site-header\[data-ground='page'\] \.header-cta \{[^}]*background:/);
+    expect(FLAT).toMatch(/\.site-header\[data-ground='page'\] \.header-cta \{[^}]*border-color: hsl\(var\(--on-surface\) \/ 0\.4\);/);
   });
 
   // The selected rail row and the focus ring were both the page's ink, told

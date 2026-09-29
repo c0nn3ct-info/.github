@@ -652,10 +652,10 @@
     height: 38px;
     padding: 0 18px;
     border-radius: var(--shape-pill);
-    /* An outline over the stage, so the hero's own white pill is the one
-     * filled button on the first screen; the two identical pills there
-     * split the reader's attention. Filled once the bar is on the page
-     * ground, where it is the only primary in view. */
+    /* An outline on both grounds, so the bar never adds a second filled
+     * button to a screen: over the stage the hero's white pill is the one
+     * primary, and on the page ground the products pane and the contact slab
+     * carry their own (owner-directed 2026-09-29). */
     background: transparent;
     border: 1px solid rgb(255 255 255 / 0.36);
     color: hsl(var(--on-stage));
@@ -679,7 +679,7 @@
       background: rgb(255 255 255 / 0.86);
     }
     .site-header[data-ground='page'] .header-cta:hover {
-      background: hsl(var(--on-surface) / 0.86);
+      background: hsl(var(--on-surface) / 0.06);
     }
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -690,9 +690,8 @@
     }
   }
   .site-header[data-ground='page'] .header-cta {
-    background: hsl(var(--on-surface));
-    border-color: transparent;
-    color: hsl(var(--background));
+    border-color: hsl(var(--on-surface) / 0.4);
+    color: hsl(var(--on-surface));
   }
   .icon-btn {
     display: grid;

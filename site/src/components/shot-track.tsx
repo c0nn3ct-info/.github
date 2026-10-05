@@ -52,8 +52,13 @@ interface ShotTrackProps {
  * and a hairline saying how far along it is.
  */
 export function ShotTrack({ shots, at = 0, label, pick, onSurface, eager, auto }: ShotTrackProps) {
-  // Through state rather than a ref, so the chevrons can wait for an element
-  // that exists and `step` never has to guard against a null it cannot see.
+  // Through state rather than a ref, so the autoplay and the loop can wait for
+  // an element that exists. The chevrons do not wait: the served markup is a
+  // capture of the settled page and carries them, and hydration compares the
+  // first client render against it, so rendering them only once the track was
+  // known put two buttons in the markup that the first render did not have,
+  // and React threw the whole root away on every load (#418, then #423). A
+  // click can only land after the track exists, so the handlers assert it.
   const [track, setTrack] = useState<HTMLDivElement | null>(null);
   const [frame, setFrame] = useState<HTMLDivElement | null>(null);
 
@@ -120,26 +125,22 @@ export function ShotTrack({ shots, at = 0, label, pick, onSurface, eager, auto }
           </div>
         )}
       </div>
-      {track && (
-        <>
-          <button
-            type="button"
-            className="shot-nav shot-nav-prev"
-            onClick={() => step(track, -1)}
-            aria-label={t('home.work.shot_prev')}
-          >
-            <ChevronLeft className="h-[18px] w-[18px] rtl:-scale-x-100" aria-hidden />
-          </button>
-          <button
-            type="button"
-            className="shot-nav shot-nav-next"
-            onClick={() => step(track, 1)}
-            aria-label={t('home.work.shot_next')}
-          >
-            <ChevronRight className="h-[18px] w-[18px] rtl:-scale-x-100" aria-hidden />
-          </button>
-        </>
-      )}
+      <button
+        type="button"
+        className="shot-nav shot-nav-prev"
+        onClick={() => step(track as HTMLDivElement, -1)}
+        aria-label={t('home.work.shot_prev')}
+      >
+        <ChevronLeft className="h-[18px] w-[18px] rtl:-scale-x-100" aria-hidden />
+      </button>
+      <button
+        type="button"
+        className="shot-nav shot-nav-next"
+        onClick={() => step(track as HTMLDivElement, 1)}
+        aria-label={t('home.work.shot_next')}
+      >
+        <ChevronRight className="h-[18px] w-[18px] rtl:-scale-x-100" aria-hidden />
+      </button>
       {/* Which capture, out of how many: one mark each, and a bright one that
           travels between them on the scroller's own timeline, so it is exact at
           any position rather than at the ones a script thought about. While the

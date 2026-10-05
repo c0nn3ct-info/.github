@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { Arrow } from '@/components/arrow';
 import { useParallax } from '@/lib/use-parallax';
+import { RingText } from '@/components/ring-text';
 import { PRODUCT_NAME, mailto } from '@/constants';
 import { t } from '../i18n';
 import type { Project } from '@/components/work';
@@ -85,21 +86,27 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
           <span>c0nn3ct</span>
         </div>
 
-        <svg className="stage-ring" aria-hidden viewBox="0 0 800 800">
-          <circle cx="400" cy="400" r="392" fill="none" stroke="#fff" strokeOpacity=".22" strokeWidth="1" />
-          <circle
-            className="ring-dash"
-            data-loop
-            cx="400"
-            cy="400"
-            r="330"
-            fill="none"
-            stroke="#fff"
-            strokeOpacity=".45"
-            strokeWidth="1"
-            strokeDasharray="3 9"
-          />
-        </svg>
+        {/* The ring is a box now rather than one svg: the lines scale through
+            their viewBox and the words along them do not, so they are two
+            drawings over the same square. */}
+        <div className="stage-ring">
+          <svg className="ring-lines" aria-hidden viewBox="0 0 800 800">
+            <circle cx="400" cy="400" r="392" fill="none" stroke="#fff" strokeOpacity=".22" strokeWidth="1" />
+            <circle
+              className="ring-dash"
+              data-loop
+              cx="400"
+              cy="400"
+              r="330"
+              fill="none"
+              stroke="#fff"
+              strokeOpacity=".45"
+              strokeWidth="1"
+              strokeDasharray="3 9"
+            />
+          </svg>
+          <RingText />
+        </div>
 
         <div className="glass">
           <div className="glass-inner">

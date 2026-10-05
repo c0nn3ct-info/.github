@@ -347,11 +347,16 @@ describe('Work panes', () => {
     );
   });
 
-  it('says plainly that the workshop has nothing to show, and offers no capture', () => {
-    render(<Harness start="next" />);
+  // The pane draws the index's hollow lamp at capture size and repeats the
+  // index's status line, so the two places agree; the caption that apologised
+  // for the missing screenshots is gone (owner-directed 2026-10-05).
+  it('shows the hollow lamp and the index status instead of a capture', () => {
+    const { container } = render(<Harness start="next" />);
     expect(screen.queryAllByRole('img')).toHaveLength(0);
-    expect(screen.getByText('Work in progress')).toBeInTheDocument();
-    expect(screen.getByText('We will add screenshots when the product is ready')).toBeInTheDocument();
+    expect(screen.queryByText('Work in progress')).toBeNull();
+    expect(screen.queryByText(/We will add screenshots/)).toBeNull();
+    expect(screen.getByText('listed when it is ready to ship')).toBeInTheDocument();
+    expect(container.querySelector('.next-lamp')).toHaveAttribute('aria-hidden', 'true');
     expect(screen.getByRole('link', { name: /Suggest something/ })).toHaveAttribute(
       'href',
       'mailto:hello@c0nn3ct.info?subject=An%20idea%20for%20the%20workshop',

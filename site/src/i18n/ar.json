@@ -1,6 +1,5 @@
 {
   "nav.home_aria": "الصفحة الرئيسية لـ c0nn3ct.info",
-  "nav.github_aria": "c0nn3ct.info على GitHub",
   "nav.lang_switch_aria": "اللغة",
   "nav.work": "المنتجات",
   "nav.how": "المبادئ",
@@ -51,8 +50,6 @@
   "home.work.next_kind": "بلا اسم حتى الآن",
   "home.work.next_own": "نصنعه لحاجتنا",
   "home.work.next_lead": "سيبدأ المنتج التالي من حاجة لدينا ولم نجد لها أداة مناسبة.",
-  "home.work.next_eyebrow": "قيد التطوير",
-  "home.work.next_caption": "سنعرضه عندما يصبح جاهزًا",
   "home.work.link_site": "صفحة المشروع",
   "home.work.link_store": "متجر كروم الإلكتروني",
   "home.work.link_src": "GitHub",

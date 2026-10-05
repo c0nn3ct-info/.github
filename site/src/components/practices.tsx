@@ -75,7 +75,7 @@ export function Practices() {
       <h2
         id="how-h"
         data-enter
-        className="page-col m-0 text-balance text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[var(--track-display)]"
+        className="page-col my-0 text-balance text-[clamp(28px,4vw,60px)] font-semibold leading-[0.98] tracking-[var(--track-display)]"
       >
         {t('home.how.h2_a')}
         <br />

@@ -121,19 +121,23 @@ function Screen({ project, onOpen, auto }: ScreenProps) {
             aria-hidden
             className="absolute inset-0 bg-[radial-gradient(62%_72%_at_76%_16%,rgb(var(--glow-noctis)/0.24),transparent_72%)]"
           />
+          {/* The hollow lamp from the index, at the size the other two panes
+              give a capture: the page's own glyph for "not yet", with the
+              scan band passing through it. The one line under it is the
+              index's status for the row, so the pane and the index agree. */}
+          <div aria-hidden className="next-lamp" />
           <div
             aria-hidden
             data-loop
             className="scan-band absolute inset-x-0 h-[34%] bg-[linear-gradient(to_bottom,transparent,rgba(255,255,255,.07)_48%,rgba(255,255,255,.14)_50%,rgba(255,255,255,.07)_52%,transparent)]"
           />
-          <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 p-6">
-            <span className="eyebrow text-on-stage/55">{t('home.work.next_eyebrow')}</span>
-            <span className="text-balance text-[clamp(19px,2.2vw,32px)] font-[580] leading-tight tracking-[var(--track-display)]">
-              {t('home.work.next_caption')}
+          <div className="absolute inset-x-0 bottom-0 p-6">
+            <span className="tag text-on-stage/70">
+              {t('home.index.next_status')}
               <span
                 aria-hidden
                 data-loop
-                className="caret ms-[.1em] inline-block h-[1em] w-[.46em] translate-y-[.12em] bg-wire-go"
+                className="caret ms-[.3em] inline-block h-[1em] w-[.46em] translate-y-[.12em] bg-wire-go"
               />
             </span>
           </div>
@@ -226,7 +230,7 @@ function PaneLinks({ project }: { project: Project }) {
   const { lead, rest } = links(project);
   const Lead = lead.icon;
   return (
-    <div className="mt-auto flex flex-col gap-[var(--gap-group)]">
+    <div className="flex flex-col gap-[var(--gap-group)]">
       <a className="pane-cta" href={lead.href}>
         <Lead className="h-[1.15em] w-[1.15em] flex-none" aria-hidden />
         {lead.label}

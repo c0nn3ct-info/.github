@@ -1,9 +1,9 @@
-import { Github, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { Arrow } from '@/components/arrow';
 import { C0nn3ctMark } from '@/components/c0nn3ct-mark';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { useHeader } from '@/lib/use-header';
-import { ORG_URL, mailto } from '@/constants';
+import { mailto } from '@/constants';
 import { localePath, t } from '../i18n';
 
 const SECTIONS = [
@@ -42,12 +42,10 @@ export function SiteHeader({ home }: { home: boolean }) {
         </nav>
       )}
 
-      <div className="flex flex-none items-center gap-0.5">
-        <a className="icon-btn" href={ORG_URL} aria-label={t('nav.github_aria')}>
-          <Github className="h-[19px] w-[19px]" aria-hidden />
-        </a>
-        <LanguageSwitcher />
-      </div>
+      {/* No GitHub here (owner-directed 2026-10-05): the repository link sits
+          in each product's pane and in the footer, and the bar was seven
+          targets in one row. */}
+      <LanguageSwitcher />
 
       {/* Below 900px the envelope stands in for the words, which is what keeps
           the bar to one row at 320px: with the label it wrapped to two below

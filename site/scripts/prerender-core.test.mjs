@@ -271,6 +271,11 @@ describe('main', () => {
       '<div id="root">' +
       '<span data-loop style="animation-play-state: paused"></span>' +
       '<span data-loop style="animation-play-state: paused; color: red"></span>' +
+      // The rail's marker and the ring's orbit, measured after mount and
+      // written back; the first client render has neither.
+      '<div class="rail-list" style="--mark-y: 76px; --mark-h: 76;"></div>' +
+      '<svg class="ring-text"><path id="ring-orbit" fill="none" d="M 1 1"></path>' +
+      '<text><textPath href="#ring-orbit" textLength="9" lengthAdjust="spacing">x</textPath></text></svg>' +
       '<p>hydrated</p></div>';
     // Two adjacent text nodes, as React renders around an expression child;
     // the serializer must fence them so hydration can split them again.
@@ -295,6 +300,12 @@ describe('main', () => {
       el.getAttribute('style'),
     );
     expect(loops).toEqual([null, 'color: red;']);
+    expect(document.querySelector('.rail-list').getAttribute('style')).toBeNull();
+    expect(home).not.toMatch(/--mark-[yh]/);
+    expect(document.querySelector('#ring-orbit').getAttribute('d')).toBeNull();
+    expect(document.querySelector('textPath').getAttribute('textLength')).toBeNull();
+    expect(document.querySelector('textPath').getAttribute('lengthAdjust')).toBeNull();
+    expect(home).toContain('fill="none"></path>');
     expect(home).toContain('hydrated<!---->!');
     expect(launch).toHaveBeenCalledWith({ headless: true });
     expect(closed.server).toBe(1);

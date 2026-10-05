@@ -12,13 +12,12 @@ function scrollTo(y: number) {
 }
 
 describe('SiteHeader', () => {
-  it('carries the brand, the source and the way to write', () => {
+  // No GitHub in the bar (owner-directed 2026-10-05): the repository link sits
+  // in each product's pane and in the footer, and the bar was seven targets.
+  it('carries the brand and the way to write, and leaves the source to the page', () => {
     render(<SiteHeader home />);
     expect(screen.getByLabelText('c0nn3ct.info home')).toHaveAttribute('href', '/');
-    expect(screen.getByLabelText('c0nn3ct.info on GitHub')).toHaveAttribute(
-      'href',
-      'https://github.com/c0nn3ct-info',
-    );
+    expect(screen.queryByRole('link', { name: /GitHub/ })).toBeNull();
     expect(screen.getByRole('link', { name: /Write to us/ })).toHaveAttribute(
       'href',
       'mailto:hello@c0nn3ct.info?subject=Saying%20hello',

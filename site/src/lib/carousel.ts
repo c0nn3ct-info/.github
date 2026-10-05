@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
  * the first time either is tuned. This is the fallback for a document that has
  * no stylesheet to read it from.
  */
-const DWELL = 5000;
+const DWELL = 4500;
 
 /**
  * How long to wait for a capture to settle where `scrollend` is not delivered.

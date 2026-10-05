@@ -214,7 +214,7 @@ describe('the carousel in motion', () => {
 
   // One number for the fill and for the timer that moves the captures.
   it('keeps the dwell in one place', () => {
-    expect(flat).toContain('--shot-dwell:5000ms;');
+    expect(flat).toContain('--shot-dwell:4500ms;');
     expect(flat.match(/--shot-dwell:/g)).toHaveLength(1);
   });
 

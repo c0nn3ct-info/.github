@@ -1,6 +1,5 @@
 {
   "nav.home_aria": "c0nn3ct.info 首页",
-  "nav.github_aria": "c0nn3ct.info 的 GitHub",
   "nav.lang_switch_aria": "语言",
   "nav.work": "产品",
   "nav.how": "原则",
@@ -51,8 +50,6 @@
   "home.work.next_kind": "尚未命名",
   "home.work.next_own": "先为自己解决问题",
   "home.work.next_lead": "下一款产品会从我们自己的需求出发，解决现有工具没有处理好的问题。",
-  "home.work.next_eyebrow": "正在开发",
-  "home.work.next_caption": "准备好后，我们会在这里展示",
   "home.work.link_site": "项目页面",
   "home.work.link_store": "Chrome 应用商店",
   "home.work.link_src": "GitHub",

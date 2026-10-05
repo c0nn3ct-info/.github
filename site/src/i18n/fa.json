@@ -1,6 +1,5 @@
 {
   "nav.home_aria": "صفحهٔ اصلی c0nn3ct.info",
-  "nav.github_aria": "c0nn3ct.info در گیت‌هاب",
   "nav.lang_switch_aria": "زبان",
   "nav.work": "محصول‌ها",
   "nav.how": "اصول",
@@ -51,8 +50,6 @@
   "home.work.next_kind": "هنوز بی‌نام",
   "home.work.next_own": "برای نیاز خودمان می‌سازیم",
   "home.work.next_lead": "محصول بعدی از نیازی شروع می‌شود که ابزار مناسبی برایش پیدا نکرده‌ایم.",
-  "home.work.next_eyebrow": "در حال ساخت",
-  "home.work.next_caption": "وقتی آماده شد نشانش می‌دهیم",
   "home.work.link_site": "صفحهٔ پروژه",
   "home.work.link_store": "فروشگاه وب کروم",
   "home.work.link_src": "گیت‌هاب",

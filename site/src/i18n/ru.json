@@ -1,6 +1,5 @@
 {
   "nav.home_aria": "Главная c0nn3ct.info",
-  "nav.github_aria": "c0nn3ct.info на GitHub",
   "nav.lang_switch_aria": "Язык",
   "nav.work": "Продукты",
   "nav.how": "Принципы",
@@ -51,8 +50,6 @@
   "home.work.next_kind": "пока без названия",
   "home.work.next_own": "делаем для себя",
   "home.work.next_lead": "Следующий продукт начнётся с задачи, для которой нам самим не хватает хорошего инструмента.",
-  "home.work.next_eyebrow": "Пока в работе",
-  "home.work.next_caption": "Покажем продукт, когда он будет готов",
   "home.work.link_site": "Страница проекта",
   "home.work.link_store": "Chrome Web Store",
   "home.work.link_src": "GitHub",

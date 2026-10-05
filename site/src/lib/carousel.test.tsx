@@ -299,7 +299,7 @@ describe('useAutoplay', () => {
   it('falls back to its own dwell where the page declares none', () => {
     render(<Carousel />);
     onScreen(true);
-    wait(1, 4999);
+    wait(1, 4499);
     expect(moves()).toEqual([]);
     wait(1, 1);
     expect(moves()).toEqual(['by:640']);
@@ -331,16 +331,16 @@ describe('useAutoplay', () => {
   it('measures the dwell from the capture settling, not from the scroll', () => {
     render(<Carousel />);
     onScreen(true);
-    act(() => vi.advanceTimersByTime(5000));
+    act(() => vi.advanceTimersByTime(4500));
     expect(moves()).toEqual(['by:640']);
     expect(beat()).toBe('0');
     // Still gliding: the next dwell has not started, so nothing is counted yet.
-    act(() => vi.advanceTimersByTime(5000));
+    act(() => vi.advanceTimersByTime(4500));
     expect(moves()).toEqual(['by:640']);
     // It settles, which is where the beat and the next dwell both begin.
     act(() => vi.advanceTimersByTime(LANDING));
     expect(beat()).toBe('1');
-    act(() => vi.advanceTimersByTime(5000));
+    act(() => vi.advanceTimersByTime(4500));
     expect(moves()).toEqual(['by:640', 'by:640']);
   });
 

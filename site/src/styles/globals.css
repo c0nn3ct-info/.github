@@ -100,6 +100,11 @@
     --ease-emph: cubic-bezier(0.2, 0, 0, 1);
     --ease-emph-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
     --ease-emph-accel: cubic-bezier(0.3, 0, 1, 1);
+    /* One clock for every loop on the page. Seven ran on seven unrelated
+     * periods (9, 26, 46, 7, 1.1, 6 and 5 seconds) and read as noise; on one
+     * beat and its multiples they read as a machine idling. The dwell is
+     * written out in ms where the autoplay reads it back. */
+    --beat: 9s;
     /* Everything that arrives is timed on this one: a strong ease-out, so the
      * motion is quickest at the moment the reader's eye lands on it. Read from
      * here by src/lib/ease.ts rather than retyped into each animation. */
@@ -801,7 +806,7 @@
         display: block;
         offset-path: path('M-20 640 C 220 640 240 300 480 300 S 760 470 1020 470');
         offset-rotate: 0deg;
-        animation: wire-ride 9s linear infinite;
+        animation: wire-ride var(--beat) linear infinite;
       }
     }
   }
@@ -849,8 +854,40 @@
   .stage-ring {
     width: min(76svh, 680px);
     height: min(76svh, 680px);
-    opacity: 0.55;
     transform: translate(calc(-42% + var(--px, 0) * 44px), calc(-50% + var(--py, 0) * 36px));
+  }
+  .ring-lines,
+  .ring-text {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .ring-lines {
+    opacity: 0.55;
+  }
+  /* The five refusals along the ring, at the tag role's size, turning with it
+   * once in six beats: slower than the belt reads, so a sentence can be read
+   * on its way past. Decoration; the belt stays the copy that is read. On the
+   * part of the orbit behind the glass the words go soft, which is the depth
+   * the glass is there for. Gone under rtl, where text on a path does not
+   * shape Arabic reliably and the belt runs instead. */
+  .ring-text {
+    overflow: visible;
+  }
+  .ring-text text {
+    fill: hsl(var(--on-stage) / 0.72);
+  }
+  .ring-text .sep {
+    fill: hsl(var(--on-stage) / 0.35);
+  }
+  [dir='rtl'] .ring-text {
+    display: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ring-text {
+      animation: ring-turn calc(var(--beat) * 6) linear infinite;
+    }
   }
   .glass {
     transform: translate(calc(-42% + var(--px, 0) * 26px), calc(-50% + var(--py, 0) * 22px));
@@ -944,8 +981,8 @@
       display: none;
     }
     /* One row at every phone width: the call to action becomes its envelope,
-     * the gaps close to 8px, and every control is a 44px target. Logo, two
-     * icons and the envelope come to 314px with the gutters, inside 320. */
+     * the gaps close to 8px, and every control is a 44px target. Logo, the
+     * language button and the envelope come to 262px with the gutters. */
     .site-header {
       gap: 8px;
       padding-block: 10px;
@@ -1067,7 +1104,7 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     .marquee-track {
-      animation: marquee 46s linear infinite;
+      animation: marquee calc(var(--beat) * 5) linear infinite;
     }
     /* Under rtl the two copies run leftwards from the right edge, so the
      * leftward slide carried the first out and never brought the second in:
@@ -1076,11 +1113,23 @@
       animation-name: marquee-rtl;
     }
   }
-  /* Without motion the belt is a static line, so the duplicate would read as
-   * a stutter rather than a loop. */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track > [aria-hidden='true'] {
-      display: none;
+  /* From 900px the ring carries the refusals, and the belt is for the ear and
+   * the still page: a screen reader still finds the group where it was, and a
+   * reader who asked for no motion still gets the five sentences in a row,
+   * because the ring does not turn for them and half of it reads upside down.
+   * Not under rtl, where the ring has no text. */
+  @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+    html:not([dir='rtl']) .marquee {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+    html:not([dir='rtl']) .marquee-track {
+      animation: none;
     }
   }
   .marquee-run {
@@ -1093,6 +1142,23 @@
     font-weight: 520;
     letter-spacing: var(--track-title);
     white-space: nowrap;
+  }
+  /* Without motion the belt is a static line, so the duplicate would read as
+   * a stutter rather than a loop. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track > [aria-hidden='true'] {
+      display: none;
+    }
+    /* A still track is clipped at the belt's edge: measured at 1440 it showed
+     * 2.3 of the five sentences and never the last one. Still, it wraps. */
+    .marquee-track {
+      width: 100%;
+    }
+    .marquee-run {
+      flex: 1 1 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 
   /* ── work ──────────────────────────────────────────────────────────────── */
@@ -1201,8 +1267,9 @@
     position: relative;
     timeline-scope: --shots;
     /* Read back by the autoplay, so the fill on the readout and the timer that
-     * moves the captures are one number rather than two that drift. */
-    --shot-dwell: 5000ms;
+     * moves the captures are one number rather than two that drift. Half a
+     * --beat, written out because the autoplay parses it. */
+    --shot-dwell: 4500ms;
   }
   .pane-shot > .shot-frame {
     position: relative;
@@ -1503,6 +1570,22 @@
     --led: var(--led-next);
     --led-ink: var(--led-next-ink);
   }
+  /* The index marks its third row with a hollow lamp, the page's own glyph
+   * for "not yet". The workshop pane draws that lamp at the size of a capture,
+   * and the scan band passes through it. */
+  .next-lamp {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 50%;
+    height: 60%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1.5px var(--led-next);
+    translate: -50% -50%;
+  }
+  [dir='rtl'] .next-lamp {
+    translate: 50% -50%;
+  }
   /* The product's own page is what the whole entry points at, so it is a button
    * across the card rather than the first of three equal names in a row. Its
    * fill is the ink of the card it sits on, which is the page's rule for a
@@ -1650,7 +1733,7 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     .block-ring {
-      animation: breathe 6s ease-in-out infinite;
+      animation: breathe var(--beat) ease-in-out infinite;
     }
   }
 
@@ -1852,6 +1935,15 @@
       [data-enter-stagger='wipe'] > * {
         animation-name: enter-line;
       }
+      /* The footer is the last thing on the page, so a cover range never
+       * finishes for it: scrolled to the end, its 211px were 19% of the
+       * overlap at 1440x900 and its rows stopped at 0.9 opacity. The entry
+       * range is complete the moment a row is fully on screen, which the end
+       * of the page always reaches. */
+      footer [data-enter],
+      footer [data-enter-stagger] > * {
+        animation-range: entry 0% entry 100%;
+      }
     }
   }
   @keyframes enter-rise {
@@ -1889,6 +1981,11 @@
   @keyframes ring-dash {
     to {
       stroke-dashoffset: -320;
+    }
+  }
+  @keyframes ring-turn {
+    to {
+      rotate: 360deg;
     }
   }
   @keyframes rise {
@@ -1957,13 +2054,13 @@
       animation: wire-draw 2.6s var(--ease-emph-decel) 300ms backwards;
     }
     .ring-dash {
-      animation: ring-dash 26s linear infinite;
+      animation: ring-dash calc(var(--beat) * 3) linear infinite;
     }
     .scan-band {
-      animation: scan 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      animation: scan var(--beat) cubic-bezier(0.45, 0, 0.55, 1) infinite;
     }
     .caret {
-      animation: caret 1.1s steps(1) infinite;
+      animation: caret calc(var(--beat) / 8) steps(1) infinite;
     }
   }
   /* The dot rides the wire on CSS offset-path rather than SMIL, precisely so
@@ -2010,6 +2107,14 @@
     }
     .marquee-track > [aria-hidden='true'] {
       display: none;
+    }
+    .marquee-track {
+      width: 100%;
+    }
+    .marquee-run {
+      flex: 1 1 auto;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     a {
       text-decoration: none;

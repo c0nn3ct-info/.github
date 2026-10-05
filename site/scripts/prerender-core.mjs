@@ -308,6 +308,18 @@ export async function main() {
             el.style.removeProperty('animation-play-state');
             if (!el.getAttribute('style')) el.removeAttribute('style');
           }
+          // The rail's marker and the ring's orbit are measured after mount
+          // and written back as attributes. The first client render has
+          // neither, and every attribute the markup carries beyond that render
+          // is a hydration warning that hides the next, real one.
+          for (const el of document.querySelectorAll('[style]')) {
+            el.style.removeProperty('--mark-y');
+            el.style.removeProperty('--mark-h');
+            if (!el.getAttribute('style')) el.removeAttribute('style');
+          }
+          for (const el of document.querySelectorAll('.ring-text path, .ring-text textPath')) {
+            for (const name of ['d', 'textLength', 'lengthAdjust']) el.removeAttribute(name);
+          }
           // Serialization merges adjacent text nodes, which hydrateRoot then
           // cannot split back (React #425). renderToString solves this with
           // empty comment separators between text nodes; emit the same.

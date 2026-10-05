@@ -58,6 +58,21 @@ describe('the page column', () => {
   });
 });
 
+describe('the page column', () => {
+  // `.page-col` centres itself with margin-inline: auto, and Tailwind's `m-0`
+  // sits in a later layer, so a heading given both lost its centring the
+  // moment the viewport passed the column's cap: at 1920 the #how heading sat
+  // 200px left of its own rows. The vertical margins are the ones to zero.
+  it('never zeroes the margin that centres it', () => {
+    for (const [file, src] of SOURCES) {
+      const offenders = [...src.matchAll(/className="([^"]*\bpage-col\b[^"]*)"/g)]
+        .map((m) => m[1].split(/\s+/).filter((c) => /^(m-|mx-|ms-|me-)/.test(c)))
+        .flat();
+      expect({ file, offenders }).toEqual({ file, offenders: [] });
+    }
+  });
+});
+
 describe('the full-height spine', () => {
   const FULL = /(work|practices|promises|talk)\.tsx$/;
 

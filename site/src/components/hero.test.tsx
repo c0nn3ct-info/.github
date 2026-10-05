@@ -46,4 +46,11 @@ describe('Hero', () => {
       'mailto:hello@c0nn3ct.info?subject=Saying%20hello',
     );
   });
+
+  // Pinned to the foot of the column it sat 450px below the rows at 1440x900;
+  // it follows them, and the ground below is the column's own.
+  it('sets the address straight under the rows', () => {
+    render(<Hero onPick={vi.fn()} />);
+    expect(screen.getByRole('link', { name: /hello@c0nn3ct\.info/ })).not.toHaveClass('mt-auto');
+  });
 });

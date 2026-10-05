@@ -15,6 +15,11 @@ export function Promises() {
     >
       <div className="page-col grid gap-[var(--gap-part)] min-[900px]:grid-cols-12">
         <div data-enter className="block-card flex flex-col p-7 min-[900px]:col-span-5">
+          {/* The card stands as tall as the four promises beside it, and its
+              middle was empty ground. The habits card's ring, drawn still
+              here: one loop on the page is enough. */}
+          <span aria-hidden className="floor-ring" />
+          <span aria-hidden className="floor-ring floor-ring-sm" />
           <h2
             id="settled-h"
             className="m-0 text-balance text-[clamp(30px,3.6vw,54px)] font-[620] leading-[0.96] tracking-[var(--track-display)]"

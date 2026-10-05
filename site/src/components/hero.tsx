@@ -148,7 +148,7 @@ export function Hero({ onPick }: { onPick: (p: Project) => void }) {
         />
 
         <a
-          className="tag mx-[clamp(18px,2vw,26px)] mt-auto inline-flex min-h-11 items-center gap-2.5 self-start text-on-surface-variant hover:text-on-surface"
+          className="tag mx-[clamp(18px,2vw,26px)] mt-3.5 inline-flex min-h-11 items-center gap-2.5 self-start text-on-surface-variant hover:text-on-surface"
           href={mailto(t('mail.hello'))}
         >
           hello@c0nn3ct.info

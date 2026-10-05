@@ -25,4 +25,16 @@ describe('Promises', () => {
     render(<Promises />);
     expect(screen.getByRole('link', { name: /Ask us why/ })).toHaveAttribute('href', '#contact');
   });
+
+  // The stretched card's middle carries the habits card's ring, drawn still:
+  // hidden from assistive tech and left out of the page's loops.
+  it('fills the card with two still rings', () => {
+    const { container } = render(<Promises />);
+    const rings = container.querySelectorAll('.block-card .floor-ring');
+    expect(rings).toHaveLength(2);
+    for (const r of rings) {
+      expect(r).toHaveAttribute('aria-hidden', 'true');
+      expect(r).not.toHaveAttribute('data-loop');
+    }
+  });
 });

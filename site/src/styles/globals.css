@@ -1623,6 +1623,31 @@
     border-radius: 50%;
     border: 1px solid var(--on-block-line);
   }
+  /* Only beside the grid, where the card is stretched to its height; stacked
+   * on a phone the card is as tall as its words and the rings would sit on
+   * them. */
+  .floor-ring {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .floor-ring {
+      display: block;
+      position: absolute;
+      inset-inline-end: -60px;
+      bottom: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 1px solid var(--on-block-line);
+      pointer-events: none;
+    }
+    .floor-ring-sm {
+      inset-inline-end: 20px;
+      bottom: 0;
+      width: 140px;
+      height: 140px;
+    }
+  }
   @media (prefers-reduced-motion: no-preference) {
     .block-ring {
       animation: breathe 6s ease-in-out infinite;

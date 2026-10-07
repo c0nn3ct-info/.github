@@ -19,10 +19,15 @@ export function Practices() {
   // Opening a row below the open one moves the open panel from above the
   // finger to below it, and the tapped row jumped 234px up the screen. The
   // page scrolls by the same amount, so the row stays under the finger.
+  // Instant, named: the page's in-page jumps are smooth (`scroll-behavior`
+  // on html), and a smooth correction here let the row jump first and then
+  // slide back over 240ms, which is the jerk this exists to prevent.
   useLayoutEffect(() => {
     const a = anchor.current;
     anchor.current = null;
-    if (a) window.scrollBy(0, a.row.getBoundingClientRect().top - a.top);
+    if (a) {
+      window.scrollBy({ top: a.row.getBoundingClientRect().top - a.top, behavior: 'instant' });
+    }
   }, [i]);
 
   // The panel follows the pointer, so this is a preview rather than a

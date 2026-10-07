@@ -40,7 +40,7 @@ describe('Practices', () => {
     );
     await userEvent.click(row);
     expect(scrollBy).toHaveBeenCalledTimes(1);
-    expect(scrollBy).toHaveBeenCalledWith(0, -234);
+    expect(scrollBy).toHaveBeenCalledWith({ top: -234, behavior: 'instant' });
     setMedia('(max-width: 899px)', false);
     scrollBy.mockRestore();
   });

@@ -54,4 +54,12 @@ describe('a finger is not a pointer', () => {
       expect(block, selector).toContain(selector);
     }
   });
+
+  // The overflow lock on the root does not stop a touch on a fixed layer from
+  // scrolling the page under it on every phone; the dialog refuses the gesture
+  // itself and leaves the track its pan and pinch.
+  it('keeps a drag on the lightbox from moving the page under it', () => {
+    expect(CSS).toMatch(/\.lightbox \{[^}]*touch-action: none;/);
+    expect(CSS).toMatch(/\.lightbox \.shot-track \{[^}]*touch-action: pan-x pinch-zoom;/);
+  });
 });

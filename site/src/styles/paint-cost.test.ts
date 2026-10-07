@@ -94,6 +94,9 @@ describe('what the page pays for every frame', () => {
       /@media \(min-width: 900px\) and \(prefers-reduced-motion: no-preference\) \{ html:not\(\[dir='rtl'\]\) \.marquee \{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset\(50%\); white-space: nowrap; border: 0; \} html:not\(\[dir='rtl'\]\) \.marquee-track \{ animation: none; \} \}/,
     );
     expect(FLAT).toMatch(/\[dir='rtl'\] \.ring-text \{ display: none; \}/);
+    // On a phone the ring is narrower than the glass, so the words ran behind
+    // the blur, and the blur redid a moving layer every frame for nothing.
+    expect(FLAT).toMatch(/@media \(max-width: 899px\) \{ \.ring-text, \.ring-dash \{ display: none; \} \}/);
     expect(FLAT).toMatch(
       /\.ring-text \{ animation: ring-turn calc\(var\(--beat\) \* 6\) linear infinite; \}/,
     );

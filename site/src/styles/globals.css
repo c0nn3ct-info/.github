@@ -884,6 +884,18 @@
   [dir='rtl'] .ring-text {
     display: none;
   }
+  /* Below the split the ring is narrower than the glass over it: measured at
+   * 390px the dashed circle is 296px across under a 335px glass, so it turned
+   * behind the blur unseen, and the words along it ran there too, unreadable
+   * and squeezed (the orbit is shorter than the five sentences). Both gave
+   * the blur a moving layer to redo on every frame for nothing. The outer
+   * line, 8px proud of the glass, stays; the belt carries the refusals. */
+  @media (max-width: 899px) {
+    .ring-text,
+    .ring-dash {
+      display: none;
+    }
+  }
   @media (prefers-reduced-motion: no-preference) {
     .ring-text {
       animation: ring-turn calc(var(--beat) * 6) linear infinite;
@@ -1845,6 +1857,11 @@
     padding: clamp(16px, 4vw, 56px);
     background: rgb(8 8 10 / 0.86);
     backdrop-filter: blur(6px);
+    /* A drag on the scrim is nobody's scroll: the overflow lock on the root
+     * does not stop a touch on a fixed layer from moving the page under it
+     * on every phone, so the layer refuses the gesture itself. The track
+     * keeps its own pan and pinch below. */
+    touch-action: none;
   }
   /* Every capture is 16/10, so the dialog can give the frame that shape and fit
    * it to whichever of the two axes runs out first. */

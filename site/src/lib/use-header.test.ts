@@ -1,13 +1,23 @@
 import { act, renderHook } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { setScrollY } from '../test/setup';
 import { useHeader } from './use-header';
 
-function scrollTo(y: number) {
+/** The page moving on its own: a link's glide, a layout re-anchored, a row
+ * held under a finger. */
+function drift(y: number) {
   act(() => {
     setScrollY(y);
     window.dispatchEvent(new Event('scroll'));
   });
+}
+
+/** The reader moving the page: a hand on it, then the scroll it causes. */
+function scrollTo(y: number, by: 'wheel' | 'touchmove' | 'keydown' = 'wheel') {
+  act(() => {
+    window.dispatchEvent(new Event(by));
+  });
+  drift(y);
 }
 
 function pointerAt(clientY: number, pointerType = 'mouse') {
@@ -17,6 +27,10 @@ function pointerAt(clientY: number, pointerType = 'mouse') {
 }
 
 describe('useHeader', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it('starts over the stage on the home page and over the page elsewhere', () => {
     expect(renderHook(() => useHeader(true)).result.current.ground).toBe('stage');
     expect(renderHook(() => useHeader(false)).result.current.ground).toBe('page');
@@ -80,6 +94,75 @@ describe('useHeader', () => {
     scrollTo(400);
     expect(result.current.hidden).toBe(true);
     scrollTo(300); // upward intent
+    expect(result.current.hidden).toBe(false);
+  });
+
+  it('answers a finger and a key the same as a wheel', () => {
+    const { result } = renderHook(() => useHeader(true));
+    scrollTo(400, 'touchmove');
+    expect(result.current.hidden).toBe(true);
+    scrollTo(300, 'keydown');
+    expect(result.current.hidden).toBe(false);
+  });
+
+  // Measured on a phone: a tap in the habits list scrolled the page to keep
+  // the row under the finger, and the bar read the scroll as the reader
+  // heading up and came back over the row it had just opened. The same for a
+  // link's glide and for a layout the browser re-anchored: none of them says
+  // where the reader is going.
+  it('ignores a scroll the page made on its own', () => {
+    let now = 1000;
+    vi.spyOn(performance, 'now').mockImplementation(() => now);
+    const { result } = renderHook(() => useHeader(true));
+    drift(400);
+    expect(result.current.hidden).toBe(false);
+    scrollTo(700);
+    expect(result.current.hidden).toBe(true);
+    // The hand is long off the page when the page moves by itself.
+    now += 400;
+    drift(460);
+    expect(result.current.hidden).toBe(true);
+    // And a run does not carry across one: the hand starts again.
+    now += 400;
+    scrollTo(450);
+    expect(result.current.hidden).toBe(true);
+    scrollTo(420);
+    expect(result.current.hidden).toBe(false);
+  });
+
+  it('still comes back near the top, whoever moved the page', () => {
+    let now = 1000;
+    vi.spyOn(performance, 'now').mockImplementation(() => now);
+    const { result } = renderHook(() => useHeader(true));
+    scrollTo(400);
+    expect(result.current.hidden).toBe(true);
+    now += 400;
+    drift(100);
+    expect(result.current.hidden).toBe(false);
+  });
+
+  // A flick carries on after the finger lifts, for most of a second.
+  it('follows a flick after the finger has lifted, until the page rests', () => {
+    let now = 1000;
+    vi.spyOn(performance, 'now').mockImplementation(() => now);
+    const { result } = renderHook(() => useHeader(true));
+    scrollTo(100, 'touchmove');
+    expect(result.current.hidden).toBe(false);
+    // Frames of the flick, each within two of the last, and the hand long
+    // gone by the third.
+    for (const y of [130, 160, 190, 220]) {
+      now += 100;
+      drift(y);
+    }
+    expect(result.current.hidden).toBe(true);
+    now += 100;
+    drift(210);
+    now += 100;
+    drift(190);
+    expect(result.current.hidden).toBe(false);
+    // Rested: the next move on its own is nobody's.
+    now += 500;
+    drift(400);
     expect(result.current.hidden).toBe(false);
   });
 
@@ -147,5 +230,6 @@ describe('useHeader', () => {
     unmount();
     scrollTo(900);
     expect(result.current.ground).toBe('stage');
+    expect(result.current.hidden).toBe(false);
   });
 });

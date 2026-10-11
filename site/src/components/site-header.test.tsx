@@ -4,8 +4,11 @@ import { render, screen } from '../test/render';
 import { setScrollY } from '../test/setup';
 import { SiteHeader } from './site-header';
 
+/** The reader scrolling: a hand on the page, then the scroll it causes. The
+ * bar only answers scrolls the reader made. */
 function scrollTo(y: number) {
   act(() => {
+    window.dispatchEvent(new Event('wheel'));
     setScrollY(y);
     window.dispatchEvent(new Event('scroll'));
   });

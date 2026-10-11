@@ -131,6 +131,8 @@ export interface RecordedAnimation {
   target: Element;
   keyframes: Keyframe[];
   options: KeyframeAnimationOptions;
+  /** The handle the caller got back, so a test can read its play state. */
+  animation?: Animation;
 }
 
 export const animations: RecordedAnimation[] = [];
@@ -150,12 +152,26 @@ if (typeof Element.prototype.animate !== 'function') {
     });
     // `finished` is a real promise: the mask reveal hands its paint layer back
     // when the sweep resolves, and a stub without it would skip that silently.
-    return {
-      cancel() {},
-      finish() {},
-      playState: 'finished',
+    // The play state is kept, because a jump holds its arrival paused until
+    // the page has landed and a test has to be able to see the hold.
+    const animation = {
+      playState: 'running' as AnimationPlayState,
+      cancel() {
+        this.playState = 'idle';
+      },
+      finish() {
+        this.playState = 'finished';
+      },
+      pause() {
+        this.playState = 'paused';
+      },
+      play() {
+        this.playState = 'running';
+      },
       finished: Promise.resolve(),
-    } as unknown as Animation;
+    };
+    animations[animations.length - 1].animation = animation as unknown as Animation;
+    return animation as unknown as Animation;
   } as typeof Element.prototype.animate;
 }
 

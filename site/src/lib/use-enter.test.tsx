@@ -294,35 +294,71 @@ describe('useJumpArrival', () => {
     vi.useRealTimers();
   });
 
+  const states = () => animations.map((a) => a.animation?.playState);
+  const glide = () => act(() => void document.dispatchEvent(new Event('scroll')));
+
   // A smooth jump spends the scroll-driven range before it lands: measured on
   // the bar's jump list, 33ms of movement against 167ms for the same section
-  // reached by wheel. The list only exists above 900px, which is why the page
-  // looked alive on a phone and still on a desktop.
-  it('replays the arrival of the section a link lands on', () => {
+  // reached by wheel. A replay after the landing took a pane that was already
+  // there back to nothing and in again, which on a phone was a blink after
+  // every tap on the hero's index. So the arrival is held from the click and
+  // played once the page has landed.
+  it('holds the arrival of the section a link is aimed at, and plays it on landing', () => {
     render(<Jumps />);
     act(() => screen.getByTestId('to-how').click());
-    // Still scrolling: the arrival belongs to the landing, not to the click.
-    expect(animations).toHaveLength(0);
-    act(() => vi.advanceTimersByTime(900));
-    expect(animations).toHaveLength(3);
+    // Held on its first frame from the click: out of sight while gliding.
+    expect(states()).toEqual(['paused', 'paused', 'paused']);
     expect(animations[0].keyframes[0]).toEqual({
       opacity: 0,
       transform: 'translateY(12px) scale(0.985)',
     });
     expect(animations[1].keyframes[0]).toEqual({ opacity: 0, transform: 'translateX(-14px)' });
     expect(animations[1].options.delay).toBe(45);
+    expect(animations.map((a) => a.options.fill)).toEqual(['backwards', 'backwards', 'backwards']);
+    // A link to where the page already is moves nothing: a hundred
+    // milliseconds of stillness is the landing.
+    act(() => vi.advanceTimersByTime(99));
+    expect(states()).toEqual(['paused', 'paused', 'paused']);
+    act(() => vi.advanceTimersByTime(1));
+    expect(states()).toEqual(['running', 'running', 'running']);
+  });
+
+  it('waits while the page is still gliding', () => {
+    render(<Jumps />);
+    act(() => screen.getByTestId('to-how').click());
+    for (let frame = 0; frame < 8; frame++) {
+      act(() => vi.advanceTimersByTime(50));
+      glide();
+    }
+    expect(states()).toEqual(['paused', 'paused', 'paused']);
+    act(() => vi.advanceTimersByTime(100));
+    expect(states()).toEqual(['running', 'running', 'running']);
+    expect(animations).toHaveLength(3);
   });
 
   it('takes the landing from the scroller where it is reported', () => {
     render(<Jumps />);
     act(() => screen.getByTestId('to-how').click());
+    glide();
     act(() => void document.dispatchEvent(new Event('scrollend')));
-    expect(animations).toHaveLength(3);
-    // A second report of the same glide, and the ceiling behind it, do not play
-    // the whole thing again.
+    expect(states()).toEqual(['running', 'running', 'running']);
+    // A second report of the same glide, the quiet behind it and the ceiling
+    // behind that do not play the whole thing again.
     act(() => void document.dispatchEvent(new Event('scrollend')));
     act(() => vi.advanceTimersByTime(900));
     expect(animations).toHaveLength(3);
+  });
+
+  it('lands at the ceiling when the scroller never goes quiet', () => {
+    render(<Jumps />);
+    act(() => screen.getByTestId('to-how').click());
+    for (let frame = 0; frame < 17; frame++) {
+      act(() => vi.advanceTimersByTime(50));
+      glide();
+    }
+    expect(states()).toEqual(['paused', 'paused', 'paused']);
+    act(() => vi.advanceTimersByTime(50));
+    expect(states()).toEqual(['running', 'running', 'running']);
   });
 
   it('leaves alone a link that lands on something that is not a section', () => {
@@ -346,15 +382,19 @@ describe('useJumpArrival', () => {
     expect(animations).toHaveLength(0);
   });
 
-  // A second click while the first jump is still settling replaces it rather
-  // than queueing two arrivals.
+  // A second click while the first jump is still gliding lets the first
+  // section go where it stands and holds only the last one pressed.
   it('keeps the arrival of the last link pressed', () => {
     render(<Jumps />);
     act(() => screen.getByTestId('to-how').click());
-    act(() => vi.advanceTimersByTime(300));
+    act(() => vi.advanceTimersByTime(50));
+    glide();
     act(() => screen.getByTestId('to-how').click());
+    expect(states()).toEqual(['idle', 'idle', 'idle', 'paused', 'paused', 'paused']);
+    act(() => vi.advanceTimersByTime(100));
+    expect(states()).toEqual(['idle', 'idle', 'idle', 'running', 'running', 'running']);
     act(() => vi.advanceTimersByTime(900));
-    expect(animations).toHaveLength(3);
+    expect(animations).toHaveLength(6);
   });
 
   it('stays out of the way of a reader who asked for less motion', () => {
@@ -365,11 +405,13 @@ describe('useJumpArrival', () => {
     expect(animations).toHaveLength(0);
   });
 
-  it('takes its listeners with it', () => {
+  it('takes its listeners with it, and lets a held arrival go', () => {
     const view = render(<Jumps />);
     act(() => screen.getByTestId('to-how').click());
+    expect(states()).toEqual(['paused', 'paused', 'paused']);
     act(() => view.unmount());
+    expect(states()).toEqual(['idle', 'idle', 'idle']);
     act(() => vi.advanceTimersByTime(900));
-    expect(animations).toHaveLength(0);
+    expect(animations).toHaveLength(3);
   });
 });

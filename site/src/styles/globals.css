@@ -1702,6 +1702,66 @@
       rotate: -90deg;
     }
   }
+  /* ── practice folds ────────────────────────────────────────────────────
+   * Below 900px the reasoning opens under its row, from the row, on the long
+   * step: the open fold closes and the tapped one opens over one duration, so
+   * a tap reads as one thing moving rather than a card that teleported. Grid
+   * rows rather than a height, so the browser interpolates to the content's
+   * own size and no script measures it. The card inside fades in once the
+   * fold has made room for it and out at once, before the fold narrows over
+   * it. Visibility rides the fold's own clock, so a closed fold leaves the
+   * accessibility tree and the tab order once it has closed rather than
+   * while its words are still showing. */
+  .practice-fold {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+  }
+  .practice-fold[data-open] {
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+  .practice-fold-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+  /* The room above and below is the card's own margin, clipped with it, so a
+   * closed fold is 0px and not two margins of air between rows. */
+  .practice-fold .block-card {
+    margin-block: 12px 24px;
+    opacity: 0;
+  }
+  .practice-fold[data-open] .block-card {
+    opacity: 1;
+  }
+  /* The ring breathes in the open fold only: four more under closed folds
+   * would be four loops composited for nobody. */
+  .practice-fold:not([data-open]) .block-ring {
+    animation: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .practice-fold {
+      transition:
+        grid-template-rows var(--dur-long) var(--ease-emph),
+        visibility 0s linear var(--dur-long);
+    }
+    .practice-fold[data-open] {
+      transition:
+        grid-template-rows var(--dur-long) var(--ease-emph),
+        visibility 0s;
+    }
+    .practice-fold .block-card {
+      transition: opacity var(--dur-med) var(--ease-emph);
+    }
+    .practice-fold[data-open] .block-card {
+      transition-delay: 120ms;
+    }
+  }
+  @media (min-width: 900px) {
+    .practice-fold {
+      display: none;
+    }
+  }
   .block-card {
     position: relative;
     overflow: hidden;

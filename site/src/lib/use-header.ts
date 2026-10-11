@@ -40,6 +40,19 @@ export function useHeader(overStage: boolean): HeaderState {
     // flick reverses by 1-3px several times as it settles, and a bar that
     // answered every reversal hid and returned four times in 7px of scroll.
     let run = 0;
+    // When the reader last moved the page by hand, and when the page last
+    // moved under that hand. Only those scrolls say where the reader is
+    // going. The page moves on its own too: a link gliding to its section,
+    // the habits list keeping a tapped row under the finger while a fold
+    // closes above it, a browser re-anchoring a layout. Measured on a phone,
+    // every tap in that list brought the bar back over the row it had just
+    // opened. A flick carries on after the finger lifts, so a scroll within
+    // two frames of one the hand made still counts as the hand's.
+    let hand = -Infinity;
+    let carried = -Infinity;
+    const onGesture = () => {
+      hand = performance.now();
+    };
     const onScroll = () => {
       // Clamped to the document, because a bounce past either end reads as a
       // scroll in the other direction and brought the bar back at the foot of
@@ -49,10 +62,18 @@ export function useHeader(overStage: boolean): HeaderState {
       setGround(overStage && stageUnderBar(y) ? 'stage' : 'page');
       const dy = y - last;
       last = y;
-      run = Math.sign(run) === Math.sign(dy) ? run + dy : dy;
-      // Away on a downward run, back on an upward one or near the top.
+      // Near the top the bar is always there, whoever moved the page.
       if (y <= 140) setHidden(false);
-      else if (run >= 24) setHidden(true);
+      const now = performance.now();
+      if (now - hand >= 300 && now - carried >= 120) {
+        run = 0;
+        return;
+      }
+      carried = now;
+      run = Math.sign(run) === Math.sign(dy) ? run + dy : dy;
+      // Away on a downward run, back on an upward one.
+      if (y <= 140) return;
+      if (run >= 24) setHidden(true);
       else if (run <= -24) setHidden(false);
     };
     // A pointer reaching for the bar counts as intent even without a scroll.
@@ -63,10 +84,16 @@ export function useHeader(overStage: boolean): HeaderState {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('pointermove', onPointer, { passive: true });
+    for (const kind of ['touchmove', 'wheel', 'keydown'] as const) {
+      window.addEventListener(kind, onGesture, { passive: true });
+    }
     onScroll();
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('pointermove', onPointer);
+      for (const kind of ['touchmove', 'wheel', 'keydown'] as const) {
+        window.removeEventListener(kind, onGesture);
+      }
     };
   }, [overStage]);
 
